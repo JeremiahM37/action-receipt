@@ -42,3 +42,9 @@ bench/results/smoke/
 .vscode/
 *.swp
 .DS_Store
+
+# local benchmark artefacts (never committed: per-episode traces, superseded runs, smoke output)
+bench/results/*traces*/
+bench/results/prev_*/
+bench/results/first_pass/
+bench/results/smoke/
