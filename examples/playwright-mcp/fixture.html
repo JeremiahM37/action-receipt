@@ -1,0 +1,17 @@
+<!doctype html><html><head><title>Order form</title></head>
+<body style="font-family:sans-serif;padding:16px">
+<h1>Order</h1>
+<label>Name <input id="name" type="text" value=""></label>
+<label>Size <select id="size"><option value="s">Small</option><option value="m">Medium</option><option value="l">Large</option></select></label>
+<button id="save" disabled>Save</button>
+<output id="status" role="status"></output>
+<script>
+  // Save only enables once a name is present (a "disabled until" trap: clicking Save too early does nothing).
+  const name = document.getElementById('name'), save = document.getElementById('save'), status = document.getElementById('status');
+  name.addEventListener('input', () => { save.disabled = name.value.trim().length === 0; });
+  save.addEventListener('click', () => {
+    status.textContent = 'saving…';
+    setTimeout(() => { status.textContent = 'saved ' + name.value + ' / ' + document.getElementById('size').value; }, 300);
+  });
+</script>
+</body></html>

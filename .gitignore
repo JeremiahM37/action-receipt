@@ -29,6 +29,7 @@ playwright-report/
 screenshots/
 traces/
 ar-cdp-*/
+.playwright-mcp/
 
 # Bench: logs and the smoke subset are disposable; bench/results/*.json|md are the published record
 bench/results/logs/

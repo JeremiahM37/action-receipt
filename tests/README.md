@@ -7,10 +7,11 @@ Three tiers, selected by directory and by marker (assigned automatically from th
 |---|---|---|---|---|---|
 | unit | `unit` | `tests/unit/` | nothing - no browser, no network | **< 5 s** | the decision table, the diff, the schema invariants, settlement bookkeeping, the CLI - on synthetic inputs |
 | integration | `integration` | `tests/integration/` | a Chromium (`playwright install chromium`) | **~2 min** (~110 s on a 32-core box, sequential) | receipt behaviour per action against the fixture pages in `tests/fixtures/`; robustness (CDP attach, crashed/closed tabs); every bench finding pinned as a regression test |
-| e2e | `e2e` | `tests/e2e/` | a Chromium; the server is launched as a subprocess | **~1 min** | the real MCP stdio server end to end: the tool round trip, a scripted agent recovering from `no_op` / `blocked` / `navigated` receipts on the bench apps, CDP-attach isolation, wrap mode around a plain Playwright script |
+| e2e | `e2e` | `tests/e2e/` | a Chromium; the server is launched as a subprocess | **~1.5 min** | the real MCP stdio server end to end: the tool round trip, a scripted agent recovering from `no_op` / `blocked` / `navigated` receipts on the bench apps, CDP-attach isolation, wrap mode around a plain Playwright script, the `done` gate, `--cdp-listen`, and `@playwright/mcp` itself driving the shared browser |
 
-`slow` marks tests that need the local Ollama endpoint (`AR_OLLAMA_URL`); none exist today, and
-one that does must skip itself when the variable is unset.
+`slow` marks tests that need something outside the repo — the local Ollama endpoint, or `npx`
+and the npm registry (`test_playwright_mcp.py`, pinned to `@playwright/mcp@0.0.80`). Such a test
+must skip itself, with the reason, when what it needs is unavailable.
 
 ## Running
 
@@ -53,7 +54,8 @@ tests/
   unit/                  _synth.py builds captures / deltas / receipts without a browser
   integration/           test_receipt, test_cases, test_robustness, test_schema, test_bench_fixes, test_f10_validation
   e2e/                   conftest (MCP client helpers, own_chromium), test_mcp, test_agent_tasks,
-                         test_cdp_attach, test_wrap_mode
+                         test_cdp_attach, test_wrap_mode, test_enforce_done, test_cdp_listen,
+                         test_playwright_mcp
 ```
 
 `docs/TESTING.md` lists every integration case with what it proved or fixed and the measured

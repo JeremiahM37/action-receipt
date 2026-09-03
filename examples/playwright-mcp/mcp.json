@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "action-receipt": {
+      "command": "action-receipt",
+      "args": ["--cdp-listen", "9222", "--enforce-done"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@0.0.80", "--cdp-endpoint", "http://127.0.0.1:9222"]
+    }
+  }
+}
