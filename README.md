@@ -339,7 +339,8 @@ wrap mode around a plain Playwright script, the `done` gate, `--cdp-listen`, and
 itself driving the shared browser — that last one skips when `npx` is unavailable). Every receipt every test produces is validated
 against the schema. `docs/TESTING.md` lists every integration case and the measured bounds; the
 premise check and its caveats are in `docs/PREMISE.md`; the design and its two named risks in
-`docs/DESIGN.md`; the benchmark suite and its numbers in `bench/REPORT.md`.
+`docs/DESIGN.md`; the benchmark suite and its numbers in `bench/REPORT.md`; whether Playwright is the right
+substrate at all, measured, in `docs/architecture-evaluation.md`.
 
 ## Development
 
