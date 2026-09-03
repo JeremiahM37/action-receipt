@@ -4,22 +4,15 @@ protocol errors."""
 
 from __future__ import annotations
 
-import sys
-
 from mcp.client.session import ClientSession
-from mcp.client.stdio import StdioServerParameters, get_default_environment, stdio_client
+from mcp.client.stdio import stdio_client
 
 from action_receipt.schema import validate_receipt
 
+from .conftest import server_params as _params
+
 ACTION_TOOLS = {"open", "navigate", "click", "hover", "select", "type", "press", "scroll"}
 OTHER_TOOLS = {"snapshot", "tabs", "receipt_last", "receipt_schema", "receipt_begin", "receipt_end"}
-
-
-def _params() -> StdioServerParameters:
-    env = dict(get_default_environment())
-    env["AR_SETTLE_TIMEOUT_MS"] = "8000"
-    env["AR_QUIET_MS"] = "100"
-    return StdioServerParameters(command=sys.executable, args=["-m", "action_receipt.server"], env=env)
 
 
 async def test_mcp_stdio_round_trip(base_url):
