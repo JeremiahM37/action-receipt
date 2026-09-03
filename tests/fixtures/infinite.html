@@ -1,0 +1,19 @@
+<!doctype html><html><head><title>Infinite scroll</title>
+<style>body{margin:0;font-family:sans-serif} .row{height:80px;border-bottom:1px solid #ccc;padding:8px} #status{position:fixed;right:8px;top:8px;background:#eee;padding:4px}</style></head>
+<body><div id="list"></div><div id="status">idle</div>
+<script>
+const list = document.getElementById('list'); let n = 0, loading = false;
+function add(k){ for(let i=0;i<k;i++){ const d=document.createElement('div'); d.className='row'; d.id='row-'+n; d.textContent='row '+n; list.appendChild(d); n++; } }
+add(12);
+window.addEventListener('scroll', () => {
+  if (loading) return;
+  const se = document.scrollingElement;
+  if (se.scrollTop + se.clientHeight >= se.scrollHeight - 200) {
+    loading = true; document.getElementById('status').textContent = 'loading';
+    fetch('/items?from=' + n + '&n=12&ms=300').then(r => r.json()).then(items => {
+      for (const it of items) { const d=document.createElement('div'); d.className='row'; d.id='row-'+it.i; d.textContent='row '+it.i+' (fetched)'; list.appendChild(d); n++; }
+      document.getElementById('status').textContent = 'idle'; loading = false;
+    });
+  }
+}, {passive: true});
+</script></body></html>

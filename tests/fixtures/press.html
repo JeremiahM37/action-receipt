@@ -1,0 +1,16 @@
+<!doctype html><html><head><title>Press</title>
+<style>body{font-family:sans-serif;padding:16px} #paint{border:1px solid #444;display:block;margin-top:8px}</style></head>
+<body>
+<h1>Key presses on focused controls</h1>
+<p><button id="save" onclick="return false" onkeydown="return false">Save (handler returns early)</button> <span id="out">-</span></p>
+<p><button id="painter">Paint on Enter</button></p>
+<canvas id="paint" width="300" height="120"></canvas>
+<script>
+// Enter on #painter repaints the canvas: a real, screenshot-only effect with no DOM trace.
+document.getElementById('painter').addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  const c = document.getElementById('paint').getContext('2d'); c.fillStyle = '#39f'; c.fillRect(0, 0, 300, 120);
+});
+</script>
+</body></html>

@@ -1,0 +1,9 @@
+<!doctype html><html><head><title>Inner scroll</title>
+<style>body{margin:0;font-family:sans-serif;height:100vh;overflow:hidden}
+#panel{height:240px;overflow-y:auto;border:1px solid #888;margin:20px;width:400px}
+.row{height:60px;border-bottom:1px solid #eee;padding:4px}</style></head>
+<body><h1>Only the panel scrolls</h1>
+<div id="panel"><div class="row">row 1</div><div class="row">row 2</div><div class="row">row 3</div><div class="row">row 4</div>
+<div class="row">row 5</div><div class="row">row 6</div><div class="row">row 7</div><div class="row">row 8</div><div class="row">row 9</div><div class="row">row 10</div></div>
+<p id="note">The document itself has overflow:hidden and fits the viewport.</p>
+</body></html>

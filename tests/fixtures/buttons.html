@@ -1,0 +1,23 @@
+<!doctype html><html><head><title>Buttons</title>
+<style>body{margin:0;font-family:sans-serif;padding:16px}
+#overlay{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center}
+#overlay.on{display:flex}
+#overlay .card{background:#fff;padding:20px;border-radius:8px}
+#covered-wrap{position:relative;display:inline-block}
+#shield{position:absolute;inset:0;background:rgba(255,0,0,.2)}
+</style></head>
+<body>
+<h1>Buttons</h1>
+<p><button id="counter-btn" onclick="document.getElementById('count').textContent = (+document.getElementById('count').textContent)+1">Increment</button> count: <span id="count">0</span></p>
+<p><button id="disabled-btn" disabled onclick="document.getElementById('count').textContent='never'">Disabled</button></p>
+<div><div id="covered-wrap"><button id="covered-btn" onclick="document.getElementById('count').textContent='covered-clicked'">Covered</button><div id="shield" title="shield"></div></div></div>
+<p><button id="dbl-btn" onclick="document.getElementById('dbl').textContent='clicks='+((+(document.getElementById('dbl').textContent.split('=')[1]||0))+1)" ondblclick="document.getElementById('dbl2').textContent='dblclick'">Double me</button> <span id="dbl">clicks=0</span> <span id="dbl2">-</span></p>
+<p><button id="pe-none" style="pointer-events:none" onclick="document.getElementById('count').textContent='pe-clicked'">pointer-events:none</button>
+<button id="offscreen" style="position:absolute;left:-9999px" onclick="document.getElementById('count').textContent='offscreen-clicked'">offscreen</button></p>
+<p><button id="noop-btn">Does nothing</button></p>
+<p><button id="modal-btn" onclick="document.getElementById('overlay').classList.add('on')">Open modal</button></p>
+<p><button id="alert-btn" onclick="alert('hello from alert')">Alert</button></p>
+<p><button id="slow-btn" onclick="fetch('/slow?ms=1500').then(r=>r.text()).then(t=>{document.getElementById('slow-result').textContent=t})">Slow fetch</button> <span id="slow-result">pending</span></p>
+<p><button id="delayed-btn" onclick="setTimeout(()=>{document.getElementById('delayed').textContent='appeared'}, 350)">Delayed DOM change</button> <span id="delayed">-</span></p>
+<div id="overlay"><div class="card" role="dialog" aria-modal="true"><h2>Modal</h2><button id="close-modal" onclick="document.getElementById('overlay').classList.remove('on')">Close</button></div></div>
+</body></html>

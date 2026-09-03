@@ -1,0 +1,9 @@
+<!doctype html><html><head><title>Canvas below the fold</title>
+<style>body{margin:0;font-family:sans-serif;padding:16px} .spacer{height:900px;background:linear-gradient(#fff,#eee)} #canvas{border:1px solid #444}</style></head>
+<body>
+<h1>Canvas below the fold</h1>
+<div class="spacer"></div>
+<canvas id="canvas" width="300" height="120" onclick="const c=this.getContext('2d');c.fillStyle='#f33';c.fillRect(0,0,300,120)"></canvas>
+<p><button id="silent" onclick="return false">Below the fold, does nothing</button></p>
+<div class="spacer"></div>
+</body></html>

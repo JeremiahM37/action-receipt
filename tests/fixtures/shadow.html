@@ -1,0 +1,23 @@
+<!doctype html><html><head><title>Shadow DOM</title></head>
+<body style="font-family:sans-serif;padding:16px">
+<h1>Shadow DOM</h1>
+<x-counter id="open-host"></x-counter>
+<x-closed id="closed-host"></x-closed>
+<p id="light-note">light dom text</p>
+<script>
+customElements.define('x-counter', class extends HTMLElement {
+  connectedCallback() {
+    const r = this.attachShadow({mode: 'open'});
+    r.innerHTML = '<button id="inc">shadow increment</button> <span id="n">0</span>';
+    r.getElementById('inc').onclick = () => { r.getElementById('n').textContent = (+r.getElementById('n').textContent) + 1; };
+  }
+});
+customElements.define('x-closed', class extends HTMLElement {
+  connectedCallback() {
+    const r = this.attachShadow({mode: 'closed'});
+    r.innerHTML = '<button id="cinc">closed increment</button> <span id="cn">0</span>';
+    r.getElementById('cinc').onclick = () => { r.getElementById('cn').textContent = (+r.getElementById('cn').textContent) + 1; };
+  }
+});
+</script>
+</body></html>

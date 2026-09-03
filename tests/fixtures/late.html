@@ -1,0 +1,5 @@
+<!doctype html><html><head><title>Late effect</title></head>
+<body style="font-family:sans-serif;padding:16px">
+<h1>setTimeout-only late effect</h1>
+<p><button id="go" onclick="const ms=+new URLSearchParams(location.search).get('ms')||400; setTimeout(()=>{document.getElementById('late').textContent='appeared after '+ms+'ms'}, ms)">trigger</button> <span id="late">-</span></p>
+</body></html>

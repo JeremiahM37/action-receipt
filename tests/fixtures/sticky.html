@@ -1,0 +1,13 @@
+<!doctype html><html><head><title>Sticky header</title>
+<style>body{margin:0;font-family:sans-serif}
+header{position:sticky;top:0;height:90px;background:#334;color:#fff;z-index:10;display:flex;align-items:center;padding-left:16px}
+#under{position:absolute;top:30px;left:200px}
+.spacer{height:1500px;background:linear-gradient(#fff,#eee)}
+#status{position:fixed;left:8px;bottom:8px;background:#eee;padding:4px}</style></head>
+<body><header>Sticky header (covers y &lt; 90)</header>
+<button id="under" onclick="document.getElementById('status').textContent='under clicked'">Under the header</button>
+<div class="spacer"></div>
+<button id="below" onclick="document.getElementById('status').textContent='below clicked'">Far below</button>
+<div class="spacer"></div>
+<div id="status">nothing clicked</div>
+</body></html>

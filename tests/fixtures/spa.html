@@ -1,0 +1,12 @@
+<!doctype html><html><head><title>SPA</title></head>
+<body style="font-family:sans-serif;padding:16px">
+<h1>SPA</h1>
+<p><button id="push" onclick="history.pushState({p:2},'','/spa/page2');document.getElementById('view').textContent='page two'">pushState to /spa/page2</button></p>
+<p><button id="replace" onclick="history.replaceState({p:3},'','/spa/page3')">replaceState only (no render)</button></p>
+<p><button id="hash" onclick="location.hash='details'">hash only, no anchor target</button></p>
+<p><button id="replace-same" onclick="history.replaceState({}, '', location.href);const v=document.getElementById('view');v.textContent=v.textContent">replaceState same URL, identical content</button></p>
+<p><button id="replace-same-swap" onclick="history.replaceState({}, '', location.href);document.getElementById('view').textContent='swapped'">replaceState same URL, content swapped</button></p>
+<p><button id="rerender" onclick="const v=document.getElementById('view');const t=v.textContent;v.textContent='';v.textContent=t;v.parentElement.replaceChild(v.cloneNode(true),v)">re-render identical content</button></p>
+<p><button id="reload" onclick="location.reload()">reload</button></p>
+<p>view: <span id="view">page one</span></p>
+</body></html>

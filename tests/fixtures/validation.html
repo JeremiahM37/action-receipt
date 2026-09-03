@@ -1,0 +1,50 @@
+<!doctype html><html><head><title>Validation</title>
+<style>body{margin:0;font-family:sans-serif;padding:16px} label{display:block;margin:8px 0} iframe{width:400px;height:160px;border:1px solid #ccc}</style></head>
+<body>
+<h1>Validation</h1>
+<!--
+  A real <form> with HTML5 constraint validation. Query parameters pick the shape:
+    (default)      phone is `required` and empty: the browser's validation bubble stops the submit
+    ?pattern=1     phone filled, code='abc' against pattern [0-9]{3}: patternMismatch
+    ?valid=1       every field valid: the submit goes through
+    ?novalidate=1  the form carries novalidate: the empty required phone does not stop it
+    ?nav=1         no submit handler: a valid submit navigates to /short.html
+    ?shadow=1      also a form inside an open shadow root (required empty field)
+    ?frame=1       also a same-origin iframe holding this page in ?inner=1 shape
+    ?inner=1       the frame's content: a minimal required-empty form, no extras
+  Without ?nav=1 the submit handler prevents the default and writes "Saved" to #status.
+-->
+<form id="form" action="/short.html" method="get">
+<label>Name <input id="name" name="name" value="Ada"></label>
+<label>Phone <input id="phone" name="phone" value="" required></label>
+<label>Code <input id="code" name="code" value="" pattern="[0-9]{3}" title="three digits"></label>
+<button id="save" type="submit">Save</button> <span id="status" role="status"></span>
+</form>
+<div id="host"></div>
+<div id="frame-slot"></div>
+<script>
+const q = new URLSearchParams(location.search);
+const has = (k) => q.get(k) === '1';
+const form = document.getElementById('form');
+if (has('pattern')) { document.getElementById('phone').value = '555'; document.getElementById('code').value = 'abc'; }
+if (has('valid')) { document.getElementById('phone').value = '555'; }
+if (has('novalidate')) form.noValidate = true;
+if (has('inner')) {
+  // the frame's content: strip the page down to one required-empty form
+  document.querySelector('h1').textContent = 'Inner form';
+  document.getElementById('phone').id = 'fphone'; document.getElementById('save').id = 'fsave';
+}
+if (!has('nav')) form.addEventListener('submit', e => { e.preventDefault(); document.getElementById('status').textContent = 'Saved'; });
+if (has('shadow')) {
+  const sr = document.getElementById('host').attachShadow({ mode: 'open' });
+  sr.innerHTML = '<form id="sform"><label>Shadow phone <input id="sphone" name="sphone" required></label>' +
+                 '<button id="ssave" type="submit">Save (shadow)</button> <span id="sstatus"></span></form>';
+  sr.getElementById('sform').addEventListener('submit', e => { e.preventDefault(); sr.getElementById('sstatus').textContent = 'Saved'; });
+}
+if (has('frame')) {
+  const f = document.createElement('iframe'); f.id = 'f'; f.src = 'validation.html?inner=1';
+  document.getElementById('frame-slot').appendChild(f);
+}
+window.__status = () => document.getElementById('status').textContent;
+</script>
+</body></html>

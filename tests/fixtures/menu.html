@@ -1,0 +1,12 @@
+<!doctype html><html><head><title>Hover menu</title>
+<style>body{margin:0;font-family:sans-serif;padding:16px}
+#menu{display:inline-block;background:#dde;padding:8px 16px;position:relative}
+#menu .items{display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #888;width:180px;padding:8px}
+#menu:hover .items{display:block}
+#menu .items button{display:block;width:100%;margin:6px 0;padding:8px}</style></head>
+<body><h1>Hover menu</h1>
+<div id="menu">File
+  <div class="items"><button id="item-save" onclick="document.getElementById('out').textContent='saved'">Save</button><button id="item-close">Close</button></div>
+</div>
+<p id="out">-</p>
+</body></html>

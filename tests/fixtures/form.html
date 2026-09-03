@@ -1,0 +1,13 @@
+<!doctype html><html><head><title>Form</title></head>
+<body style="font-family:sans-serif;padding:16px">
+<h1>Form</h1>
+<label>Name <input id="name" type="text" value=""></label>
+<label>Readonly <input id="ro" type="text" value="fixed" readonly></label>
+<label>Password <input id="pw" type="password"></label>
+<label>Notes <textarea id="notes"></textarea></label>
+<label>Colour <select id="sel" onchange="document.getElementById('selout').textContent='chose '+this.value"><option value="red">Red</option><option value="green">Green</option><option value="blue">Blue</option></select></label> <span id="selout">-</span>
+<div id="editor" contenteditable="true" style="border:1px solid #888;padding:6px;width:300px;min-height:20px"></div>
+<div id="fake-input" style="border:1px solid #888;padding:6px;width:200px">looks like an input</div>
+<button id="submit" onclick="document.getElementById('out').textContent='submitted:'+document.getElementById('name').value">Submit</button>
+<p id="out"></p>
+</body></html>

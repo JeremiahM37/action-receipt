@@ -1,0 +1,11 @@
+<!doctype html><html><head><title>Ticker</title></head>
+<body style="font-family:sans-serif;padding:16px">
+<h1>Ticker</h1>
+<p>ticks: <span id="tick">0</span></p>
+<p><button id="noop">does nothing</button> <button id="counter" onclick="document.getElementById('c').textContent=(+document.getElementById('c').textContent)+1">increment</button> count: <span id="c">0</span></p>
+<p><button id="start" onclick="startTicker('tick2')">start a second ticker</button> ticks2: <span id="tick2">0</span></p>
+<script>
+function startTicker(id){ setInterval(()=>{const e=document.getElementById(id); e.textContent=(+e.textContent)+1}, 30); }
+if (new URLSearchParams(location.search).get('auto') !== '0') startTicker('tick');
+</script>
+</body></html>

@@ -1,0 +1,10 @@
+<!doctype html><html><head><title>Big DOM</title><style>.r{height:14px}</style></head>
+<body style="margin:0;font-family:monospace">
+<p><button id="edit-late" onclick="document.getElementById('cell-' + (window.__N - 5)).textContent = 'EDITED'">edit a node near the end</button>
+<button id="edit-many" onclick="for(let i=0;i<100;i++)document.getElementById('cell-'+i).textContent='X'+i">edit 100 nodes</button>
+<span id="n"></span></p>
+<div id="root"></div>
+<script>const N = +new URLSearchParams(location.search).get('n') || 6000; window.__N = N; let h = '';
+for (let i = 0; i < N; i++) h += '<div class="r"><span id="cell-' + i + '">cell ' + i + '</span></div>';
+document.getElementById('root').innerHTML = h; document.getElementById('n').textContent = N + ' rows';</script>
+</body></html>

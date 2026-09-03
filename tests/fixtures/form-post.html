@@ -1,0 +1,7 @@
+<!doctype html><html><head><title>Form POST</title></head>
+<body style="font-family:sans-serif;padding:16px">
+<h1>Form that the server rejects</h1>
+<form id="f" method="post" action="/submit"><input name="q" value="bad"><button id="submit-nav" type="submit">submit (navigation)</button></form>
+<p><button id="submit-fetch" onclick="fetch('/submit',{method:'POST',body:'q=bad'}).then(r=>{document.getElementById('err').textContent='server said '+r.status})">submit (fetch)</button> <span id="err">-</span></p>
+<p><button id="fetch-nolen" onclick="fetch('/nolen?ms=100').then(r=>{document.getElementById('nolen').textContent='status '+r.status})">fetch, ignore body (no Content-Length)</button> <span id="nolen">-</span></p>
+</body></html>

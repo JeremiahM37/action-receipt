@@ -1,0 +1,8 @@
+<!doctype html><html><head><title>Frame outer</title>
+<style>body{margin:0;font-family:sans-serif;padding:8px} iframe{border:1px solid #888;display:block}</style></head>
+<body><h1>Outer</h1>
+<iframe id="f" src="/frame-inner.html" width="600" height="260"></iframe>
+<p id="outer-note">outer text</p>
+<iframe id="x" src="" width="300" height="100"></iframe>
+<script>document.getElementById('x').src = location.href.replace('127.0.0.1','localhost').replace('frame-outer','frame-xorigin');</script>
+</body></html>

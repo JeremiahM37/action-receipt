@@ -1,0 +1,6 @@
+<!doctype html><html><head><title>Before unload</title></head>
+<body style="font-family:sans-serif;padding:16px">
+<h1>Unsaved changes</h1>
+<script>window.addEventListener('beforeunload', e => { e.preventDefault(); e.returnValue = 'leave?'; });</script>
+<a id="leave" href="/short.html">leave the page</a>
+</body></html>

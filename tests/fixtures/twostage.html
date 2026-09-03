@@ -1,0 +1,25 @@
+<!doctype html><html><head><title>Two-stage effect</title>
+<style>
+body{margin:0;font-family:sans-serif;padding:16px}
+.spinner{display:inline-block;width:12px;height:12px;border:2px solid #999;border-top-color:#333;border-radius:50%;animation:spin .6s linear infinite;margin-left:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style></head>
+<body>
+<h1>Two-stage effect</h1>
+<p>delay=<span id="delay"></span>ms</p>
+<p><button id="go">Go</button></p>
+<p>result: <span id="result">pending</span></p>
+<script>
+// click -> fetch('/slow?ms=delay') -> insert a perpetual CSS spinner -> delay/2 later remove it and
+// write the result. The spinner is the page saying "still working"; settlement must not capture it.
+const delay = +(new URLSearchParams(location.search).get('delay') || 250);
+document.getElementById('delay').textContent = delay;
+document.getElementById('go').onclick = () => {
+  fetch('/slow?ms=' + delay + '&r=' + Math.random()).then(r => r.text()).then(() => {
+    const s = document.createElement('span'); s.className = 'spinner'; s.id = 'spin';
+    document.getElementById('result').after(s);
+    setTimeout(() => { s.remove(); document.getElementById('result').textContent = 'FINAL:' + delay; }, Math.round(delay / 2));
+  });
+};
+</script>
+</body></html>

@@ -1,0 +1,9 @@
+<!doctype html><html><head><title>Transition</title>
+<style>body{margin:0;font-family:sans-serif;padding:16px}
+#box{width:120px;height:120px;background:#36c;transform:translateX(0);transition:transform var(--ms) linear}
+#box.moved{transform:translateX(500px)}</style></head>
+<body><h1>CSS transition</h1>
+<p><button id="go" onclick="document.getElementById('box').classList.add('moved')">move</button> <span id="ms"></span></p>
+<div id="box"></div>
+<script>const ms = new URLSearchParams(location.search).get('ms') || '300'; document.documentElement.style.setProperty('--ms', ms + 'ms'); document.getElementById('ms').textContent = ms + 'ms';</script>
+</body></html>

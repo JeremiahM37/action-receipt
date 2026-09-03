@@ -1,0 +1,9 @@
+<!doctype html><html><head><title>Timers</title></head>
+<body style="font-family:sans-serif;padding:16px">
+<h1>Timers scheduled by the action</h1>
+<p><button id="assign-late" onclick="setTimeout(() => location.assign('/short.html'), 250)">location.assign after 250 ms</button></p>
+<p><button id="long" onclick="setTimeout(() => { document.getElementById('out').textContent = 'long fired' }, 6000)">DOM change after 6 s (longer than timer_wait_ms)</button></p>
+<p><button id="cleared" onclick="const id = setTimeout(() => { document.getElementById('out').textContent = 'should never fire' }, 400); setTimeout(() => clearTimeout(id), 50)">schedule 400 ms, clear it at 50 ms</button></p>
+<p><button id="chain" onclick="setTimeout(() => { document.getElementById('out').textContent = 'step 1'; setTimeout(() => { document.getElementById('out').textContent = 'step 2' }, 200) }, 200)">two chained 200 ms timers</button></p>
+<p>out: <span id="out">-</span></p>
+</body></html>
