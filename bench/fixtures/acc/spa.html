@@ -1,0 +1,29 @@
+<!doctype html><html><head><title>SPA</title>
+<style>body{margin:0;font-family:sans-serif;padding:16px} nav a,nav button{margin-right:8px}</style></head>
+<body>
+<h1>SPA router</h1>
+<nav>
+<button id="push-about">pushState /acc/spa-about (content swap)</button>
+<button id="replace-same-identical">replaceState same URL + identical re-render</button>
+<button id="replace-same-swap">replaceState same URL + content swap</button>
+<button id="hash-about">hash route #/about (content swap)</button>
+<button id="reload">location.reload()</button>
+<a id="self-link" href="spa.html">link to this same page</a>
+<button id="assign-late">location.assign after 250ms</button>
+<button id="assign-now">location.assign now</button>
+<button id="winopen">window.open new tab</button>
+</nav>
+<main id="view"><h2>Home</h2><p>Welcome home.</p></main>
+<script>
+const view = document.getElementById('view');
+const render = (name) => { view.innerHTML = name === 'about' ? '<h2>About</h2><p>About this app.</p>' : '<h2>Home</h2><p>Welcome home.</p>'; };
+document.getElementById('push-about').onclick = () => { history.pushState({}, '', '/acc/spa-about'); render('about'); };
+document.getElementById('replace-same-identical').onclick = () => { history.replaceState({}, '', location.href); render('home'); };
+document.getElementById('replace-same-swap').onclick = () => { history.replaceState({}, '', location.href); render('about'); };
+document.getElementById('hash-about').onclick = () => { location.hash = '#/about'; render('about'); };
+document.getElementById('reload').onclick = () => location.reload();
+document.getElementById('assign-late').onclick = () => setTimeout(() => location.assign('/lib/short.html'), 250);
+document.getElementById('assign-now').onclick = () => location.assign('/lib/short.html');
+document.getElementById('winopen').onclick = () => window.open('/lib/long.html', '_blank');
+</script>
+</body></html>

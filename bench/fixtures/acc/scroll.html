@@ -1,0 +1,27 @@
+<!doctype html><html><head><title>Scroll cases</title>
+<style>
+body{margin:0;font-family:sans-serif;padding:16px}
+#bigbox{height:200px;overflow:auto;border:1px solid #666;width:400px}
+#smallbox{height:200px;overflow:auto;border:1px solid #666;width:400px}
+#wide{width:3000px;height:40px;background:linear-gradient(90deg,#faa,#aaf)}
+</style></head>
+<body>
+<h1>Scroll cases</h1>
+<p>Query: <code>?v=wide</code> (horizontally scrollable window) | <code>?v=exact</code> (content fits viewport) | default: boxes</p>
+<div id="content"></div>
+<script>
+const v = new URLSearchParams(location.search).get('v') || 'boxes';
+const c = document.getElementById('content');
+if (v === 'wide') {
+  c.innerHTML = '<div id="wide"></div><p>The window scrolls horizontally, not vertically.</p>';
+} else if (v === 'exact') {
+  document.body.style.padding = '0';
+  document.querySelector('h1').remove(); document.querySelector('p').remove();
+  c.innerHTML = '<div style="height:100vh;background:#eef">Exactly one viewport tall.</div>';
+} else {
+  let big = '';
+  for (let i = 1; i <= 60; i++) big += '<p>big box line ' + i + '</p>';
+  c.innerHTML = '<div id="bigbox">' + big + '</div><div id="smallbox"><p>small box: only one line, not scrollable</p></div>';
+}
+</script>
+</body></html>

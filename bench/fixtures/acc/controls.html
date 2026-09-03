@@ -1,0 +1,62 @@
+<!doctype html><html><head><title>Controls</title>
+<style>
+body{margin:0;font-family:sans-serif;padding:16px}
+section{margin:6px 0}
+#hover{padding:8px 16px}
+#hover:hover{background:#ffd54f}
+#hover-huge{width:100%;height:320px;background:#eee;display:flex;align-items:center;justify-content:center}
+#hover-huge:hover{background:#c8e6c9}
+#covered-wrap{position:relative;display:inline-block}
+#shield{position:absolute;inset:0;background:rgba(255,0,0,.15)}
+#hidden{display:none}
+#offscreen{position:absolute;left:-9999px;top:0}
+#pe-wrap button{pointer-events:none}
+#menu{display:none;border:1px solid #999;padding:4px}
+#menu.open{display:block}
+[role=tab][aria-selected=true]{font-weight:bold;border-bottom:2px solid #333}
+#overlay{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center}
+#overlay.on{display:flex}
+#overlay .card{background:#fff;padding:20px;border-radius:8px}
+.invalid{border:2px solid red}
+#fake{border:1px solid #888;padding:4px;width:200px;display:inline-block;min-height:1em}
+#canvas{border:1px solid #444}
+</style></head>
+<body>
+<h1 id="h1">Controls</h1>
+<p id="para">Plain paragraph text with no handler.</p>
+<section><button id="counter" onclick="document.getElementById('count').textContent=(+document.getElementById('count').textContent)+1">Increment</button> count: <span id="count">0</span></section>
+<section><button id="noop">Does nothing</button></section>
+<section><button id="disabled" disabled onclick="document.getElementById('count').textContent='never'">Disabled</button></section>
+<section><button id="aria-disabled" aria-disabled="true">Aria disabled (no handler)</button></section>
+<section><div id="covered-wrap"><button id="covered" onclick="document.getElementById('count').textContent='covered-clicked'">Covered</button><div id="shield" title="shield"></div></div></section>
+<section><button id="hidden" onclick="document.getElementById('count').textContent='hidden-clicked'">Hidden</button><span>(hidden button here)</span></section>
+<section><button id="offscreen" onclick="document.getElementById('count').textContent='offscreen-clicked'">Offscreen</button><span>(offscreen button here)</span></section>
+<section id="pe-wrap"><button id="pe-none" onclick="document.getElementById('count').textContent='pe-clicked'">pointer-events:none</button></section>
+<section><label><input type="checkbox" id="checkbox"> Checkbox</label></section>
+<section><label><input type="radio" name="r" id="radio-a" checked> A</label> <label><input type="radio" name="r" id="radio-b"> B</label></section>
+<section><select id="select"><option>one</option><option>two</option><option>three</option></select></section>
+<section><input id="text" placeholder="text"> <input id="readonly" value="fixed" readonly> <input id="full" value="abc" maxlength="3"> <textarea id="textarea"></textarea></section>
+<section><div id="ce" contenteditable="true" style="border:1px solid #888;width:200px;min-height:1em"></div></section>
+<section><div id="fake" role="textbox">looks like an input</div></section>
+<section><button id="hover">Hover colour only</button></section>
+<section><details id="details"><summary id="summary">Expand me</summary><p>Hidden details content.</p></details></section>
+<section role="tablist"><button role="tab" id="tab1" aria-selected="true" onclick="selTab(this)">Tab 1</button><button role="tab" id="tab2" aria-selected="false" onclick="selTab(this)">Tab 2</button></section>
+<section><button id="dropdown" onclick="document.getElementById('menu').classList.toggle('open')">Menu</button><div id="menu"><a href="#" onclick="return false">Item A</a></div></section>
+<section><button id="alert" onclick="alert('hello from alert')">Alert</button> <button id="confirm" onclick="document.getElementById('count').textContent=confirm('sure?')?'confirmed':'cancelled'">Confirm</button></section>
+<section><button id="modal" onclick="document.getElementById('overlay').classList.add('on')">Open modal</button></section>
+<section><a id="js-void" href="javascript:void(0)">javascript:void link</a> | <a id="hash-pd" href="#" onclick="return false">hash link (preventDefault)</a> | <a id="hash-plain" href="#">hash link (plain)</a></section>
+<section><button id="slow" onclick="fetch('/slow?ms=800&r='+Math.random()).then(r=>r.text()).then(t=>{document.getElementById('slow-result').textContent=t})">Slow fetch</button> <span id="slow-result">pending</span></section>
+<section><button id="delayed-50" onclick="setTimeout(()=>{document.getElementById('d50').textContent='appeared'},50)">Delayed 50</button> <span id="d50">-</span>
+<button id="delayed-300" onclick="setTimeout(()=>{document.getElementById('d300').textContent='appeared'},300)">Delayed 300</button> <span id="d300">-</span></section>
+<section><canvas id="canvas" width="300" height="120" onclick="const c=this.getContext('2d');c.fillStyle='#f33';c.fillRect(0,0,300,120)"></canvas></section>
+<section><form id="form-required" action="/lib/short.html" method="get"><input id="req" required placeholder="required"> <button id="submit-required" type="submit">Submit (required empty)</button></form></section>
+<section><form id="form-ok" action="/lib/short.html" method="get"><input name="q" value="x"> <button id="submit-ok" type="submit">Submit (valid)</button></form></section>
+<section><form id="form-silent" onsubmit="return false"><input id="silent-in"> <button id="submit-silent" type="submit">Submit (JS silently refuses)</button></form></section>
+<section><form id="form-mark" onsubmit="document.getElementById('mark-in').classList.add('invalid');return false"><input id="mark-in"> <button id="submit-mark" type="submit">Submit (JS marks invalid)</button></form></section>
+<section><div id="hover-huge">Huge hover-colour block (no handler)</div></section>
+<div id="overlay"><div class="card" role="dialog" aria-modal="true" id="dlg"><p>A modal</p><button id="close-modal" onclick="document.getElementById('overlay').classList.remove('on')">Close</button></div></div>
+<script>
+function selTab(el){ for (const t of document.querySelectorAll('[role=tab]')) t.setAttribute('aria-selected', String(t===el)); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('overlay').classList.remove('on'); });
+</script>
+</body></html>

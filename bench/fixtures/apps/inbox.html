@@ -1,0 +1,62 @@
+<!doctype html><html><head><title>Inbox</title>
+<style>
+body{margin:0;font-family:sans-serif;padding:16px}
+#list{height:240px;width:560px;overflow:auto;border:1px solid #666;position:relative}
+#spacer{position:relative}
+.row{height:30px;line-height:30px;box-sizing:border-box;border-bottom:1px solid #eee;padding:0 6px;white-space:nowrap;position:absolute;left:0;right:0}
+.row label{display:inline-block;width:260px;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
+.menu{position:absolute;right:6px;top:26px;background:#fff;border:1px solid #666;padding:4px;z-index:5;line-height:normal}
+#whatsnew{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:20}
+#whatsnew.on{display:flex}
+#whatsnew .card,#confirm-dlg .card{background:#fff;padding:20px;border-radius:8px}
+#confirm-dlg{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:30}
+#confirm-dlg.on{display:flex}
+</style></head>
+<body>
+<div id="whatsnew"><div class="card" role="dialog" aria-modal="true"><h2>What's new</h2><p>Messages can now be starred and archived in bulk.</p><button id="close-whatsnew">Close</button></div></div>
+<h1>Inbox</h1>
+<p><button id="archive-selected" disabled>Archive selected</button> <span role="status" id="sel-count">0 selected</span> <span role="status" id="status"></span></p>
+<div id="list" aria-label="messages"><div id="spacer"></div></div>
+<p id="summary"></p>
+<div id="confirm-dlg"><div class="card" role="dialog" aria-modal="true"><p id="confirm-text">Delete this message?</p><button id="confirm-del">Delete</button> <button id="cancel-del">Cancel</button></div></div>
+<script>
+const q = new URLSearchParams(location.search);
+const modalMode = q.get('modal') === '1', confirmMode = q.get('confirm') === '1';
+if (modalMode) document.getElementById('whatsnew').classList.add('on');
+const SENDERS = ['Ana','Ben','Cy','Dee','Eli','Fay','Gus','Hal','Ivy','Jon'];
+const NAMED = { 3: 'Welcome to Inbox', 5: 'Invoice 2201', 6: 'Weekly digest', 7: 'Promo: 20% off', 8: 'Spam offer', 30: 'Contract draft v3', 38: 'Board minutes' };
+let msgs = []; for (let i = 1; i <= 40; i++) msgs.push({ id: i, subject: NAMED[i] || ('Message ' + i + ' from ' + SENDERS[i % 10]) });
+let starred = [], archived = [], deleted = [], selected = [], openMenu = null, pendingDelete = null;
+const ROW = 30;
+const list = document.getElementById('list'), spacer = document.getElementById('spacer');
+const visible = () => msgs.filter(m => !archived.includes(m.id) && !deleted.includes(m.id));
+const render = () => {
+  const v = visible(); spacer.style.height = (v.length * ROW) + 'px';
+  spacer.innerHTML = '';
+  const top = list.scrollTop, bottom = top + list.clientHeight;
+  const first = Math.max(0, Math.floor(top / ROW) - 1), last = Math.min(v.length - 1, Math.ceil(bottom / ROW));
+  for (let i = first; i <= last; i++) {
+    const m = v[i]; const d = document.createElement('div'); d.className = 'row' + (starred.includes(m.id) ? ' starred' : ''); d.style.top = (i * ROW) + 'px'; d.dataset.id = m.id;
+    d.innerHTML = '<input type="checkbox" id="sel-' + m.id + '"' + (selected.includes(m.id) ? ' checked' : '') + '> <label for="sel-' + m.id + '">' + m.subject + '</label> ' +
+      '<button id="star-' + m.id + '">' + (starred.includes(m.id) ? 'Unstar' : 'Star') + '</button> <button id="menu-' + m.id + '">More</button>' +
+      (openMenu === m.id ? '<div class="menu"><button id="delete-' + m.id + '">Delete</button></div>' : '');
+    d.querySelector('input').onchange = e => { if (e.target.checked) { if (!selected.includes(m.id)) selected.push(m.id); } else selected = selected.filter(x => x !== m.id); render(); };
+    d.querySelector('#star-' + m.id).onclick = () => { if (starred.includes(m.id)) starred = starred.filter(x => x !== m.id); else starred.push(m.id); render(); };
+    d.querySelector('#menu-' + m.id).onclick = () => { openMenu = openMenu === m.id ? null : m.id; render(); };
+    const del = d.querySelector('#delete-' + m.id);
+    if (del) del.onclick = () => { openMenu = null; if (confirmMode) { pendingDelete = m.id; document.getElementById('confirm-text').textContent = "Delete '" + m.subject + "'?"; document.getElementById('confirm-dlg').classList.add('on'); render(); return; } deleted.push(m.id); render(); };
+    spacer.appendChild(d);
+  }
+  document.getElementById('sel-count').textContent = selected.length + ' selected';
+  document.getElementById('archive-selected').disabled = selected.length === 0;
+  document.getElementById('summary').textContent = v.length + ' messages, ' + starred.length + ' starred, ' + archived.length + ' archived, ' + deleted.length + ' deleted';
+};
+list.addEventListener('scroll', render);
+document.getElementById('archive-selected').onclick = () => { for (const id of selected) if (!archived.includes(id)) archived.push(id); selected = []; document.getElementById('status').textContent = 'Archived'; render(); };
+document.getElementById('confirm-del').onclick = () => { if (pendingDelete) deleted.push(pendingDelete); pendingDelete = null; document.getElementById('confirm-dlg').classList.remove('on'); render(); };
+document.getElementById('cancel-del').onclick = () => { pendingDelete = null; document.getElementById('confirm-dlg').classList.remove('on'); render(); };
+document.getElementById('close-whatsnew').onclick = () => document.getElementById('whatsnew').classList.remove('on');
+window.__state = () => ({ starred: starred.slice(), archived: archived.slice(), deleted: deleted.slice(), selected: selected.slice(), modal: document.getElementById('whatsnew').classList.contains('on'), listScrollTop: list.scrollTop });
+render();
+</script>
+</body></html>

@@ -1,0 +1,32 @@
+<!doctype html><html><head><title>Search</title>
+<style>body{margin:0;font-family:sans-serif;padding:16px} #results button{display:block;margin:4px 0}</style></head>
+<body>
+<h1>Knowledge search</h1>
+<p><input id="q" placeholder="Search..."> <button id="search-btn">Search</button> <span id="status"></span></p>
+<div id="results"></div>
+<div id="detail"></div>
+<script>
+const q = new URLSearchParams(location.search);
+const enterOnly = q.get('enter') === '1';
+const slowMs = parseInt(q.get('slow') || '600', 10);
+if (enterOnly) { document.getElementById('search-btn').remove(); document.getElementById('q').placeholder = 'Search and press Enter'; }
+const DOCS = { kiwi: 'Kiwi facts', mango: 'Mango guide', apple: 'Apple notes', banana: 'Banana handbook', kiwifruit: 'Kiwifruit growing' };
+let opened = null, lastQuery = null;
+const search = () => {
+  const term = document.getElementById('q').value.trim().toLowerCase(); if (!term) return;
+  lastQuery = term;
+  document.getElementById('status').textContent = 'searching...';
+  document.getElementById('results').innerHTML = ''; document.getElementById('detail').innerHTML = '';
+  fetch('/slow?ms=' + slowMs + '&r=' + Math.random()).then(r => r.text()).then(() => {
+    const hits = Object.keys(DOCS).filter(k => k.includes(term));
+    document.getElementById('status').textContent = hits.length + ' results';
+    const box = document.getElementById('results');
+    for (const k of hits) { const b = document.createElement('button'); b.className = 'result'; b.id = 'result-' + k; b.textContent = DOCS[k];
+      b.onclick = () => { opened = k; document.getElementById('detail').innerHTML = '<h2 id="detail-title">' + DOCS[k] + '</h2><p>Full article about ' + k + '.</p>'; }; box.appendChild(b); }
+  });
+};
+if (!enterOnly) document.getElementById('search-btn').onclick = search;
+document.getElementById('q').addEventListener('keydown', e => { if (e.key === 'Enter') search(); });
+window.__state = () => ({ opened, lastQuery });
+</script>
+</body></html>

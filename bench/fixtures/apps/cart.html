@@ -1,0 +1,44 @@
+<!doctype html><html><head><title>Shop</title>
+<style>body{margin:0;font-family:sans-serif;padding:16px} .product,.line{margin:4px 0} input[type=number]{width:50px}
+#consent{position:fixed;left:0;top:0;width:100%;height:330px;background:#222;color:#fff;display:none;align-items:center;justify-content:center;gap:16px;z-index:10}
+#consent.on{display:flex}</style></head>
+<body>
+<div id="consent"><span>We use cookies to improve your shopping experience.</span><button id="consent-accept">Accept all</button> <button id="consent-reject">Reject all</button></div>
+<h1>Shop</h1>
+<h2>Products</h2>
+<div id="products"></div>
+<h2>Cart</h2>
+<div id="cart"></div>
+<p id="total">Total: $0</p>
+<p id="address-row" style="display:none"><label>Shipping address <input id="address" placeholder="required before checkout"></label></p>
+<p><button id="checkout">Checkout</button> <a id="terms-link" href="terms.html" target="_blank">Terms of service</a></p>
+<div id="order"></div>
+<script>
+const q = new URLSearchParams(location.search);
+const needAddress = q.get('address') === '1';
+const stepper = q.get('stepper') === '1';
+if (q.get('banner') === '1') document.getElementById('consent').classList.add('on');
+document.getElementById('consent-accept').onclick = document.getElementById('consent-reject').onclick = () => document.getElementById('consent').classList.remove('on');
+if (needAddress) document.getElementById('address-row').style.display = 'block';
+const PRODUCTS = { widget: ['Widget', 10], gadget: ['Gadget', 20], doohickey: ['Doohickey', 5] };
+let cart = {}; let order = null;
+if (q.get('prefill')) for (const k of q.get('prefill').split(',')) cart[k] = 1;
+const render = () => {
+  const p = document.getElementById('products'); p.innerHTML = '';
+  for (const [k, [n, price]] of Object.entries(PRODUCTS)) { const d = document.createElement('div'); d.className = 'product'; d.innerHTML = n + ' ($' + price + ') <button id="add-' + k + '">Add to cart</button>'; d.querySelector('button').onclick = () => { cart[k] = (cart[k] || 0) + 1; render(); }; p.appendChild(d); }
+  const c = document.getElementById('cart'); c.innerHTML = Object.keys(cart).length ? '' : '<p id="cart-empty">Your cart is empty.</p>';
+  let total = 0;
+  for (const [k, qty] of Object.entries(cart)) { total += qty * PRODUCTS[k][1]; const d = document.createElement('div'); d.className = 'line'; d.innerHTML = PRODUCTS[k][0] + ' x ' + (stepper ? '<button id="dec-' + k + '">-</button> ' : '') + '<input type="number" id="qty-' + k + '" value="' + qty + '" min="1" aria-label="Quantity ' + PRODUCTS[k][0] + '"' + (stepper ? ' readonly' : '') + '> ' + (stepper ? '<button id="inc-' + k + '">+</button> ' : '') + '<button id="rm-' + k + '">Remove</button>';
+    if (stepper) { d.querySelector('#dec-' + k).onclick = () => { cart[k] = Math.max(1, cart[k] - 1); render(); }; d.querySelector('#inc-' + k).onclick = () => { cart[k] = cart[k] + 1; render(); }; }
+    d.querySelector('input').onchange = e => { cart[k] = Math.max(1, +e.target.value || 1); render(); }; d.querySelector('input').oninput = e => { if (+e.target.value >= 1) cart[k] = +e.target.value; };
+    d.querySelector('#rm-' + k).onclick = () => { delete cart[k]; render(); }; c.appendChild(d); }
+  document.getElementById('total').textContent = 'Total: $' + total;
+  const addrOk = !needAddress || document.getElementById('address').value.trim().length > 0;
+  document.getElementById('checkout').disabled = !(Object.keys(cart).length && addrOk && !order);
+};
+document.getElementById('address').addEventListener('input', render);
+document.getElementById('checkout').onclick = () => { order = { items: Object.fromEntries(Object.entries(cart)), address: document.getElementById('address').value.trim() }; document.getElementById('order').innerHTML = '<h2>Order placed</h2><p id="order-text">' + Object.entries(order.items).map(([k, q]) => PRODUCTS[k][0] + ' x' + q).join(', ') + '</p>'; render(); };
+window.__state = () => ({ cart: Object.fromEntries(Object.entries(cart)), order, address: document.getElementById('address').value.trim(), consent: document.getElementById('consent').classList.contains('on') });
+render();
+</script>
+</body></html>

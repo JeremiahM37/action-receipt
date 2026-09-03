@@ -1,0 +1,30 @@
+<!doctype html><html><head><title>Signup wizard</title>
+<style>body{margin:0;font-family:sans-serif;padding:16px} .step{display:none} .step.on{display:block} label{display:block;margin:6px 0}</style></head>
+<body>
+<h1>Signup wizard</h1>
+<p id="progress">Step 1 of 3</p>
+<div class="step on" id="step1"><h2>Your name</h2><label>Name <input id="name"></label><button id="next1">Next</button></div>
+<div class="step" id="step2"><h2>Choose a plan</h2>
+<label><input type="radio" name="plan" id="plan-basic" value="basic" checked> Basic</label>
+<label><input type="radio" name="plan" id="plan-pro" value="pro"> Pro</label>
+<label id="terms-label" style="display:none"><input type="checkbox" id="terms"> I accept the terms</label>
+<button id="back2">Back</button> <button id="next2">Next</button></div>
+<div class="step" id="step3"><h2>Review</h2><p id="summary"></p><button id="back3">Back</button> <button id="finish">Finish</button></div>
+<div id="done" style="display:none"><h2>Welcome aboard!</h2><p id="done-text"></p></div>
+<script>
+const q = new URLSearchParams(location.search);
+const needTerms = q.get('terms') === '1', noPlan = q.get('noplan') === '1', delayFinish = q.get('delay') === '1';
+if (noPlan) document.getElementById('plan-basic').checked = false;
+if (needTerms) document.getElementById('terms-label').style.display = 'block';
+let step = 1, completed = false;
+const show = () => { for (let i = 1; i <= 3; i++) document.getElementById('step' + i).classList.toggle('on', i === step); document.getElementById('progress').textContent = 'Step ' + step + ' of 3'; };
+const plan = () => { const c = document.querySelector('input[name=plan]:checked'); return c ? c.value : null; };
+document.getElementById('next1').onclick = () => { if (!document.getElementById('name').value.trim()) return; step = 2; show(); };
+document.getElementById('back2').onclick = () => { step = 1; show(); };
+document.getElementById('next2').onclick = () => { if (needTerms && !document.getElementById('terms').checked) return; /* silent */ if (!plan()) return; /* silent */ step = 3;
+  if (delayFinish) { document.getElementById('finish').disabled = true; setTimeout(() => { document.getElementById('finish').disabled = false; }, 2000); } document.getElementById('summary').textContent = 'Name: ' + document.getElementById('name').value + ', plan: ' + plan(); show(); };
+document.getElementById('back3').onclick = () => { step = 2; show(); };
+document.getElementById('finish').onclick = () => { completed = true; document.getElementById('step3').classList.remove('on'); document.getElementById('done').style.display = 'block'; document.getElementById('done-text').textContent = 'Account created for ' + document.getElementById('name').value + ' on the ' + plan() + ' plan.'; document.getElementById('progress').textContent = 'Complete'; };
+window.__state = () => ({ step, completed, name: document.getElementById('name').value, plan: plan(), terms: document.getElementById('terms').checked, finishDisabled: document.getElementById('finish').disabled });
+</script>
+</body></html>

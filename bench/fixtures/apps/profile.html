@@ -1,0 +1,70 @@
+<!doctype html><html><head><title>Profile</title>
+<style>
+body{margin:0;font-family:sans-serif;padding:16px}
+label{display:block;margin:8px 0}
+details{margin:8px 0;padding:6px;border:1px solid #ccc;width:360px}
+</style></head>
+<body>
+<h1>Profile</h1>
+<form id="form">
+<label>Display name <input id="display" value="Guest"></label>
+<label><span id="phone-label">Phone</span> <input id="phone" value=""></label>
+<label>Language <select id="lang"><option value="en">English</option><option value="fr">Français</option><option value="de">Deutsch</option></select></label>
+<details id="advanced"><summary>Advanced settings</summary><label><input type="checkbox" id="beta"> Enable beta features</label></details>
+<button id="save" type="button">Save profile</button> <span role="status" id="status"></span>
+</form>
+<h2>Saved profile</h2>
+<p id="saved-view">display=Guest, phone=, lang=en, beta=false</p>
+<h2>Security</h2>
+<label><input type="checkbox" id="twofa"> Two-factor authentication</label>
+<p><button id="apply-2fa" style="display:none">Apply</button> <span role="status" id="twofa-status">Two-factor authentication is off</span></p>
+<h2>Project</h2>
+<p id="project-title">Project: Alpha</p>
+<label>New project name <input id="project-name" placeholder="new name"></label>
+<p><button id="rename">Rename</button> <span role="status" id="rename-status"></span></p>
+<script>
+const q = new URLSearchParams(location.search);
+const strict = q.get('strict') === '1', native = q.get('native') === '1', optimistic = q.get('optimistic') === '1';
+if (strict) document.getElementById('phone-label').textContent = 'Phone (required)';
+let saved = { display: 'Guest', phone: '', lang: 'en', beta: false };
+const formVals = () => ({ display: document.getElementById('display').value, phone: document.getElementById('phone').value,
+                          lang: document.getElementById('lang').value, beta: document.getElementById('beta').checked });
+const doSave = () => {
+  document.getElementById('status').textContent = '';
+  fetch('/slow?ms=800&r=' + Math.random()).then(r => r.text()).then(() => {
+    saved = formVals();
+    document.getElementById('saved-view').textContent = 'display=' + saved.display + ', phone=' + saved.phone + ', lang=' + saved.lang + ', beta=' + saved.beta;
+    document.getElementById('status').textContent = 'Saved';
+  });
+};
+if (native) {
+  // a real form: the browser's own validation bubble blocks submit on the empty required field (not in the DOM)
+  document.getElementById('phone').required = true; document.getElementById('phone').type = 'tel';
+  document.getElementById('save').type = 'submit';
+  document.getElementById('form').addEventListener('submit', e => { e.preventDefault(); doSave(); });
+} else {
+  document.getElementById('form').addEventListener('submit', e => e.preventDefault());
+  document.getElementById('save').onclick = () => { if (strict && !formVals().phone.trim()) return; /* silent */ doSave(); };
+}
+// 2FA toggle: the checkbox only takes effect after Apply; leaving the control without applying reverts it
+let applied2fa = false;
+const twofa = document.getElementById('twofa'), applyBtn = document.getElementById('apply-2fa'), twofaStatus = document.getElementById('twofa-status');
+twofa.addEventListener('change', () => { if (twofa.checked !== applied2fa) { applyBtn.style.display = 'inline'; twofaStatus.textContent = 'Pending: click Apply to save the change'; } else { applyBtn.style.display = 'none'; twofaStatus.textContent = 'Two-factor authentication is ' + (applied2fa ? 'on' : 'off'); } });
+twofa.addEventListener('blur', e => { if (e.relatedTarget && e.relatedTarget.id === 'apply-2fa') return; setTimeout(() => { if (twofa.checked !== applied2fa) { twofa.checked = applied2fa; applyBtn.style.display = 'none'; twofaStatus.textContent = 'Change discarded; two-factor authentication is ' + (applied2fa ? 'on' : 'off'); } }, 0); });
+applyBtn.onclick = () => { applied2fa = twofa.checked; applyBtn.style.display = 'none'; twofaStatus.textContent = 'Two-factor authentication is ' + (applied2fa ? 'on' : 'off'); };
+// project rename: optimistic UI; the first attempt is rejected by the server after the fact
+let project = 'Alpha', renameAttempts = 0;
+document.getElementById('rename').onclick = () => {
+  const nn = document.getElementById('project-name').value.trim(); if (!nn) return;
+  const old = project; renameAttempts++;
+  document.getElementById('project-title').textContent = 'Project: ' + nn;
+  document.getElementById('rename-status').textContent = 'Renamed';
+  const status = (optimistic && renameAttempts === 1) ? 409 : 200;
+  fetch('/fail?status=' + status + '&ms=700&r=' + Math.random()).then(r => {
+    if (!r.ok) { document.getElementById('project-title').textContent = 'Project: ' + old; document.getElementById('rename-status').textContent = 'Rename rejected (HTTP ' + r.status + ')'; }
+    else { project = nn; document.getElementById('rename-status').textContent = 'Renamed'; }
+  });
+};
+window.__state = () => ({ saved, form: formVals(), applied2fa, twofaChecked: twofa.checked, project, renameAttempts, advancedOpen: document.getElementById('advanced').open, status: document.getElementById('status').textContent });
+</script>
+</body></html>

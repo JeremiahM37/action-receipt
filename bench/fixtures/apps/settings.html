@@ -1,0 +1,45 @@
+<!doctype html><html><head><title>Settings</title>
+<style>
+body{margin:0;font-family:sans-serif;padding:16px}
+label{display:block;margin:8px 0}
+#confirm-dlg{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center}
+#confirm-dlg.on{display:flex}
+#confirm-dlg .card{background:#fff;padding:20px;border-radius:8px}
+</style></head>
+<body>
+<h1>Settings</h1>
+<form id="form" onsubmit="return false">
+<label>Display name <input id="name" value="Guest"></label>
+<label><span id="email-label">Email</span> <input id="email" type="email" value=""></label>
+<label><input type="checkbox" id="dark"> Dark mode</label>
+<label>Language <select id="lang"><option value="en">English</option><option value="fr">Français</option><option value="de">Deutsch</option></select></label>
+<button id="save">Save</button> <span id="status"></span>
+</form>
+<h2>Saved profile</h2>
+<p id="saved-view">name=Guest, email=, dark=false, lang=en</p>
+<div id="confirm-dlg"><div class="card" role="dialog" aria-modal="true"><p>Save these settings?</p><button id="confirm-yes">Confirm</button> <button id="confirm-no">Cancel</button></div></div>
+<script>
+const q = new URLSearchParams(location.search);
+const strict = q.get('strict') === '1', confirmMode = q.get('confirm') === '1';
+if (strict) document.getElementById('email-label').textContent = 'Email (required)';
+let saved = { name: 'Guest', email: '', dark: false, lang: 'en' };
+const form = () => ({ name: document.getElementById('name').value, email: document.getElementById('email').value,
+                      dark: document.getElementById('dark').checked, lang: document.getElementById('lang').value });
+const doSave = () => {
+  document.getElementById('status').textContent = '';
+  fetch('/slow?ms=1200&r=' + Math.random()).then(r => r.text()).then(() => {
+    saved = form();
+    document.getElementById('saved-view').textContent = 'name=' + saved.name + ', email=' + saved.email + ', dark=' + saved.dark + ', lang=' + saved.lang;
+    document.getElementById('status').textContent = 'Saved';
+  });
+};
+document.getElementById('save').onclick = () => {
+  if (strict && !form().email.trim()) return;               // silent validation failure
+  if (confirmMode) { document.getElementById('confirm-dlg').classList.add('on'); return; }
+  doSave();
+};
+document.getElementById('confirm-yes').onclick = () => { document.getElementById('confirm-dlg').classList.remove('on'); doSave(); };
+document.getElementById('confirm-no').onclick = () => document.getElementById('confirm-dlg').classList.remove('on');
+window.__state = () => ({ saved, form: form(), status: document.getElementById('status').textContent });
+</script>
+</body></html>

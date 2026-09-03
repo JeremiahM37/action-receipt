@@ -1,0 +1,45 @@
+<!doctype html><html><head><title>Applicants</title>
+<style>
+body{margin:0;font-family:sans-serif;padding:16px}
+table{border-collapse:collapse} td,th{border:1px solid #999;padding:4px 10px} th{cursor:pointer}
+#pager button{margin:2px}
+</style></head>
+<body>
+<h1>Applicants</h1>
+<table id="tbl"><thead><tr><th id="col-name">Name</th><th id="col-score">Score <span id="score-arrow"></span></th><th>Verified</th><th>Action</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="pager"></p>
+<p id="approved">Approved: (none)</p>
+<script>
+const q = new URLSearchParams(location.search);
+const gate = q.get('gate') === '1';   // approve is disabled until the row's Verified checkbox is ticked
+const NAMES = ['Alice','Bob','Carol','Dave','Eve','Frank','Grace','Heidi','Ivan','Judy','Karl','Liam','Mia','Quinn','Nora','Oscar','Peggy','Rita','Sam','Tina','Uma','Vic','Zed'];
+const SCORES = [71,64,88,52,93,47,79,85,60,91,58,76,69,83,74,55,97,62,80,66,90,49,72];
+let rows = NAMES.map((n, i) => ({ name: n, score: SCORES[i], verified: false }));
+let page = 1, sort = null, approved = [];
+const PER = 5;
+const view = () => { let r = rows.slice(); if (sort) r.sort((a, b) => sort === 'desc' ? b.score - a.score : a.score - b.score); return r; };
+const render = () => {
+  const v = view(); const pages = Math.ceil(v.length / PER); if (page > pages) page = pages;
+  const tb = document.getElementById('rows'); tb.innerHTML = '';
+  for (const row of v.slice((page - 1) * PER, page * PER)) {
+    const tr = document.createElement('tr'); tr.dataset.name = row.name;
+    tr.innerHTML = '<td>' + row.name + '</td><td>' + row.score + '</td><td><input type="checkbox" aria-label="Verified ' + row.name + '"' + (row.verified ? ' checked' : '') + '></td><td><button class="approve"' + ((gate && !row.verified) || approved.includes(row.name) ? ' disabled' : '') + '>' + (approved.includes(row.name) ? 'Approved' : 'Approve') + '</button></td>';
+    tr.querySelector('input').onchange = e => { row.verified = e.target.checked; render(); };
+    tr.querySelector('button').onclick = () => { if (!approved.includes(row.name)) approved.push(row.name); render(); };
+    tb.appendChild(tr);
+  }
+  let pg = '<button id="prev"' + (page <= 1 ? ' disabled' : '') + '>Prev</button> ';
+  for (let i = 1; i <= pages; i++) pg += '<button id="page-' + i + '"' + (i === page ? ' aria-current="page"' : '') + '>' + i + '</button> ';
+  pg += '<button id="next"' + (page >= pages ? ' disabled' : '') + '>Next</button> <span>page ' + page + ' of ' + pages + '</span>';
+  document.getElementById('pager').innerHTML = pg;
+  document.getElementById('prev').onclick = () => { page--; render(); };
+  document.getElementById('next').onclick = () => { page++; render(); };
+  for (let i = 1; i <= pages; i++) document.getElementById('page-' + i).onclick = () => { page = i; render(); };
+  document.getElementById('approved').textContent = 'Approved: ' + (approved.length ? approved.join(', ') : '(none)');
+  document.getElementById('score-arrow').textContent = sort === 'desc' ? '▼' : sort === 'asc' ? '▲' : '';
+};
+document.getElementById('col-score').onclick = () => { sort = sort === 'asc' ? 'desc' : 'asc'; render(); };
+window.__state = () => ({ page, sort, approved: approved.slice(), topScoreName: rows.slice().sort((a, b) => b.score - a.score)[0].name });
+render();
+</script>
+</body></html>

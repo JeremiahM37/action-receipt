@@ -1,0 +1,30 @@
+<!doctype html><html><head><title>Background activity</title>
+<style>
+body{margin:0;font-family:sans-serif;padding:16px}
+.spinner{display:inline-block;width:16px;height:16px;border:3px solid #bbb;border-top-color:#333;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+#raf{width:40px;height:40px;background:#39f}
+</style></head>
+<body>
+<h1>Background activity</h1>
+<p>A page that is never fully still. Query: <code>?bg=clock|fast|spinner|raf|none</code></p>
+<p>clock: <span id="clock">--:--:--</span> <span id="fast">0</span></p>
+<p id="spin-wrap"></p>
+<div id="raf"></div>
+<section><button id="noop">Does nothing</button> <button id="counter" onclick="document.getElementById('count').textContent=(+document.getElementById('count').textContent)+1">Increment</button> count: <span id="count">0</span></section>
+<script>
+const bg = new URLSearchParams(location.search).get('bg') || 'clock';
+if (bg === 'clock') {
+  const tick = () => { const d = new Date(); document.getElementById('clock').textContent = d.toTimeString().slice(0, 8); };
+  tick(); setInterval(tick, 1000);
+} else if (bg === 'fast') {
+  setInterval(() => { const f = document.getElementById('fast'); f.textContent = (+f.textContent) + 1; }, 50);
+} else if (bg === 'spinner') {
+  document.getElementById('spin-wrap').innerHTML = '<span class="spinner"></span> loading...';
+} else if (bg === 'raf') {
+  let t = 0; const el = document.getElementById('raf');
+  const step = () => { t += 0.05; el.style.transform = 'translateX(' + Math.round(100 + 100 * Math.sin(t)) + 'px)'; requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+</script>
+</body></html>

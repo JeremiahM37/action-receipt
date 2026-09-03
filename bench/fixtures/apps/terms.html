@@ -1,0 +1,13 @@
+<!doctype html><html><head><title>Terms of service</title>
+<style>body{margin:0;font-family:sans-serif;padding:16px}</style></head>
+<body>
+<h1>Terms of service</h1>
+<p>By using this shop you agree to be nice.</p>
+<p><label><input type="checkbox" id="accept"> I have read the terms</label></p>
+<p><button id="accept-btn">Accept terms</button> <span id="status">(not accepted)</span></p>
+<script>
+let accepted = false;
+document.getElementById('accept-btn').onclick = () => { if (!document.getElementById('accept').checked) return; accepted = true; document.getElementById('status').textContent = 'Terms accepted'; };
+window.__state = () => ({ accepted, checked: document.getElementById('accept').checked });
+</script>
+</body></html>

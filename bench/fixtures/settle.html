@@ -1,0 +1,47 @@
+<!doctype html><html><head><title>Settle lab</title>
+<style>
+body{margin:0;font-family:sans-serif;padding:16px}
+#box{width:50px;height:20px;background:#3a7;transition-property:width;transition-timing-function:linear}
+.spinner{display:inline-block;width:12px;height:12px;border:2px solid #999;border-top-color:#333;border-radius:50%;animation:spin .6s linear infinite;margin-left:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style></head>
+<body>
+<h1>Settle lab</h1>
+<p>mode=<span id="mode"></span> delay=<span id="delay"></span>ms</p>
+<p><button id="go">Go</button></p>
+<div id="box"></div>
+<p>result: <span id="result">pending</span></p>
+<script>
+// The effect of clicking #go lands after `delay` ms, by one of four mechanisms:
+//   timeout    - setTimeout(delay): nothing observable keeps the page busy until it fires
+//   fetch      - fetch('/slow?ms=delay') then a DOM write: network-bound
+//   transition - a CSS transition of `delay` ms; the DOM write happens on transitionend
+//   twostage   - fetch('/slow?ms=delay'), then a spinner (CSS animation) for delay/2, then the DOM write
+// "Landed" == #result text starts with FINAL.
+const q = new URLSearchParams(location.search);
+const mode = q.get('mode') || 'timeout';
+const delay = +(q.get('delay') || 0);
+document.getElementById('mode').textContent = mode;
+document.getElementById('delay').textContent = delay;
+const done = () => { document.getElementById('result').textContent = 'FINAL:' + mode + ':' + delay; };
+document.getElementById('go').onclick = () => {
+  if (mode === 'timeout') {
+    if (delay === 0) done(); else setTimeout(done, delay);
+  } else if (mode === 'fetch') {
+    fetch('/slow?ms=' + delay + '&r=' + Math.random()).then(r => r.text()).then(done);
+  } else if (mode === 'transition') {
+    const b = document.getElementById('box');
+    if (delay === 0) { b.style.width = '400px'; done(); return; }
+    b.style.transitionDuration = delay + 'ms';
+    b.addEventListener('transitionend', done, { once: true });
+    requestAnimationFrame(() => { b.style.width = '400px'; });
+  } else if (mode === 'twostage') {
+    fetch('/slow?ms=' + delay + '&r=' + Math.random()).then(r => r.text()).then(() => {
+      const s = document.createElement('span'); s.className = 'spinner'; s.id = 'spin';
+      document.getElementById('result').after(s);
+      setTimeout(() => { s.remove(); done(); }, Math.round(delay / 2));
+    });
+  }
+};
+</script>
+</body></html>

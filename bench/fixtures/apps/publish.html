@@ -1,0 +1,16 @@
+<!doctype html><html><head><title>Publish note</title>
+<style>body{margin:0;font-family:sans-serif;padding:16px}</style></head>
+<body>
+<h1>Publish note</h1>
+<p id="which">Publish this note to the team site?</p>
+<p><label><input type="checkbox" id="notify"> Notify the team</label></p>
+<p><button id="confirm-publish">Confirm publish</button> <button id="cancel-publish">Cancel</button> <span role="status" id="status">(not published)</span></p>
+<script>
+const q = new URLSearchParams(location.search);
+if (q.get('title')) document.getElementById('which').textContent = "Publish the note '" + q.get('title') + "' to the team site?";
+let published = false;
+document.getElementById('confirm-publish').onclick = () => { published = true; document.getElementById('status').textContent = 'Published'; document.getElementById('confirm-publish').disabled = true; };
+document.getElementById('cancel-publish').onclick = () => { document.getElementById('status').textContent = 'Cancelled'; };
+window.__state = () => ({ published, title: q.get('title') });
+</script>
+</body></html>

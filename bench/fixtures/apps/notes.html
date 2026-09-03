@@ -1,0 +1,28 @@
+<!doctype html><html><head><title>Notes</title>
+<style>body{margin:0;font-family:sans-serif;padding:16px} label{display:block;margin:8px 0} textarea{width:420px}</style></head>
+<body>
+<h1>Notes</h1>
+<label>Title <input id="title" value="Untitled"></label>
+<label>Body <textarea id="body" rows="6"></textarea></label>
+<p role="status" id="save-status">All changes saved</p>
+<p><a id="publish" href="publish.html" target="_blank">Publish this note</a></p>
+<p id="saved-view">Last saved: title=Untitled, body=(empty)</p>
+<script>
+let saved = { title: 'Untitled', body: '' }, timer = null, saving = false;
+const vals = () => ({ title: document.getElementById('title').value, body: document.getElementById('body').value });
+const schedule = () => {
+  document.getElementById('save-status').textContent = 'Unsaved changes';
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    document.getElementById('save-status').textContent = 'Saving...'; saving = true;
+    const v = vals();
+    fetch('/slow?ms=1200&r=' + Math.random()).then(r => r.text()).then(() => { saved = v; saving = false;
+      document.getElementById('save-status').textContent = 'Saved'; document.getElementById('saved-view').textContent = 'Last saved: title=' + saved.title + ', body=' + (saved.body || '(empty)'); });
+  }, 1500);   // autosave fires only after 1.5 s idle
+};
+document.getElementById('title').addEventListener('input', schedule);
+document.getElementById('body').addEventListener('input', schedule);
+document.getElementById('publish').addEventListener('click', () => { document.getElementById('publish').href = 'publish.html?title=' + encodeURIComponent(vals().title); });
+window.__state = () => ({ saved, form: vals(), saving, status: document.getElementById('save-status').textContent });
+</script>
+</body></html>

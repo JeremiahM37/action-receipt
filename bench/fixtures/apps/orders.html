@@ -1,0 +1,53 @@
+<!doctype html><html><head><title>Orders</title>
+<style>
+body{margin:0;font-family:sans-serif;padding:16px}
+table{border-collapse:collapse} td,th{border:1px solid #999;padding:4px 10px}
+#orders-box{max-height:none}
+#orders-box.infinite{height:200px;width:560px;overflow:auto;border:1px solid #666}
+</style></head>
+<body>
+<h1>Orders</h1>
+<p><label>Filter by customer <input id="filter" placeholder="name, then press Enter"></label> <label id="size-label">Page size <select id="page-size"><option>8</option><option>16</option><option>32</option></select></label></p>
+<div id="orders-box"><table id="tbl"><thead><tr><th>Order</th><th>Customer</th><th>Status</th><th>Action</th></tr></thead><tbody id="rows"></tbody></table><p id="loading" style="display:none">Loading more...</p></div>
+<p id="pager"></p>
+<p><button id="prepare">Prepare export</button> <button id="export" disabled>Export</button> <span role="status" id="export-status">(prepare the export first)</span></p>
+<p id="shipped-view">Shipped: (none)</p>
+<script>
+const q = new URLSearchParams(location.search);
+const infinite = q.get('infinite') === '1';
+const CUST = ['Alvarez','Brennan','Chen','Dubois','Eriksen','Farah','Garcia','Haddad','Ito','Jensen','Kowalski','Larsen','Moreau','Nakamura','Okafor','Petrov','Quist','Rossi','Okafor','Silva','Tanaka','Ueda','Varga','Weber','Xu','Yilmaz','Zhang','Adeyemi','Bakker','Costa'];
+// customer 'Okafor' must be unique for the filter task: fix the duplicate
+CUST[14] = 'Novak';
+let orders = []; for (let i = 0; i < 30; i++) orders.push({ id: 1001 + i, customer: CUST[i], status: 'pending' });
+let page = 1, filter = '', shipped = [], exported = false, prepared = false, loaded = 8, per = 8;
+if (infinite) { document.getElementById('orders-box').classList.add('infinite'); document.getElementById('size-label').style.display = 'none'; }
+const view = () => orders.filter(o => !filter || o.customer.toLowerCase().includes(filter.toLowerCase()));
+const render = () => {
+  const v = view(); const tb = document.getElementById('rows'); tb.innerHTML = '';
+  let slice;
+  if (infinite) slice = v.slice(0, loaded);
+  else { const pages = Math.max(1, Math.ceil(v.length / per)); if (page > pages) page = pages; slice = v.slice((page - 1) * per, page * per); }
+  for (const o of slice) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td>#' + o.id + '</td><td>' + o.customer + '</td><td>' + o.status + '</td><td><button id="ship-' + o.id + '"' + (o.status === 'shipped' ? ' disabled' : '') + '>' + (o.status === 'shipped' ? 'Shipped' : 'Mark shipped') + '</button></td>';
+    tr.querySelector('button').onclick = () => { o.status = 'shipped'; if (!shipped.includes(o.id)) shipped.push(o.id); render(); };
+    tb.appendChild(tr);
+  }
+  const pg = document.getElementById('pager');
+  if (infinite) pg.textContent = 'Showing ' + slice.length + ' of ' + v.length + ' orders (scroll the list for more)';
+  else { const pages = Math.max(1, Math.ceil(v.length / per)); pg.innerHTML = '<button id="prev"' + (page <= 1 ? ' disabled' : '') + '>Prev</button> <button id="next"' + (page >= pages ? ' disabled' : '') + '>Next</button> page ' + page + ' of ' + pages;
+    document.getElementById('prev').onclick = () => { page--; render(); }; document.getElementById('next').onclick = () => { page++; render(); }; }
+  document.getElementById('shipped-view').textContent = 'Shipped: ' + (shipped.length ? shipped.map(i => '#' + i).join(', ') : '(none)');
+};
+document.getElementById('filter').addEventListener('keydown', e => { if (e.key === 'Enter') { filter = e.target.value.trim(); page = 1; loaded = 8; render(); } });
+document.getElementById('page-size').onchange = e => { per = +e.target.value; page = 1; render(); };
+if (infinite) { const box = document.getElementById('orders-box'); let loading = false;
+  box.addEventListener('scroll', () => { if (loading) return; if (box.scrollTop + box.clientHeight >= box.scrollHeight - 4 && loaded < view().length) { loading = true; document.getElementById('loading').style.display = 'block';
+    setTimeout(() => { loaded += 8; loading = false; document.getElementById('loading').style.display = 'none'; render(); }, 400); } }); }
+document.getElementById('prepare').onclick = () => { if (prepared) return; document.getElementById('export-status').textContent = 'Preparing export...'; document.getElementById('prepare').disabled = true;
+  setTimeout(() => { prepared = true; document.getElementById('export').disabled = false; document.getElementById('export-status').textContent = 'Export ready'; }, 2500); };
+document.getElementById('export').onclick = () => { if (!prepared) return; exported = true; document.getElementById('export-status').textContent = 'Exported orders.csv'; document.getElementById('export').disabled = true; };
+window.__state = () => ({ shipped: shipped.slice(), exported, prepared, page, filter, loaded, per });
+render();
+</script>
+</body></html>

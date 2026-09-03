@@ -1,0 +1,26 @@
+<!doctype html><html><head><title>Deployment log</title>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;font-family:sans-serif}
+body{padding:16px;box-sizing:border-box}
+#panel{height:180px;width:420px;overflow:auto;border:1px solid #666;padding:8px;font-family:monospace;font-size:13px}
+#filler{margin-top:24px;color:#555}
+#panel p{margin:2px 0}
+</style></head>
+<body>
+<h1>Deployment log</h1>
+<p>Read the log to the end to enable acknowledgement.</p>
+<div id="panel" aria-label="log panel"></div>
+<p><button id="ack" disabled>Acknowledge</button> <span id="ack-status">(scroll the log to the bottom to enable)</span></p>
+<p id="filler">Deployment 2026-09-02 to cluster prod-eu. The log above is the complete output of the pipeline.</p>
+<script>
+const panel = document.getElementById('panel');
+let html = '';
+for (let i = 1; i <= 80; i++) html += '<p>[' + String(i).padStart(3, '0') + '] step ' + i + ' ' + (i === 80 ? 'DEPLOYMENT COMPLETE' : 'ok') + '</p>';
+panel.innerHTML = html;
+let acknowledged = false;
+const atBottom = () => Math.ceil(panel.scrollTop + panel.clientHeight) >= panel.scrollHeight - 2;
+panel.addEventListener('scroll', () => { if (atBottom()) { document.getElementById('ack').disabled = false; document.getElementById('ack-status').textContent = '(log read to the end)'; } });
+document.getElementById('ack').onclick = () => { acknowledged = true; document.getElementById('ack-status').textContent = 'Acknowledged'; document.getElementById('ack').disabled = true; };
+window.__state = () => ({ acknowledged, panelAtBottom: atBottom(), panelScrollTop: panel.scrollTop });
+</script>
+</body></html>

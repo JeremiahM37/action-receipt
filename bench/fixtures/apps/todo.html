@@ -1,0 +1,47 @@
+<!doctype html><html><head><title>Todo</title>
+<style>
+body{margin:0;font-family:sans-serif;padding:16px}
+li{margin:4px 0} li.done span{text-decoration:line-through;color:#888}
+#banner{position:fixed;left:0;top:0;width:100%;height:130px;background:#333;color:#fff;display:none;align-items:center;justify-content:center;gap:16px;z-index:10}
+#banner.on{display:flex}
+#whatsnew,#confirm-dlg{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:20}
+#whatsnew.on,#confirm-dlg.on{display:flex}
+#whatsnew .card,#confirm-dlg .card{background:#fff;padding:20px;border-radius:8px}
+</style></head>
+<body>
+<div id="banner"><span>This site uses cookies.</span><button id="accept-cookies">Accept cookies</button></div>
+<div id="whatsnew"><div class="card" role="dialog" aria-modal="true"><h2>What's new</h2><p>Todos can now be completed with one click.</p><button id="close-whatsnew">Close</button></div></div>
+<div id="confirm-dlg"><div class="card" role="dialog" aria-modal="true"><p id="confirm-text">Delete this todo?</p><button id="confirm-del">Delete</button> <button id="cancel-del">Cancel</button></div></div>
+<h1>Todo</h1>
+<p><input id="new-todo" placeholder="New todo"> <button id="add">Add</button></p>
+<ul id="list"></ul>
+<p id="status"></p>
+<script>
+const q = new URLSearchParams(location.search);
+if (q.get('banner') === '1') document.getElementById('banner').classList.add('on');
+if (q.get('modal') === '1') document.getElementById('whatsnew').classList.add('on');
+const confirmMode = q.get('confirm') === '1'; let pendingDelete = null;
+if (q.get('enter') === '1') { document.getElementById('add').remove(); document.getElementById('new-todo').placeholder = 'New todo (press Enter)'; }
+let items = [{ text: 'Buy bread', done: false }, { text: 'Call mom', done: false }];
+const render = () => {
+  const ul = document.getElementById('list'); ul.innerHTML = '';
+  items.forEach((it, i) => {
+    const li = document.createElement('li'); li.id = 'item-' + (i + 1); if (it.done) li.className = 'done';
+    li.innerHTML = '<input type="checkbox" id="item-' + (i + 1) + '-done"' + (it.done ? ' checked' : '') + '> <span>' + it.text + '</span> <button id="item-' + (i + 1) + '-del">Delete</button>';
+    li.querySelector('input').onchange = (e) => { it.done = e.target.checked; render(); };
+    li.querySelector('button').onclick = () => { if (confirmMode) { pendingDelete = i; document.getElementById('confirm-text').textContent = "Delete '" + it.text + "'?"; document.getElementById('confirm-dlg').classList.add('on'); return; } items.splice(i, 1); render(); };
+    ul.appendChild(li);
+  });
+  document.getElementById('status').textContent = items.length + ' items, ' + items.filter(i => i.done).length + ' done';
+};
+const add = () => { const inp = document.getElementById('new-todo'); const t = inp.value.trim(); if (!t) return; items.push({ text: t, done: false }); inp.value = ''; render(); };
+if (document.getElementById('add')) document.getElementById('add').onclick = add;
+document.getElementById('close-whatsnew').onclick = () => document.getElementById('whatsnew').classList.remove('on');
+document.getElementById('confirm-del').onclick = () => { if (pendingDelete !== null) items.splice(pendingDelete, 1); pendingDelete = null; document.getElementById('confirm-dlg').classList.remove('on'); render(); };
+document.getElementById('cancel-del').onclick = () => { pendingDelete = null; document.getElementById('confirm-dlg').classList.remove('on'); };
+document.getElementById('new-todo').addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
+document.getElementById('accept-cookies').onclick = () => document.getElementById('banner').classList.remove('on');
+window.__state = () => ({ items: items.map(i => ({ text: i.text, done: i.done })), banner: document.getElementById('banner').classList.contains('on'), modal: document.getElementById('whatsnew').classList.contains('on'), confirmOpen: document.getElementById('confirm-dlg').classList.contains('on') });
+render();
+</script>
+</body></html>
