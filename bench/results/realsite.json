@@ -1,0 +1,225 @@
+{
+ "env": {
+  "date_utc": "2026-09-02T20:15:42+00:00",
+  "python": "3.13.5",
+  "playwright": "1.62.0",
+  "mcp": "2.1.1",
+  "platform": "Linux-6.17.13-2-pve-x86_64-with-glibc2.41",
+  "kernel": "6.17.13-2-pve",
+  "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+  "cpu_count": 32,
+  "mem_gb": 123.5,
+  "git_head": "a8899b5",
+  "lib_hash": "4de1b059b50c",
+  "git_dirty": true,
+  "loadavg": "2.67 3.68 3.94 3/2424 1108977",
+  "chromium": "151.0.7922.34",
+  "date_run": "2026-09-02T20:15:42+00:00"
+ },
+ "rows": [
+  {
+   "page": "Wikipedia article",
+   "url": "https://en.wikipedia.org/wiki/Web_browser",
+   "elements": 4186,
+   "action": "scroll {'direction': 'down', 'pages': 1.0}",
+   "verdict": "changed",
+   "evidence": [
+    "window_scrolled: dx=0 dy=800",
+    "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+    "screenshot_changed: 0.316 of pixels, dhash distance 22"
+   ],
+   "hint": null,
+   "settled_by": "dom",
+   "settle_ms": 133,
+   "timed_out": false,
+   "busy_at_timeout": [],
+   "total_ms": 451,
+   "capture_ms": 132,
+   "dispatch_error": null
+  },
+  {
+   "page": "Wikipedia article",
+   "url": "https://en.wikipedia.org/wiki/Web_browser",
+   "elements": 4186,
+   "action": "type {'selector': '#searchInput, input[type=search]', 'text': 'Firefox'}",
+   "verdict": "changed",
+   "evidence": [
+    "window_scrolled: dx=0 dy=-800",
+    "value_changed: '' -> 'Firefox'",
+    "focus_changed: None -> form#searchform>div:nth-of-type(1)>div:nth-of-type(1)>div:nth-of-type(1)>input:nth-of-type(1)",
+    "dom_changed: 162 nodes (+12 -10 ~10 listed)"
+   ],
+   "hint": null,
+   "settled_by": "dom",
+   "settle_ms": 638,
+   "timed_out": false,
+   "busy_at_timeout": [],
+   "total_ms": 916,
+   "capture_ms": 113,
+   "dispatch_error": null
+  },
+  {
+   "page": "MDN reference page",
+   "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement",
+   "elements": 1535,
+   "action": "scroll {'direction': 'down', 'pages': 1.0}",
+   "verdict": "changed",
+   "evidence": [
+    "window_scrolled: dx=0 dy=800",
+    "dom_changed: 30 nodes (+12 -0 ~1 listed)",
+    "screenshot_changed: 0.273 of pixels, dhash distance 13"
+   ],
+   "hint": null,
+   "settled_by": "scroll",
+   "settle_ms": 131,
+   "timed_out": false,
+   "busy_at_timeout": [],
+   "total_ms": 935,
+   "capture_ms": 391,
+   "dispatch_error": null
+  },
+  {
+   "page": "MDN reference page",
+   "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement",
+   "elements": 1535,
+   "action": "click {'selector': \"a[href='/en-US/docs/Web/API']\"}",
+   "verdict": "blocked",
+   "evidence": [
+    "target_not_visible: div#uid_dojvkwxu816>p:nth-of-type(1)>a:nth-of-type(1)",
+    "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not visible)"
+   ],
+   "hint": "the element exists but is not rendered; open its container, hover the menu that reveals it, or scroll it into view first",
+   "settled_by": "quiet_window",
+   "settle_ms": 1,
+   "timed_out": false,
+   "busy_at_timeout": [],
+   "total_ms": 1118,
+   "capture_ms": 390,
+   "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not visible)"
+  },
+  {
+   "page": "Hacker News front page",
+   "url": "https://news.ycombinator.com/",
+   "elements": 810,
+   "action": "scroll {'direction': 'down', 'pages': 1.0}",
+   "verdict": "changed",
+   "evidence": [
+    "window_scrolled: dx=0 dy=379",
+    "screenshot_changed: 0.103 of pixels, dhash distance 4"
+   ],
+   "hint": null,
+   "settled_by": "scroll",
+   "settle_ms": 121,
+   "timed_out": false,
+   "busy_at_timeout": [],
+   "total_ms": 269,
+   "capture_ms": 64,
+   "dispatch_error": null
+  },
+  {
+   "page": "Hacker News front page",
+   "url": "https://news.ycombinator.com/",
+   "elements": 810,
+   "action": "click {'selector': 'a.morelink'}",
+   "verdict": "navigated",
+   "evidence": [
+    "url_changed: https://news.ycombinator.com/ -> https://news.ycombinator.com/?p=2",
+    "navigation_events: 1 (cross-document: 1)",
+    "window_scrolled: dx=0 dy=-379",
+    "dom_changed: 1021 nodes (+12 -12 ~12 listed)"
+   ],
+   "hint": null,
+   "settled_by": "dom",
+   "settle_ms": 117,
+   "timed_out": false,
+   "busy_at_timeout": [],
+   "total_ms": 402,
+   "capture_ms": 84,
+   "dispatch_error": null
+  },
+  {
+   "page": "GitHub repo page",
+   "url": "https://github.com/microsoft/playwright",
+   "elements": 2909,
+   "action": "scroll {'direction': 'down', 'pages': 1.0}",
+   "verdict": "changed",
+   "evidence": [
+    "never_settled: still busy ['animations'] after 10001ms (timeout 10000ms)",
+    "window_scrolled: dx=0 dy=800",
+    "screenshot_changed: 0.293 of pixels, dhash distance 18"
+   ],
+   "hint": "the page never went quiet (permanent background activity); the listed changes may include that activity rather than the action's effect - compare the changed nodes against what the action targeted",
+   "settled_by": "animations",
+   "settle_ms": 10001,
+   "timed_out": true,
+   "busy_at_timeout": [
+    "animations"
+   ],
+   "total_ms": 10297,
+   "capture_ms": 144,
+   "dispatch_error": null
+  },
+  {
+   "page": "GitHub repo page",
+   "url": "https://github.com/microsoft/playwright",
+   "elements": 2909,
+   "action": "click {'selector': \"a#issues-tab, a[href='/microsoft/playwright/issues']\"}",
+   "verdict": "navigated",
+   "evidence": [
+    "url_changed: https://github.com/microsoft/playwright -> https://github.com/microsoft/playwright/issues",
+    "navigation_events: 4 (cross-document: 0)",
+    "title_changed",
+    "window_scrolled: dx=0 dy=-800"
+   ],
+   "hint": null,
+   "settled_by": "network",
+   "settle_ms": 2221,
+   "timed_out": false,
+   "busy_at_timeout": [],
+   "total_ms": 2664,
+   "capture_ms": 177,
+   "dispatch_error": null
+  },
+  {
+   "page": "httpbin HTML form",
+   "url": "https://httpbin.org/forms/post",
+   "elements": 46,
+   "action": "type {'selector': 'input[name=custname]', 'text': 'Ada'}",
+   "verdict": "changed",
+   "evidence": [
+    "value_changed: '' -> 'Ada'",
+    "focus_changed: None -> html>body:nth-of-type(1)>form:nth-of-type(1)>p:nth-of-type(1)>label:nth-of-type(1)>input:nth-of-type(1)",
+    "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+    "screenshot_changed: 0.003 of pixels, dhash distance 0"
+   ],
+   "hint": null,
+   "settled_by": "quiet_window",
+   "settle_ms": 105,
+   "timed_out": false,
+   "busy_at_timeout": [],
+   "total_ms": 190,
+   "capture_ms": 32,
+   "dispatch_error": null
+  },
+  {
+   "page": "httpbin HTML form",
+   "url": "https://httpbin.org/forms/post",
+   "elements": 46,
+   "action": "click {'selector': 'input[value=medium]'}",
+   "verdict": "changed",
+   "evidence": [
+    "focus_changed: html>body:nth-of-type(1)>form:nth-of-type(1)>p:nth-of-type(1)>label:nth-of-type(1)>input:nth-of-type(1) -> html>body:nth-of-type(1)>form:nth-of-type(1)>fieldset:nth-of-type(1)>p:nth-of-type(2)>label:nth-of-type(1)>input:nth-of-type(1)",
+    "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+    "screenshot_changed: 0.003 of pixels, dhash distance 0"
+   ],
+   "hint": null,
+   "settled_by": "quiet_window",
+   "settle_ms": 107,
+   "timed_out": false,
+   "busy_at_timeout": [],
+   "total_ms": 184,
+   "capture_ms": 32,
+   "dispatch_error": null
+  }
+ ]
+}

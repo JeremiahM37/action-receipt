@@ -1,0 +1,4475 @@
+{
+ "env": {
+  "date_utc": "2026-09-03T09:01:57+00:00",
+  "python": "3.13.5",
+  "playwright": "1.62.0",
+  "mcp": "2.1.1",
+  "platform": "Linux-6.17.13-2-pve-x86_64-with-glibc2.41",
+  "kernel": "6.17.13-2-pve",
+  "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+  "cpu_count": 32,
+  "mem_gb": 123.5,
+  "git_head": "1b6119c",
+  "lib_hash": "6d4eae52879e",
+  "git_dirty": true,
+  "loadavg": "4.64 4.37 4.06 7/2478 1943839",
+  "chromium": "151.0.7922.34",
+  "repeats": 3,
+  "quiet_ms": 100,
+  "settle_timeout_ms": 3000,
+  "prescroll": false
+ },
+ "summary": {
+  "matrix": {
+   "changed": {
+    "changed": 99,
+    "no_op": 0,
+    "navigated": 0,
+    "blocked": 0,
+    "unknown": 0,
+    "ERROR": 0
+   },
+   "no_op": {
+    "changed": 0,
+    "no_op": 78,
+    "navigated": 0,
+    "blocked": 0,
+    "unknown": 0,
+    "ERROR": 0
+   },
+   "navigated": {
+    "changed": 0,
+    "no_op": 0,
+    "navigated": 33,
+    "blocked": 0,
+    "unknown": 0,
+    "ERROR": 0
+   },
+   "blocked": {
+    "changed": 0,
+    "no_op": 0,
+    "navigated": 0,
+    "blocked": 27,
+    "unknown": 0,
+    "ERROR": 0
+   },
+   "unknown": {
+    "changed": 0,
+    "no_op": 0,
+    "navigated": 0,
+    "blocked": 0,
+    "unknown": 0,
+    "ERROR": 0
+   }
+  },
+  "accuracy": 1.0,
+  "hard_accuracy": 1.0,
+  "flaky_cases": 0,
+  "misses": []
+ },
+ "cases": [
+  {
+   "id": "c01",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#counter"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 102,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 117,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c09",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#checkbox"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> input#checkbox",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0003348214285714286
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> input#checkbox",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0003348214285714286
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> input#checkbox",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 94,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0003348214285714286
+    }
+   ]
+  },
+  {
+   "id": "c11",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#radio-b"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> input#radio-b",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.000390625
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> input#radio-b",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 70,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.000390625
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> input#radio-b",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 90,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.000390625
+    }
+   ]
+  },
+  {
+   "id": "c12",
+   "page": "acc/controls.html",
+   "action": "press",
+   "args": {
+    "key": "ArrowDown",
+    "selector": "#select"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "value_changed: 'one' -> 'two'",
+      "focus_changed: None -> select#select",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0012276785714285714
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "value_changed: 'one' -> 'two'",
+      "focus_changed: None -> select#select",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0012276785714285714
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "value_changed: 'one' -> 'two'",
+      "focus_changed: None -> select#select",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0012276785714285714
+    }
+   ]
+  },
+  {
+   "id": "c13",
+   "page": "acc/controls.html",
+   "action": "type",
+   "args": {
+    "selector": "#text",
+    "text": "hello"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "value_changed: '' -> 'hello'",
+      "focus_changed: None -> input#text",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "screenshot_changed: 0.004 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 96,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.004185267857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "value_changed: '' -> 'hello'",
+      "focus_changed: None -> input#text",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "screenshot_changed: 0.004 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 96,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.004185267857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "value_changed: '' -> 'hello'",
+      "focus_changed: None -> input#text",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "screenshot_changed: 0.004 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 92,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.004185267857142857
+    }
+   ]
+  },
+  {
+   "id": "c16",
+   "page": "acc/controls.html",
+   "action": "type",
+   "args": {
+    "selector": "#textarea",
+    "text": "hello"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "value_changed: '' -> 'hello'",
+      "focus_changed: None -> textarea#textarea",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "screenshot_changed: 0.005 of pixels, dhash distance 2"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 92,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0046875
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "value_changed: '' -> 'hello'",
+      "focus_changed: None -> textarea#textarea",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "screenshot_changed: 0.005 of pixels, dhash distance 2"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 95,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0046875
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "value_changed: '' -> 'hello'",
+      "focus_changed: None -> textarea#textarea",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "screenshot_changed: 0.005 of pixels, dhash distance 2"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 94,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0046875
+    }
+   ]
+  },
+  {
+   "id": "c17",
+   "page": "acc/controls.html",
+   "action": "type",
+   "args": {
+    "selector": "#ce",
+    "text": "hello"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "contenteditable",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "value_changed: '' -> 'hello'",
+      "focus_changed: None -> div#ce",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed",
+      "screenshot_changed: 0.005 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 121,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.004520089285714286
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "value_changed: '' -> 'hello'",
+      "focus_changed: None -> div#ce",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed",
+      "screenshot_changed: 0.005 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 107,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.004520089285714286
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "value_changed: '' -> 'hello'",
+      "focus_changed: None -> div#ce",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed",
+      "screenshot_changed: 0.005 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.004520089285714286
+    }
+   ]
+  },
+  {
+   "id": "c21",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#summary"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "<details> toggle",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> summary#summary",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed",
+      "screenshot_changed: 0.010 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.010100446428571429
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> summary#summary",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed",
+      "screenshot_changed: 0.010 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 116,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.010100446428571429
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> summary#summary",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed",
+      "screenshot_changed: 0.010 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.010100446428571429
+    }
+   ]
+  },
+  {
+   "id": "c22",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#tab2"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "aria-selected flips",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#tab2",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0009486607142857143
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#tab2",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0009486607142857143
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#tab2",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 116,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0009486607142857143
+    }
+   ]
+  },
+  {
+   "id": "c24",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#dropdown"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "class toggle shows a menu",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#dropdown",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed",
+      "screenshot_changed: 0.003 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 123,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0025669642857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#dropdown",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed",
+      "screenshot_changed: 0.003 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0025669642857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#dropdown",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed",
+      "screenshot_changed: 0.003 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0025669642857142857
+    }
+   ]
+  },
+  {
+   "id": "c25",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#alert"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "JS alert",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#alert",
+      "js_dialog: ['alert:hello from alert']"
+     ],
+     "hint": "a JavaScript alert was shown and accepted automatically",
+     "settled_by": "quiet_window",
+     "settle_ms": 100,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#alert",
+      "js_dialog: ['alert:hello from alert']"
+     ],
+     "hint": "a JavaScript alert was shown and accepted automatically",
+     "settled_by": "quiet_window",
+     "settle_ms": 90,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#alert",
+      "js_dialog: ['alert:hello from alert']"
+     ],
+     "hint": "a JavaScript alert was shown and accepted automatically",
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c26",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#confirm"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "JS confirm, auto-accepted",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#confirm",
+      "js_dialog: ['confirm:sure?']",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": "a JavaScript confirm was shown and accepted automatically",
+     "settled_by": "dom",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0012276785714285714
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#confirm",
+      "js_dialog: ['confirm:sure?']",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": "a JavaScript confirm was shown and accepted automatically",
+     "settled_by": "dom",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0012276785714285714
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#confirm",
+      "js_dialog: ['confirm:sure?']",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": "a JavaScript confirm was shown and accepted automatically",
+     "settled_by": "dom",
+     "settle_ms": 111,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0012276785714285714
+    }
+   ]
+  },
+  {
+   "id": "c27",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#modal"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#modal",
+      "modal_opened: ['div#dlg']",
+      "dom_changed: 4 nodes (+0 -0 ~4 listed)",
+      "text_changed",
+      "screenshot_changed: 0.987 of pixels, dhash distance 12"
+     ],
+     "hint": "a modal opened (div#dlg); interact with it or close it before continuing",
+     "settled_by": "dom",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.9869977678571429
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#modal",
+      "modal_opened: ['div#dlg']",
+      "dom_changed: 4 nodes (+0 -0 ~4 listed)",
+      "text_changed",
+      "screenshot_changed: 0.987 of pixels, dhash distance 12"
+     ],
+     "hint": "a modal opened (div#dlg); interact with it or close it before continuing",
+     "settled_by": "dom",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.9869977678571429
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#modal",
+      "modal_opened: ['div#dlg']",
+      "dom_changed: 4 nodes (+0 -0 ~4 listed)",
+      "text_changed",
+      "screenshot_changed: 0.987 of pixels, dhash distance 12"
+     ],
+     "hint": "a modal opened (div#dlg); interact with it or close it before continuing",
+     "settled_by": "dom",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.9869977678571429
+    }
+   ]
+  },
+  {
+   "id": "c28",
+   "page": "acc/controls.html",
+   "action": "press",
+   "args": {
+    "key": "Escape"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": "document.getElementById('overlay').classList.add('on')",
+   "note": "Escape closes the modal",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "modal_closed: ['div#dlg']",
+      "dom_changed: 4 nodes (+0 -0 ~4 listed)",
+      "text_changed",
+      "screenshot_changed: 0.987 of pixels, dhash distance 12"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.9869977678571429
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "modal_closed: ['div#dlg']",
+      "dom_changed: 4 nodes (+0 -0 ~4 listed)",
+      "text_changed",
+      "screenshot_changed: 0.987 of pixels, dhash distance 12"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.9869977678571429
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "modal_closed: ['div#dlg']",
+      "dom_changed: 4 nodes (+0 -0 ~4 listed)",
+      "text_changed",
+      "screenshot_changed: 0.987 of pixels, dhash distance 12"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.9869977678571429
+    }
+   ]
+  },
+  {
+   "id": "c29",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#close-modal"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": "document.getElementById('overlay').classList.add('on')",
+   "note": "",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "modal_closed: ['div#dlg']",
+      "dom_changed: 4 nodes (+0 -0 ~4 listed)",
+      "text_changed",
+      "screenshot_changed: 0.987 of pixels, dhash distance 12"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.9869977678571429
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "modal_closed: ['div#dlg']",
+      "dom_changed: 4 nodes (+0 -0 ~4 listed)",
+      "text_changed",
+      "screenshot_changed: 0.987 of pixels, dhash distance 12"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 121,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.9869977678571429
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "modal_closed: ['div#dlg']",
+      "dom_changed: 4 nodes (+0 -0 ~4 listed)",
+      "text_changed",
+      "screenshot_changed: 0.987 of pixels, dhash distance 12"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 117,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.9869977678571429
+    }
+   ]
+  },
+  {
+   "id": "c30",
+   "page": "acc/controls.html",
+   "action": "press",
+   "args": {
+    "key": "Tab"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "focus moves; counts for press",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "screenshot_changed: 0.002 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 119,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.002232142857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "screenshot_changed: 0.002 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.002232142857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "screenshot_changed: 0.002 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.002232142857142857
+    }
+   ]
+  },
+  {
+   "id": "c36",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#hash-plain"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "href='#': URL fragment changes",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "url_fragment_changed: http://127.0.0.1:36729/acc/controls.html#",
+      "navigation_events: 1 (cross-document: 0)",
+      "window_scrolled: dx=0 dy=-356",
+      "focus_changed: None -> a#hash-plain",
+      "screenshot_changed: 0.083 of pixels, dhash distance 7",
+      "scrolled_into_view_before_capture: dx=0 dy=356 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 119,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0828125
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "url_fragment_changed: http://127.0.0.1:36729/acc/controls.html#",
+      "navigation_events: 1 (cross-document: 0)",
+      "window_scrolled: dx=0 dy=-356",
+      "focus_changed: None -> a#hash-plain",
+      "screenshot_changed: 0.083 of pixels, dhash distance 7",
+      "scrolled_into_view_before_capture: dx=0 dy=356 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 133,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0828125
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "url_fragment_changed: http://127.0.0.1:36729/acc/controls.html#",
+      "navigation_events: 1 (cross-document: 0)",
+      "window_scrolled: dx=0 dy=-356",
+      "focus_changed: None -> a#hash-plain",
+      "screenshot_changed: 0.083 of pixels, dhash distance 7",
+      "scrolled_into_view_before_capture: dx=0 dy=356 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 118,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0828125
+    }
+   ]
+  },
+  {
+   "id": "c37",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#slow"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "800 ms fetch then DOM write",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#slow",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed",
+      "screenshot_changed: 0.002 of pixels, dhash distance 0",
+      "scrolled_into_view_before_capture: dx=0 dy=382 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 912,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0023995535714285716
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#slow",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed",
+      "screenshot_changed: 0.002 of pixels, dhash distance 0",
+      "scrolled_into_view_before_capture: dx=0 dy=382 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 927,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0023995535714285716
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#slow",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed",
+      "screenshot_changed: 0.002 of pixels, dhash distance 0",
+      "scrolled_into_view_before_capture: dx=0 dy=382 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 926,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0023995535714285716
+    }
+   ]
+  },
+  {
+   "id": "c38",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#delayed-50"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "setTimeout 50 ms",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#delayed-50",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed",
+      "screenshot_changed: 0.004 of pixels, dhash distance 1",
+      "scrolled_into_view_before_capture: dx=0 dy=409 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 159,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003515625
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#delayed-50",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed",
+      "screenshot_changed: 0.004 of pixels, dhash distance 1",
+      "scrolled_into_view_before_capture: dx=0 dy=409 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 161,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003515625
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#delayed-50",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed",
+      "screenshot_changed: 0.004 of pixels, dhash distance 1",
+      "scrolled_into_view_before_capture: dx=0 dy=409 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 166,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003515625
+    }
+   ]
+  },
+  {
+   "id": "c39",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#delayed-300"
+   },
+   "expect": "changed",
+   "tag": "hard-positive",
+   "setup": null,
+   "note": "setTimeout 300 ms, nothing keeps the page busy - documented limitation",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#delayed-300",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed",
+      "scrolled_into_view_before_capture: dx=0 dy=409 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 415,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0012834821428571429
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#delayed-300",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed",
+      "scrolled_into_view_before_capture: dx=0 dy=409 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 410,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0012834821428571429
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#delayed-300",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed",
+      "scrolled_into_view_before_capture: dx=0 dy=409 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 413,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0012834821428571429
+    }
+   ]
+  },
+  {
+   "id": "c40",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#canvas"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "canvas paint: screenshot only",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "screenshot_changed: 0.055 of pixels, dhash distance 4",
+      "scrolled_into_view_before_capture: dx=0 dy=487 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 95,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0546875
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "screenshot_changed: 0.055 of pixels, dhash distance 4",
+      "scrolled_into_view_before_capture: dx=0 dy=487 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0546875
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "screenshot_changed: 0.055 of pixels, dhash distance 4",
+      "scrolled_into_view_before_capture: dx=0 dy=487 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "quiet_window",
+     "settle_ms": 93,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0546875
+    }
+   ]
+  },
+  {
+   "id": "c44",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#submit-mark"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "JS validation adds a class",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#submit-mark",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "screenshot_changed: 0.003 of pixels, dhash distance 0",
+      "scrolled_into_view_before_capture: dx=0 dy=649 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003404017857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#submit-mark",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "screenshot_changed: 0.003 of pixels, dhash distance 0",
+      "scrolled_into_view_before_capture: dx=0 dy=649 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003404017857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#submit-mark",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "screenshot_changed: 0.003 of pixels, dhash distance 0",
+      "scrolled_into_view_before_capture: dx=0 dy=649 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003404017857142857
+    }
+   ]
+  },
+  {
+   "id": "c45",
+   "page": "acc/controls.html",
+   "action": "scroll",
+   "args": {
+    "direction": "down"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "controls page is taller than the viewport",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "window_scrolled: dx=0 dy=658",
+      "screenshot_changed: 0.079 of pixels, dhash distance 18"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 134,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.078515625
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "window_scrolled: dx=0 dy=658",
+      "screenshot_changed: 0.079 of pixels, dhash distance 18"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 136,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.078515625
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "window_scrolled: dx=0 dy=658",
+      "screenshot_changed: 0.079 of pixels, dhash distance 18"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 138,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.078515625
+    }
+   ]
+  },
+  {
+   "id": "c02",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#noop"
+   },
+   "expect": "no_op",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (91ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (92ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 92,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (87ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 87,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c10",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#radio-a"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "radio already checked",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> input#radio-a (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to input#radio-a but nothing observable changed within the settle window (99ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 99,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> input#radio-a (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to input#radio-a but nothing observable changed within the settle window (98ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 98,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> input#radio-a (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to input#radio-a but nothing observable changed within the settle window (96ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 96,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c15",
+   "page": "acc/controls.html",
+   "action": "type",
+   "args": {
+    "selector": "#full",
+    "text": "x"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "maxlength reached: keystrokes rejected",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> input#full (not counted as an effect for type)"
+     ],
+     "hint": "value did not change; the element may not be the editable control (check for a wrapper div), may be readonly, or an input mask rejected the text",
+     "settled_by": "quiet_window",
+     "settle_ms": 117,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003627232142857143
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> input#full (not counted as an effect for type)"
+     ],
+     "hint": "value did not change; the element may not be the editable control (check for a wrapper div), may be readonly, or an input mask rejected the text",
+     "settled_by": "quiet_window",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003627232142857143
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> input#full (not counted as an effect for type)"
+     ],
+     "hint": "value did not change; the element may not be the editable control (check for a wrapper div), may be readonly, or an input mask rejected the text",
+     "settled_by": "quiet_window",
+     "settle_ms": 115,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003627232142857143
+    }
+   ]
+  },
+  {
+   "id": "c19",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#hover"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "cosmetic: :hover colour only, no handler",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#hover (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#hover but nothing observable changed within the settle window (95ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 95,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.004743303571428571
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#hover (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#hover but nothing observable changed within the settle window (96ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 96,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.004743303571428571
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#hover (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#hover but nothing observable changed within the settle window (98ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 98,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.004743303571428571
+    }
+   ]
+  },
+  {
+   "id": "c20",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#hover-huge"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "cosmetic: :hover colour on a 320px block (>2% of pixels)",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "scrolled_into_view_before_capture: dx=0 dy=658 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": "click was delivered to div#hover-huge but nothing observable changed within the settle window (90ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 90,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "scrolled_into_view_before_capture: dx=0 dy=658 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": "click was delivered to div#hover-huge but nothing observable changed within the settle window (92ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 92,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "scrolled_into_view_before_capture: dx=0 dy=658 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)"
+     ],
+     "hint": "click was delivered to div#hover-huge but nothing observable changed within the settle window (93ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 93,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c23",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#tab1"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "tab already selected",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#tab1 (not counted as an effect for click)",
+      "dom_mutated_without_fingerprint_change: 2 mutations observed but the DOM fingerprint is identical (same-content re-render)"
+     ],
+     "hint": "click was delivered to button#tab1 but nothing observable changed within the settle window (113ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click; the DOM re-rendered to identical content, so the handler did run",
+     "settled_by": "dom",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#tab1 (not counted as an effect for click)",
+      "dom_mutated_without_fingerprint_change: 2 mutations observed but the DOM fingerprint is identical (same-content re-render)"
+     ],
+     "hint": "click was delivered to button#tab1 but nothing observable changed within the settle window (109ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click; the DOM re-rendered to identical content, so the handler did run",
+     "settled_by": "dom",
+     "settle_ms": 109,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#tab1 (not counted as an effect for click)",
+      "dom_mutated_without_fingerprint_change: 2 mutations observed but the DOM fingerprint is identical (same-content re-render)"
+     ],
+     "hint": "click was delivered to button#tab1 but nothing observable changed within the settle window (115ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click; the DOM re-rendered to identical content, so the handler did run",
+     "settled_by": "dom",
+     "settle_ms": 115,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c31",
+   "page": "acc/controls.html",
+   "action": "press",
+   "args": {
+    "key": "Enter"
+   },
+   "expect": "no_op",
+   "tag": "",
+   "setup": null,
+   "note": "nothing focused",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "key 'Enter' produced no observable change; check that the intended element has focus",
+     "settled_by": "quiet_window",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "key 'Enter' produced no observable change; check that the intended element has focus",
+     "settled_by": "quiet_window",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "key 'Enter' produced no observable change; check that the intended element has focus",
+     "settled_by": "quiet_window",
+     "settle_ms": 111,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c32",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#para"
+   },
+   "expect": "no_op",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "click was delivered to p#para but nothing observable changed within the settle window (112ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "click was delivered to p#para but nothing observable changed within the settle window (91ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "click was delivered to p#para but nothing observable changed within the settle window (89ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 89,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c33",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#h1"
+   },
+   "expect": "no_op",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "click was delivered to h1#h1 but nothing observable changed within the settle window (90ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 90,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "click was delivered to h1#h1 but nothing observable changed within the settle window (100ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 100,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "click was delivered to h1#h1 but nothing observable changed within the settle window (98ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 98,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c34",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#js-void"
+   },
+   "expect": "no_op",
+   "tag": "",
+   "setup": null,
+   "note": "javascript:void(0) link",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "scrolled_into_view_before_capture: dx=0 dy=356 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)",
+      "focus_moved_only: None -> a#js-void (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to a#js-void but nothing observable changed within the settle window (102ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 102,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "scrolled_into_view_before_capture: dx=0 dy=356 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)",
+      "focus_moved_only: None -> a#js-void (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to a#js-void but nothing observable changed within the settle window (91ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "scrolled_into_view_before_capture: dx=0 dy=356 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)",
+      "focus_moved_only: None -> a#js-void (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to a#js-void but nothing observable changed within the settle window (92ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 92,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c35",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#hash-pd"
+   },
+   "expect": "no_op",
+   "tag": "",
+   "setup": null,
+   "note": "href='#' with preventDefault",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "scrolled_into_view_before_capture: dx=0 dy=356 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)",
+      "focus_moved_only: None -> a#hash-pd (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to a#hash-pd but nothing observable changed within the settle window (98ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 98,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "scrolled_into_view_before_capture: dx=0 dy=356 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)",
+      "focus_moved_only: None -> a#hash-pd (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to a#hash-pd but nothing observable changed within the settle window (94ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 94,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "scrolled_into_view_before_capture: dx=0 dy=356 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)",
+      "focus_moved_only: None -> a#hash-pd (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to a#hash-pd but nothing observable changed within the settle window (92ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 92,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c41",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#submit-required"
+   },
+   "expect": "blocked",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "HTML5 required-field validation blocks submit; no DOM change (F10: the browser's refusal is `blocked` with the field named, was labelled no_op)",
+   "trials": [
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "form_validation_blocked: 1 control(s) rejected by the browser's constraint validation: input#req (valueMissing: \"Please fill out this field.\")",
+      "scrolled_into_view_before_capture: dx=0 dy=568 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)",
+      "focus_moved_only: None -> input#req (focus moved to the first invalid control; not counted as an effect for click)",
+      "screenshot_changed_weak: 0.004 of pixels, dhash distance 2 (the native validation bubble, which is not in the DOM; not counted as an effect for click)"
+     ],
+     "hint": "form validation blocked the submit: input#req (valueMissing: \"Please fill out this field.\"); fill that field and retry",
+     "settled_by": "quiet_window",
+     "settle_ms": 98,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003794642857142857
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "form_validation_blocked: 1 control(s) rejected by the browser's constraint validation: input#req (valueMissing: \"Please fill out this field.\")",
+      "scrolled_into_view_before_capture: dx=0 dy=568 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)",
+      "focus_moved_only: None -> input#req (focus moved to the first invalid control; not counted as an effect for click)",
+      "screenshot_changed_weak: 0.004 of pixels, dhash distance 2 (the native validation bubble, which is not in the DOM; not counted as an effect for click)"
+     ],
+     "hint": "form validation blocked the submit: input#req (valueMissing: \"Please fill out this field.\"); fill that field and retry",
+     "settled_by": "quiet_window",
+     "settle_ms": 71,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003794642857142857
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "form_validation_blocked: 1 control(s) rejected by the browser's constraint validation: input#req (valueMissing: \"Please fill out this field.\")",
+      "scrolled_into_view_before_capture: dx=0 dy=568 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)",
+      "focus_moved_only: None -> input#req (focus moved to the first invalid control; not counted as an effect for click)",
+      "screenshot_changed_weak: 0.004 of pixels, dhash distance 2 (the native validation bubble, which is not in the DOM; not counted as an effect for click)"
+     ],
+     "hint": "form validation blocked the submit: input#req (valueMissing: \"Please fill out this field.\"); fill that field and retry",
+     "settled_by": "quiet_window",
+     "settle_ms": 93,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003794642857142857
+    }
+   ]
+  },
+  {
+   "id": "c43",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#submit-silent"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "onsubmit returns false silently",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "scrolled_into_view_before_capture: dx=0 dy=622 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)",
+      "focus_moved_only: None -> button#submit-silent (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#submit-silent but nothing observable changed within the settle window (90ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 90,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "scrolled_into_view_before_capture: dx=0 dy=622 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)",
+      "focus_moved_only: None -> button#submit-silent (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#submit-silent but nothing observable changed within the settle window (91ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "scrolled_into_view_before_capture: dx=0 dy=622 (the target was brought into view before the before-capture, so the dispatcher's scroll is not part of the delta)",
+      "focus_moved_only: None -> button#submit-silent (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#submit-silent but nothing observable changed within the settle window (92ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 92,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c03",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#disabled"
+   },
+   "expect": "blocked",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_disabled: button#disabled",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not enabled)"
+     ],
+     "hint": "the control is disabled; satisfy whatever enables it (fill required fields, wait for load) before clicking",
+     "settled_by": "quiet_window",
+     "settle_ms": 3,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not enabled)",
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_disabled: button#disabled",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not enabled)"
+     ],
+     "hint": "the control is disabled; satisfy whatever enables it (fill required fields, wait for load) before clicking",
+     "settled_by": "quiet_window",
+     "settle_ms": 3,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not enabled)",
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_disabled: button#disabled",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not enabled)"
+     ],
+     "hint": "the control is disabled; satisfy whatever enables it (fill required fields, wait for load) before clicking",
+     "settled_by": "quiet_window",
+     "settle_ms": 3,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not enabled)",
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c04",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#aria-disabled"
+   },
+   "expect": "blocked",
+   "tag": "",
+   "setup": null,
+   "note": "aria-disabled=true",
+   "trials": [
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_disabled: button#aria-disabled",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not enabled)"
+     ],
+     "hint": "the control is disabled; satisfy whatever enables it (fill required fields, wait for load) before clicking",
+     "settled_by": "quiet_window",
+     "settle_ms": 3,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not enabled)",
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_disabled: button#aria-disabled",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not enabled)"
+     ],
+     "hint": "the control is disabled; satisfy whatever enables it (fill required fields, wait for load) before clicking",
+     "settled_by": "quiet_window",
+     "settle_ms": 3,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not enabled)",
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_disabled: button#aria-disabled",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not enabled)"
+     ],
+     "hint": "the control is disabled; satisfy whatever enables it (fill required fields, wait for load) before clicking",
+     "settled_by": "quiet_window",
+     "settle_ms": 4,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not enabled)",
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c05",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#covered"
+   },
+   "expect": "blocked",
+   "tag": "",
+   "setup": null,
+   "note": "covered by an overlay div",
+   "trials": [
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_covered_by: div#shield <div>",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (intercepts pointer events)",
+      "scrolled_into_view_only: dx=0 dy=238 (the dispatcher scrolled the target into view or retried alignments; not counted as an effect for click)"
+     ],
+     "hint": "another element receives the pointer at the target's centre; dismiss or scroll past it, or click the covering element if that is the intended control",
+     "settled_by": "scroll",
+     "settle_ms": 26,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (intercepts pointer events)",
+     "screenshot_fraction": 0.0875
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_covered_by: div#shield <div>",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (intercepts pointer events)",
+      "scrolled_into_view_only: dx=0 dy=238 (the dispatcher scrolled the target into view or retried alignments; not counted as an effect for click)"
+     ],
+     "hint": "another element receives the pointer at the target's centre; dismiss or scroll past it, or click the covering element if that is the intended control",
+     "settled_by": "scroll",
+     "settle_ms": 47,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (intercepts pointer events)",
+     "screenshot_fraction": 0.0875
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_covered_by: div#shield <div>",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (intercepts pointer events)",
+      "scrolled_into_view_only: dx=0 dy=238 (the dispatcher scrolled the target into view or retried alignments; not counted as an effect for click)"
+     ],
+     "hint": "another element receives the pointer at the target's centre; dismiss or scroll past it, or click the covering element if that is the intended control",
+     "settled_by": "scroll",
+     "settle_ms": 25,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (intercepts pointer events)",
+     "screenshot_fraction": 0.0875
+    }
+   ]
+  },
+  {
+   "id": "c06",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#hidden"
+   },
+   "expect": "blocked",
+   "tag": "",
+   "setup": null,
+   "note": "display:none",
+   "trials": [
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_not_visible: button#hidden",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not visible)"
+     ],
+     "hint": "the element exists but is not rendered; open its container, hover the menu that reveals it, or scroll it into view first",
+     "settled_by": "quiet_window",
+     "settle_ms": 3,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not visible)",
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_not_visible: button#hidden",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not visible)"
+     ],
+     "hint": "the element exists but is not rendered; open its container, hover the menu that reveals it, or scroll it into view first",
+     "settled_by": "quiet_window",
+     "settle_ms": 3,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not visible)",
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_not_visible: button#hidden",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not visible)"
+     ],
+     "hint": "the element exists but is not rendered; open its container, hover the menu that reveals it, or scroll it into view first",
+     "settled_by": "quiet_window",
+     "settle_ms": 3,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (element is not visible)",
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c07",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#offscreen"
+   },
+   "expect": "blocked",
+   "tag": "",
+   "setup": null,
+   "note": "positioned at left:-9999px",
+   "trials": [
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_offscreen: button#offscreen rect={'x': -9999, 'y': 0, 'width': 73.546875, 'height': 21}",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (element is outside of the viewport)"
+     ],
+     "hint": "the element is positioned outside the document (e.g. left:-9999px); it is not a visible control",
+     "settled_by": "quiet_window",
+     "settle_ms": 4,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (element is outside of the viewport)",
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_offscreen: button#offscreen rect={'x': -9999, 'y': 0, 'width': 73.546875, 'height': 21}",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (element is outside of the viewport)"
+     ],
+     "hint": "the element is positioned outside the document (e.g. left:-9999px); it is not a visible control",
+     "settled_by": "quiet_window",
+     "settle_ms": 3,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (element is outside of the viewport)",
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_offscreen: button#offscreen rect={'x': -9999, 'y': 0, 'width': 73.546875, 'height': 21}",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (element is outside of the viewport)"
+     ],
+     "hint": "the element is positioned outside the document (e.g. left:-9999px); it is not a visible control",
+     "settled_by": "quiet_window",
+     "settle_ms": 3,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (element is outside of the viewport)",
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c08",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#pe-none"
+   },
+   "expect": "blocked",
+   "tag": "",
+   "setup": null,
+   "note": "pointer-events:none",
+   "trials": [
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_pointer_events_none: button#pe-none",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (intercepts pointer events)",
+      "scrolled_into_view_only: dx=0 dy=313 (the dispatcher scrolled the target into view or retried alignments; not counted as an effect for click)"
+     ],
+     "hint": "the element has pointer-events:none, so no click can reach it; the real control is elsewhere (or use keyboard)",
+     "settled_by": "scroll",
+     "settle_ms": 26,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (intercepts pointer events)",
+     "screenshot_fraction": 0.09793526785714286
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_pointer_events_none: button#pe-none",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (intercepts pointer events)",
+      "scrolled_into_view_only: dx=0 dy=313 (the dispatcher scrolled the target into view or retried alignments; not counted as an effect for click)"
+     ],
+     "hint": "the element has pointer-events:none, so no click can reach it; the real control is elsewhere (or use keyboard)",
+     "settled_by": "scroll",
+     "settle_ms": 25,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (intercepts pointer events)",
+     "screenshot_fraction": 0.09793526785714286
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_pointer_events_none: button#pe-none",
+      "dispatch_error: TimeoutError: Locator.click: Timeout 300ms exceeded. (intercepts pointer events)",
+      "scrolled_into_view_only: dx=0 dy=313 (the dispatcher scrolled the target into view or retried alignments; not counted as an effect for click)"
+     ],
+     "hint": "the element has pointer-events:none, so no click can reach it; the real control is elsewhere (or use keyboard)",
+     "settled_by": "scroll",
+     "settle_ms": 25,
+     "timed_out": false,
+     "dispatch_error": "TimeoutError: Locator.click: Timeout 300ms exceeded. (intercepts pointer events)",
+     "screenshot_fraction": 0.09793526785714286
+    }
+   ]
+  },
+  {
+   "id": "c14",
+   "page": "acc/controls.html",
+   "action": "type",
+   "args": {
+    "selector": "#readonly",
+    "text": "nope"
+   },
+   "expect": "blocked",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_not_editable: input#readonly (readonly=True, disabled=False)",
+      "focus_moved_only: None -> input#readonly (not counted as an effect for type)"
+     ],
+     "hint": "the field is readonly/disabled or not an input; find the editable control or clear readonly state",
+     "settled_by": "quiet_window",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003683035714285714
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_not_editable: input#readonly (readonly=True, disabled=False)",
+      "focus_moved_only: None -> input#readonly (not counted as an effect for type)"
+     ],
+     "hint": "the field is readonly/disabled or not an input; find the editable control or clear readonly state",
+     "settled_by": "quiet_window",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003683035714285714
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_not_editable: input#readonly (readonly=True, disabled=False)",
+      "focus_moved_only: None -> input#readonly (not counted as an effect for type)"
+     ],
+     "hint": "the field is readonly/disabled or not an input; find the editable control or clear readonly state",
+     "settled_by": "quiet_window",
+     "settle_ms": 95,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003683035714285714
+    }
+   ]
+  },
+  {
+   "id": "c18",
+   "page": "acc/controls.html",
+   "action": "type",
+   "args": {
+    "selector": "#fake",
+    "text": "hello"
+   },
+   "expect": "blocked",
+   "tag": "",
+   "setup": null,
+   "note": "a div styled as an input",
+   "trials": [
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_not_editable: div#fake (readonly=False, disabled=False)"
+     ],
+     "hint": "the field is readonly/disabled or not an input; find the editable control or clear readonly state",
+     "settled_by": "quiet_window",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_not_editable: div#fake (readonly=False, disabled=False)"
+     ],
+     "hint": "the field is readonly/disabled or not an input; find the editable control or clear readonly state",
+     "settled_by": "quiet_window",
+     "settle_ms": 116,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "blocked",
+     "evidence": [
+      "target_not_editable: div#fake (readonly=False, disabled=False)"
+     ],
+     "hint": "the field is readonly/disabled or not an input; find the editable control or clear readonly state",
+     "settled_by": "quiet_window",
+     "settle_ms": 115,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "c42",
+   "page": "acc/controls.html",
+   "action": "click",
+   "args": {
+    "selector": "#submit-ok"
+   },
+   "expect": "navigated",
+   "tag": "",
+   "setup": null,
+   "note": "valid GET form submit",
+   "trials": [
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/acc/controls.html -> http://127.0.0.1:36729/lib/short.html?q=x",
+      "navigation_events: 1 (cross-document: 1)",
+      "title_changed",
+      "window_scrolled: dx=0 dy=-595",
+      "dom_changed: 102 nodes (+3 -12 ~0 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 122,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.05809151785714286
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/acc/controls.html -> http://127.0.0.1:36729/lib/short.html?q=x",
+      "navigation_events: 1 (cross-document: 1)",
+      "title_changed",
+      "window_scrolled: dx=0 dy=-595",
+      "dom_changed: 102 nodes (+3 -12 ~0 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 119,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.05809151785714286
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/acc/controls.html -> http://127.0.0.1:36729/lib/short.html?q=x",
+      "navigation_events: 1 (cross-document: 1)",
+      "title_changed",
+      "window_scrolled: dx=0 dy=-595",
+      "dom_changed: 102 nodes (+3 -12 ~0 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 125,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.05809151785714286
+    }
+   ]
+  },
+  {
+   "id": "k01",
+   "page": "acc/clock.html?bg=clock",
+   "action": "click",
+   "args": {
+    "selector": "#noop"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "clock ticks every 1 s",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (91ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (92ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 92,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (91ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "k02",
+   "page": "acc/clock.html?bg=clock",
+   "action": "click",
+   "args": {
+    "selector": "#counter"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "counter on the ticking-clock page",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "k03",
+   "page": "acc/clock.html?bg=fast",
+   "action": "click",
+   "args": {
+    "selector": "#noop"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "ticker every 50 ms: never quiet; library documents unknown",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "text_changed (not attributable: background nodes were mutating)",
+      "background_mutations_excluded: 1 node(s) already mutating before the action ['span#fast']",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (71ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click; 1 node(s) were already mutating before the action and were set aside (['span#fast']) - an effect inside them would not be reported",
+     "settled_by": "quiet_window",
+     "settle_ms": 71,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "text_changed (not attributable: background nodes were mutating)",
+      "background_mutations_excluded: 1 node(s) already mutating before the action ['span#fast']",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (72ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click; 1 node(s) were already mutating before the action and were set aside (['span#fast']) - an effect inside them would not be reported",
+     "settled_by": "quiet_window",
+     "settle_ms": 72,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "text_changed (not attributable: background nodes were mutating)",
+      "background_mutations_excluded: 1 node(s) already mutating before the action ['span#fast']",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (69ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click; 1 node(s) were already mutating before the action and were set aside (['span#fast']) - an effect inside them would not be reported",
+     "settled_by": "quiet_window",
+     "settle_ms": 69,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "k04",
+   "page": "acc/clock.html?bg=fast",
+   "action": "click",
+   "args": {
+    "selector": "#counter"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "counter on the 50 ms ticker page",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed (not attributable: background nodes were mutating)",
+      "background_mutations_excluded: 1 node(s) already mutating before the action ['span#fast']"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed (not attributable: background nodes were mutating)",
+      "background_mutations_excluded: 1 node(s) already mutating before the action ['span#fast']"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed (not attributable: background nodes were mutating)",
+      "background_mutations_excluded: 1 node(s) already mutating before the action ['span#fast']"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "k05",
+   "page": "acc/clock.html?bg=spinner",
+   "action": "click",
+   "args": {
+    "selector": "#noop"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "perpetual CSS spinner (animations never quiet)",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (77ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 77,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0002232142857142857
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (71ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 71,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.00027901785714285713
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (69ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 69,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.00027901785714285713
+    }
+   ]
+  },
+  {
+   "id": "k06",
+   "page": "acc/clock.html?bg=spinner",
+   "action": "click",
+   "args": {
+    "selector": "#counter"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "counter on the spinner page",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 118,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0002232142857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 120,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0002232142857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "focus_changed: None -> button#counter",
+      "dom_changed: 1 nodes (+0 -0 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 120,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0002232142857142857
+    }
+   ]
+  },
+  {
+   "id": "k07",
+   "page": "acc/clock.html?bg=raf",
+   "action": "click",
+   "args": {
+    "selector": "#noop"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "rAF loop writing inline style",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "background_mutations_excluded: 1 node(s) already mutating before the action ['div#raf']",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (69ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click; 1 node(s) were already mutating before the action and were set aside (['div#raf']) - an effect inside them would not be reported",
+     "settled_by": "quiet_window",
+     "settle_ms": 69,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "background_mutations_excluded: 1 node(s) already mutating before the action ['div#raf']",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (70ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click; 1 node(s) were already mutating before the action and were set aside (['div#raf']) - an effect inside them would not be reported",
+     "settled_by": "quiet_window",
+     "settle_ms": 70,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "background_mutations_excluded: 1 node(s) already mutating before the action ['div#raf']",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (71ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click; 1 node(s) were already mutating before the action and were set aside (['div#raf']) - an effect inside them would not be reported",
+     "settled_by": "quiet_window",
+     "settle_ms": 71,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "k08",
+   "page": "acc/clock.html?bg=none",
+   "action": "click",
+   "args": {
+    "selector": "#noop"
+   },
+   "expect": "no_op",
+   "tag": "",
+   "setup": null,
+   "note": "control: same page, no background activity",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (96ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 96,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (91ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "focus_moved_only: None -> button#noop (not counted as an effect for click)"
+     ],
+     "hint": "click was delivered to button#noop but nothing observable changed within the settle window (94ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click",
+     "settled_by": "quiet_window",
+     "settle_ms": 94,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "s01",
+   "page": "acc/spa.html",
+   "action": "click",
+   "args": {
+    "selector": "#push-about"
+   },
+   "expect": "navigated",
+   "tag": "",
+   "setup": null,
+   "note": "pushState to a new path",
+   "trials": [
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/acc/spa.html -> http://127.0.0.1:36729/acc/spa-about",
+      "navigation_events: 1 (cross-document: 0)",
+      "focus_changed: None -> button#push-about",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 115,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.001060267857142857
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/acc/spa.html -> http://127.0.0.1:36729/acc/spa-about",
+      "navigation_events: 1 (cross-document: 0)",
+      "focus_changed: None -> button#push-about",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 116,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.001060267857142857
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/acc/spa.html -> http://127.0.0.1:36729/acc/spa-about",
+      "navigation_events: 1 (cross-document: 0)",
+      "focus_changed: None -> button#push-about",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 116,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.001060267857142857
+    }
+   ]
+  },
+  {
+   "id": "s02",
+   "page": "acc/spa.html",
+   "action": "click",
+   "args": {
+    "selector": "#replace-same-identical"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "identical-URL replaceState + identical re-render",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "history_changed_same_document: 1 event(s), url unchanged (pushState/replaceState)",
+      "focus_moved_only: None -> button#replace-same-identical (not counted as an effect for click)",
+      "dom_mutated_without_fingerprint_change: 55 mutations observed but the DOM fingerprint is identical (same-content re-render)"
+     ],
+     "hint": "click was delivered to button#replace-same-identical but nothing observable changed within the settle window (121ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click; the DOM re-rendered to identical content, so the handler did run",
+     "settled_by": "dom",
+     "settle_ms": 121,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "history_changed_same_document: 1 event(s), url unchanged (pushState/replaceState)",
+      "focus_moved_only: None -> button#replace-same-identical (not counted as an effect for click)",
+      "dom_mutated_without_fingerprint_change: 55 mutations observed but the DOM fingerprint is identical (same-content re-render)"
+     ],
+     "hint": "click was delivered to button#replace-same-identical but nothing observable changed within the settle window (121ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click; the DOM re-rendered to identical content, so the handler did run",
+     "settled_by": "dom",
+     "settle_ms": 121,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change",
+      "history_changed_same_document: 1 event(s), url unchanged (pushState/replaceState)",
+      "focus_moved_only: None -> button#replace-same-identical (not counted as an effect for click)",
+      "dom_mutated_without_fingerprint_change: 55 mutations observed but the DOM fingerprint is identical (same-content re-render)"
+     ],
+     "hint": "click was delivered to button#replace-same-identical but nothing observable changed within the settle window (119ms, quiet window 100ms); the element may have no handler, need a different event (dblclick/keyboard), or its effect may be outside the viewport/DOM. Re-observe before retrying the same click; the DOM re-rendered to identical content, so the handler did run",
+     "settled_by": "dom",
+     "settle_ms": 119,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "s03",
+   "page": "acc/spa.html",
+   "action": "click",
+   "args": {
+    "selector": "#replace-same-swap"
+   },
+   "expect": "changed",
+   "tag": "hard-positive",
+   "setup": null,
+   "note": "identical URL, content swapped",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "history_changed_same_document: 1 event(s), url unchanged (pushState/replaceState)",
+      "focus_changed: None -> button#replace-same-swap",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.001060267857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "history_changed_same_document: 1 event(s), url unchanged (pushState/replaceState)",
+      "focus_changed: None -> button#replace-same-swap",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 115,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.001060267857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "history_changed_same_document: 1 event(s), url unchanged (pushState/replaceState)",
+      "focus_changed: None -> button#replace-same-swap",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 119,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.001060267857142857
+    }
+   ]
+  },
+  {
+   "id": "s04",
+   "page": "acc/spa.html",
+   "action": "click",
+   "args": {
+    "selector": "#hash-about"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "hash route + content swap",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "url_fragment_changed: http://127.0.0.1:36729/acc/spa.html#/about",
+      "navigation_events: 1 (cross-document: 0)",
+      "focus_changed: None -> button#hash-about",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 115,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.001060267857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "url_fragment_changed: http://127.0.0.1:36729/acc/spa.html#/about",
+      "navigation_events: 1 (cross-document: 0)",
+      "focus_changed: None -> button#hash-about",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 117,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.001060267857142857
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "url_fragment_changed: http://127.0.0.1:36729/acc/spa.html#/about",
+      "navigation_events: 1 (cross-document: 0)",
+      "focus_changed: None -> button#hash-about",
+      "dom_changed: 2 nodes (+0 -0 ~2 listed)",
+      "text_changed"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 123,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.001060267857142857
+    }
+   ]
+  },
+  {
+   "id": "s05",
+   "page": "acc/spa.html",
+   "action": "click",
+   "args": {
+    "selector": "#reload"
+   },
+   "expect": "navigated",
+   "tag": "",
+   "setup": null,
+   "note": "location.reload()",
+   "trials": [
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "navigation_events: 1 (cross-document: 1)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 118,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "navigation_events: 1 (cross-document: 1)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 119,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "navigation_events: 1 (cross-document: 1)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 104,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "s06",
+   "page": "acc/spa.html",
+   "action": "click",
+   "args": {
+    "selector": "#self-link"
+   },
+   "expect": "navigated",
+   "tag": "",
+   "setup": null,
+   "note": "link to the same URL",
+   "trials": [
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "navigation_events: 1 (cross-document: 1)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 105,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "navigation_events: 1 (cross-document: 1)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 120,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "navigation_events: 1 (cross-document: 1)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 120,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "s07",
+   "page": "acc/spa.html",
+   "action": "click",
+   "args": {
+    "selector": "#assign-late"
+   },
+   "expect": "navigated",
+   "tag": "hard-positive",
+   "setup": null,
+   "note": "location.assign after a 250 ms timer",
+   "trials": [
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/acc/spa.html -> http://127.0.0.1:36729/lib/short.html",
+      "navigation_events: 1 (cross-document: 1)",
+      "title_changed",
+      "dom_changed: 17 nodes (+3 -12 ~0 listed)",
+      "text_changed",
+      "screenshot_changed: 0.051 of pixels, dhash distance 4"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 383,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.051171875
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/acc/spa.html -> http://127.0.0.1:36729/lib/short.html",
+      "navigation_events: 1 (cross-document: 1)",
+      "title_changed",
+      "dom_changed: 17 nodes (+3 -12 ~0 listed)",
+      "text_changed",
+      "screenshot_changed: 0.051 of pixels, dhash distance 4"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 383,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.051171875
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/acc/spa.html -> http://127.0.0.1:36729/lib/short.html",
+      "navigation_events: 1 (cross-document: 1)",
+      "title_changed",
+      "dom_changed: 17 nodes (+3 -12 ~0 listed)",
+      "text_changed",
+      "screenshot_changed: 0.051 of pixels, dhash distance 4"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 381,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.051171875
+    }
+   ]
+  },
+  {
+   "id": "s08",
+   "page": "acc/spa.html",
+   "action": "click",
+   "args": {
+    "selector": "#assign-now"
+   },
+   "expect": "navigated",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/acc/spa.html -> http://127.0.0.1:36729/lib/short.html",
+      "navigation_events: 1 (cross-document: 1)",
+      "title_changed",
+      "dom_changed: 17 nodes (+3 -12 ~0 listed)",
+      "text_changed",
+      "screenshot_changed: 0.051 of pixels, dhash distance 4"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 120,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.051171875
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/acc/spa.html -> http://127.0.0.1:36729/lib/short.html",
+      "navigation_events: 1 (cross-document: 1)",
+      "title_changed",
+      "dom_changed: 17 nodes (+3 -12 ~0 listed)",
+      "text_changed",
+      "screenshot_changed: 0.051 of pixels, dhash distance 4"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 101,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.051171875
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/acc/spa.html -> http://127.0.0.1:36729/lib/short.html",
+      "navigation_events: 1 (cross-document: 1)",
+      "title_changed",
+      "dom_changed: 17 nodes (+3 -12 ~0 listed)",
+      "text_changed",
+      "screenshot_changed: 0.051 of pixels, dhash distance 4"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 123,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.051171875
+    }
+   ]
+  },
+  {
+   "id": "s09",
+   "page": "acc/spa.html",
+   "action": "click",
+   "args": {
+    "selector": "#winopen"
+   },
+   "expect": "navigated",
+   "tag": "",
+   "setup": null,
+   "note": "window.open new tab",
+   "trials": [
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "new_tab_opened: ['http://127.0.0.1:36729/lib/long.html']",
+      "focus_changed: None -> button#winopen"
+     ],
+     "hint": "a new tab opened at http://127.0.0.1:36729/lib/long.html; switch to it if that is where the task continues",
+     "settled_by": "quiet_window",
+     "settle_ms": 93,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "new_tab_opened: ['http://127.0.0.1:36729/lib/long.html']",
+      "focus_changed: None -> button#winopen"
+     ],
+     "hint": "a new tab opened at http://127.0.0.1:36729/lib/long.html; switch to it if that is where the task continues",
+     "settled_by": "quiet_window",
+     "settle_ms": 75,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "new_tab_opened: ['http://127.0.0.1:36729/lib/long.html']",
+      "focus_changed: None -> button#winopen"
+     ],
+     "hint": "a new tab opened at http://127.0.0.1:36729/lib/long.html; switch to it if that is where the task continues",
+     "settled_by": "quiet_window",
+     "settle_ms": 95,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "r01",
+   "page": "lib/short.html",
+   "action": "scroll",
+   "args": {
+    "direction": "down"
+   },
+   "expect": "no_op",
+   "tag": "",
+   "setup": null,
+   "note": "page not scrollable",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the document itself is not scrollable (scrollHeight == clientHeight)",
+     "settled_by": "quiet_window",
+     "settle_ms": 95,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the document itself is not scrollable (scrollHeight == clientHeight)",
+     "settled_by": "quiet_window",
+     "settle_ms": 93,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the document itself is not scrollable (scrollHeight == clientHeight)",
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "r02",
+   "page": "lib/long.html",
+   "action": "scroll",
+   "args": {
+    "direction": "down"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "window_scrolled: dx=0 dy=700",
+      "screenshot_changed: 0.004 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 117,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003627232142857143
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "window_scrolled: dx=0 dy=700",
+      "screenshot_changed: 0.004 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 139,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003627232142857143
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "window_scrolled: dx=0 dy=700",
+      "screenshot_changed: 0.004 of pixels, dhash distance 0"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 120,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.003627232142857143
+    }
+   ]
+  },
+  {
+   "id": "r03",
+   "page": "lib/long.html",
+   "action": "scroll",
+   "args": {
+    "direction": "down"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": "window.scrollTo(0, document.scrollingElement.scrollHeight)",
+   "note": "already at the bottom",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the window is already at the bottom",
+     "settled_by": "quiet_window",
+     "settle_ms": 95,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the window is already at the bottom",
+     "settled_by": "quiet_window",
+     "settle_ms": 94,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the window is already at the bottom",
+     "settled_by": "quiet_window",
+     "settle_ms": 90,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "r04",
+   "page": "lib/long.html",
+   "action": "scroll",
+   "args": {
+    "direction": "up"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "already at the top",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the window is already at the top",
+     "settled_by": "quiet_window",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the window is already at the top",
+     "settled_by": "quiet_window",
+     "settle_ms": 114,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the window is already at the top",
+     "settled_by": "quiet_window",
+     "settle_ms": 95,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "r05",
+   "page": "lib/inner-scroll.html",
+   "action": "scroll",
+   "args": {
+    "direction": "down"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "window scroll on overflow:hidden page; only #panel scrolls",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the document has overflow:hidden, so wheel/keyboard scrolling of the window is disabled; scrollable containers on the page: div#panel (0/450); try scroll(selector=<one of these>)",
+     "settled_by": "quiet_window",
+     "settle_ms": 92,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the document has overflow:hidden, so wheel/keyboard scrolling of the window is disabled; scrollable containers on the page: div#panel (0/450); try scroll(selector=<one of these>)",
+     "settled_by": "quiet_window",
+     "settle_ms": 98,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the document has overflow:hidden, so wheel/keyboard scrolling of the window is disabled; scrollable containers on the page: div#panel (0/450); try scroll(selector=<one of these>)",
+     "settled_by": "quiet_window",
+     "settle_ms": 90,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "r06",
+   "page": "lib/inner-scroll.html",
+   "action": "scroll",
+   "args": {
+    "direction": "down",
+    "pages": 0.25,
+    "selector": "#panel"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "container_scrolled: div#panel 0 -> 175",
+      "screenshot_changed: 0.004 of pixels, dhash distance 1"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 122,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.004241071428571428
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "container_scrolled: div#panel 0 -> 175",
+      "screenshot_changed: 0.004 of pixels, dhash distance 1"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 136,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.004241071428571428
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "container_scrolled: div#panel 0 -> 175",
+      "screenshot_changed: 0.004 of pixels, dhash distance 1"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 134,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.004241071428571428
+    }
+   ]
+  },
+  {
+   "id": "r07",
+   "page": "lib/inner-scroll.html",
+   "action": "scroll",
+   "args": {
+    "direction": "down",
+    "selector": "#panel"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": "document.getElementById('panel').scrollTop = 1e6",
+   "note": "container already at its bottom",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "target div#panel is already at the bottom; the document has overflow:hidden, so wheel/keyboard scrolling of the window is disabled; scrollable containers on the page: div#panel (450/450); try scroll(selector=<one of these>)",
+     "settled_by": "quiet_window",
+     "settle_ms": 99,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "target div#panel is already at the bottom; the document has overflow:hidden, so wheel/keyboard scrolling of the window is disabled; scrollable containers on the page: div#panel (450/450); try scroll(selector=<one of these>)",
+     "settled_by": "quiet_window",
+     "settle_ms": 101,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "target div#panel is already at the bottom; the document has overflow:hidden, so wheel/keyboard scrolling of the window is disabled; scrollable containers on the page: div#panel (450/450); try scroll(selector=<one of these>)",
+     "settled_by": "quiet_window",
+     "settle_ms": 101,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "r08",
+   "page": "acc/scroll.html",
+   "action": "scroll",
+   "args": {
+    "direction": "down",
+    "selector": "#bigbox"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "container_scrolled: div#bigbox 0 -> 700",
+      "screenshot_changed: 0.021 of pixels, dhash distance 1"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 134,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.02109375
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "container_scrolled: div#bigbox 0 -> 700",
+      "screenshot_changed: 0.021 of pixels, dhash distance 1"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 137,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.02109375
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "container_scrolled: div#bigbox 0 -> 700",
+      "screenshot_changed: 0.021 of pixels, dhash distance 1"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 137,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.02109375
+    }
+   ]
+  },
+  {
+   "id": "r09",
+   "page": "acc/scroll.html",
+   "action": "scroll",
+   "args": {
+    "direction": "down",
+    "selector": "#smallbox"
+   },
+   "expect": "no_op",
+   "tag": "hard-negative",
+   "setup": null,
+   "note": "overflow:auto box whose content fits",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "target element is not scrollable and has no scrollable ancestor; the document itself is not scrollable (scrollHeight == clientHeight); scrollable containers on the page: div#bigbox (0/1856); try scroll(selector=<one of these>)",
+     "settled_by": "quiet_window",
+     "settle_ms": 92,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "target element is not scrollable and has no scrollable ancestor; the document itself is not scrollable (scrollHeight == clientHeight); scrollable containers on the page: div#bigbox (0/1856); try scroll(selector=<one of these>)",
+     "settled_by": "quiet_window",
+     "settle_ms": 91,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "target element is not scrollable and has no scrollable ancestor; the document itself is not scrollable (scrollHeight == clientHeight); scrollable containers on the page: div#bigbox (0/1856); try scroll(selector=<one of these>)",
+     "settled_by": "quiet_window",
+     "settle_ms": 98,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "r10",
+   "page": "acc/scroll.html?v=wide",
+   "action": "scroll",
+   "args": {
+    "direction": "right"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "horizontal window scroll",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "window_scrolled: dx=700 dy=0",
+      "screenshot_changed: 0.024 of pixels, dhash distance 3"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 135,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.02416294642857143
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "window_scrolled: dx=700 dy=0",
+      "screenshot_changed: 0.024 of pixels, dhash distance 3"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 119,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.02416294642857143
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "window_scrolled: dx=700 dy=0",
+      "screenshot_changed: 0.024 of pixels, dhash distance 3"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 134,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.02416294642857143
+    }
+   ]
+  },
+  {
+   "id": "r11",
+   "page": "acc/scroll.html?v=wide",
+   "action": "scroll",
+   "args": {
+    "direction": "down"
+   },
+   "expect": "no_op",
+   "tag": "",
+   "setup": null,
+   "note": "only horizontally scrollable",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the document itself is not scrollable (scrollHeight == clientHeight)",
+     "settled_by": "quiet_window",
+     "settle_ms": 90,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the document itself is not scrollable (scrollHeight == clientHeight)",
+     "settled_by": "quiet_window",
+     "settle_ms": 95,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the document itself is not scrollable (scrollHeight == clientHeight)",
+     "settled_by": "quiet_window",
+     "settle_ms": 90,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "r12",
+   "page": "acc/scroll.html?v=exact",
+   "action": "scroll",
+   "args": {
+    "direction": "down"
+   },
+   "expect": "no_op",
+   "tag": "",
+   "setup": null,
+   "note": "content exactly one viewport tall",
+   "trials": [
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the document itself is not scrollable (scrollHeight == clientHeight)",
+     "settled_by": "quiet_window",
+     "settle_ms": 112,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the document itself is not scrollable (scrollHeight == clientHeight)",
+     "settled_by": "quiet_window",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "no_op",
+     "evidence": [
+      "no_observable_change"
+     ],
+     "hint": "the document itself is not scrollable (scrollHeight == clientHeight)",
+     "settled_by": "quiet_window",
+     "settle_ms": 113,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "n01",
+   "page": "lib/nav.html",
+   "action": "click",
+   "args": {
+    "selector": "#go"
+   },
+   "expect": "navigated",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/lib/nav.html -> http://127.0.0.1:36729/short.html",
+      "navigation_events: 1 (cross-document: 1)",
+      "http_error: 404 GET http://127.0.0.1:36729/short.html",
+      "title_changed",
+      "dom_changed: 9 nodes (+3 -5 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": "the navigation returned HTTP 404 for http://127.0.0.1:36729/short.html; the page shown is an error response, not the intended destination",
+     "settled_by": "dom",
+     "settle_ms": 117,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.020703125
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/lib/nav.html -> http://127.0.0.1:36729/short.html",
+      "navigation_events: 1 (cross-document: 1)",
+      "http_error: 404 GET http://127.0.0.1:36729/short.html",
+      "title_changed",
+      "dom_changed: 9 nodes (+3 -5 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": "the navigation returned HTTP 404 for http://127.0.0.1:36729/short.html; the page shown is an error response, not the intended destination",
+     "settled_by": "dom",
+     "settle_ms": 118,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.020703125
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/lib/nav.html -> http://127.0.0.1:36729/short.html",
+      "navigation_events: 1 (cross-document: 1)",
+      "http_error: 404 GET http://127.0.0.1:36729/short.html",
+      "title_changed",
+      "dom_changed: 9 nodes (+3 -5 ~1 listed)",
+      "text_changed"
+     ],
+     "hint": "the navigation returned HTTP 404 for http://127.0.0.1:36729/short.html; the page shown is an error response, not the intended destination",
+     "settled_by": "dom",
+     "settle_ms": 122,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.020703125
+    }
+   ]
+  },
+  {
+   "id": "n02",
+   "page": "lib/nav.html",
+   "action": "click",
+   "args": {
+    "selector": "#frag"
+   },
+   "expect": "changed",
+   "tag": "",
+   "setup": null,
+   "note": "fragment link that scrolls",
+   "trials": [
+    {
+     "verdict": "changed",
+     "evidence": [
+      "url_fragment_changed: http://127.0.0.1:36729/lib/nav.html#section",
+      "navigation_events: 1 (cross-document: 0)",
+      "window_scrolled: dx=0 dy=865",
+      "screenshot_changed: 0.015 of pixels, dhash distance 1"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 119,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.014564732142857143
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "url_fragment_changed: http://127.0.0.1:36729/lib/nav.html#section",
+      "navigation_events: 1 (cross-document: 0)",
+      "window_scrolled: dx=0 dy=865",
+      "screenshot_changed: 0.015 of pixels, dhash distance 1"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 133,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.014564732142857143
+    },
+    {
+     "verdict": "changed",
+     "evidence": [
+      "url_fragment_changed: http://127.0.0.1:36729/lib/nav.html#section",
+      "navigation_events: 1 (cross-document: 0)",
+      "window_scrolled: dx=0 dy=865",
+      "screenshot_changed: 0.015 of pixels, dhash distance 1"
+     ],
+     "hint": null,
+     "settled_by": "scroll",
+     "settle_ms": 115,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.014564732142857143
+    }
+   ]
+  },
+  {
+   "id": "n03",
+   "page": "lib/nav.html",
+   "action": "click",
+   "args": {
+    "selector": "#newtab"
+   },
+   "expect": "navigated",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "new_tab_opened: ['http://127.0.0.1:36729/long.html']",
+      "focus_changed: None -> a#newtab"
+     ],
+     "hint": "a new tab opened at http://127.0.0.1:36729/long.html; switch to it if that is where the task continues",
+     "settled_by": "quiet_window",
+     "settle_ms": 71,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "new_tab_opened: ['http://127.0.0.1:36729/long.html']",
+      "focus_changed: None -> a#newtab"
+     ],
+     "hint": "a new tab opened at http://127.0.0.1:36729/long.html; switch to it if that is where the task continues",
+     "settled_by": "quiet_window",
+     "settle_ms": 70,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "new_tab_opened: ['http://127.0.0.1:36729/long.html']",
+      "focus_changed: None -> a#newtab"
+     ],
+     "hint": "a new tab opened at http://127.0.0.1:36729/long.html; switch to it if that is where the task continues",
+     "settled_by": "quiet_window",
+     "settle_ms": 70,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  },
+  {
+   "id": "n04",
+   "page": "lib/nav.html",
+   "action": "navigate",
+   "args": {
+    "url": "lib/short.html"
+   },
+   "expect": "navigated",
+   "tag": "",
+   "setup": null,
+   "note": "",
+   "trials": [
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/lib/nav.html -> http://127.0.0.1:36729/lib/short.html",
+      "navigation_events: 1 (cross-document: 1)",
+      "title_changed",
+      "dom_changed: 9 nodes (+3 -6 ~0 listed)",
+      "text_changed",
+      "screenshot_changed: 0.025 of pixels, dhash distance 3"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 128,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.02494419642857143
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/lib/nav.html -> http://127.0.0.1:36729/lib/short.html",
+      "navigation_events: 1 (cross-document: 1)",
+      "title_changed",
+      "dom_changed: 9 nodes (+3 -6 ~0 listed)",
+      "text_changed",
+      "screenshot_changed: 0.025 of pixels, dhash distance 3"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 126,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.02494419642857143
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "url_changed: http://127.0.0.1:36729/lib/nav.html -> http://127.0.0.1:36729/lib/short.html",
+      "navigation_events: 1 (cross-document: 1)",
+      "title_changed",
+      "dom_changed: 9 nodes (+3 -6 ~0 listed)",
+      "text_changed",
+      "screenshot_changed: 0.025 of pixels, dhash distance 3"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 126,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.02494419642857143
+    }
+   ]
+  },
+  {
+   "id": "n05",
+   "page": "lib/nav.html",
+   "action": "navigate",
+   "args": {
+    "url": "lib/nav.html"
+   },
+   "expect": "navigated",
+   "tag": "",
+   "setup": null,
+   "note": "navigate to the same URL (reload)",
+   "trials": [
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "navigation_events: 1 (cross-document: 1)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 122,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "navigation_events: 1 (cross-document: 1)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 125,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    },
+    {
+     "verdict": "navigated",
+     "evidence": [
+      "navigation_events: 1 (cross-document: 1)"
+     ],
+     "hint": null,
+     "settled_by": "dom",
+     "settle_ms": 123,
+     "timed_out": false,
+     "dispatch_error": null,
+     "screenshot_fraction": 0.0
+    }
+   ]
+  }
+ ]
+}

@@ -224,6 +224,43 @@ verdict is `blocked` and the hint names the field and the browser's message.
   never "is the task done".
 - **No desktop path yet.** Linux/AT-SPI is future work (see `docs/DESIGN.md`).
 
+## The numbers
+
+**The problem is measured, not assumed.** Across 91 public OSWorld-Verified leaderboard runs
+(34,437 scored task-runs, feasible tasks only), **53.0 % [52.3, 53.6] of the runs the validator
+scored as failed end with the agent claiming success** - 28.9 % at a 15-step budget, 59.0 % at
+50, 69.0 % at 100. The benchmark's own `evaluate()` never reads the agent's DONE, so nothing in
+the leaderboard number sees this. The measurement, its provenance and its limitations are
+written up in the research record that motivated this tool.
+
+**What a receipt does about it.** `bench/agent_loop_v2.py` drives an LLM agent through 36
+small web tasks whose traps a receipt can see (covered buttons, silent validation, disabled
+controls, inner scroll containers, confirm dialogs, optimistic UI that reverts, work that
+continues in a new tab), with a programmatic validator per task, in three arms: no receipt,
+receipt shown to the agent, receipt shown *and* enforced as a deterministic gate that refuses
+`done` while the last receipt is `no_op` / `blocked` / `unknown`. Two local models, two seeds,
+432 episodes, library `6d4eae52879e` (`bench/REPORT.md` has every table):
+
+| model | P(claims DONE \| validator fail): no receipt | receipt shown | receipt enforced | task success: no receipt -> enforced |
+|---|---|---|---|---|
+| qwen3.6:35b-a3b | **100 %** (10/10) | **0 %** (0/4) | 20 % (1/5) | 86 % -> 93 % |
+| qwen3.5:4b | 67 % (14/21) | 56 % (9/16) | 56 % (9/16) | 71 % -> 78 % |
+
+Read the denominators: once the receipt is in the loop the strong model barely fails at all,
+so its intervals are wide ([0, 49] and [3.6, 62.4]). The honest summary is that receipts remove
+a whole class of false completions for a capable model and roughly a third of them for a small
+one, and raise task success in both. The trap that survived every earlier version - the
+browser's native validation bubble, invisible to the DOM - is now a `blocked` receipt with the
+field named, and no longer produces a false DONE in either receipt arm.
+
+The receipt itself is measured too: on effects that land after a fetch, a CSS transition, a
+timer or a two-stage fetch-then-render, at delays from 0 to 3 s, the receipt's settlement was
+**stale 0 times in 640 trials**, waiting only as long as the effect took; a blind 0.5 s sleep
+was stale in 40 % of the fetch trials and a blind 2 s sleep in 15 %. On a labelled corpus of
+79 action/page cases the verdict was right **237 of 237** times across three runs. The cost is
+about 185 ms per action on a fixture page (33 ms for the bare Playwright click), dominated by
+the 100 ms quiet window.
+
 ## Status
 
 Prototype, version 0.2.0 (`CHANGELOG.md`). Three test tiers, all hermetic: **unit** (the decision
