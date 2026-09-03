@@ -4,6 +4,7 @@
                                   [--seeds 20260902,20260903] [--runs 1] [--max-steps 12] [--temperature 0.3]
                                   [--arms receipt_off,receipt_on,receipt_enforced] [--tasks id,...]
                                   [--max-calls 1300] [--resume] [--summarize-only] [--endpoint URL]
+                                  [--gate server|harness]
 
 v1 (``bench/agent_loop.py``) was a null and under-powered: the 35B solved 95-97% of 22 tasks, so
 P(DONE | validator fail) rested on 2-3 episodes per arm, and temperature 0 with one seed made the
@@ -24,6 +25,14 @@ runs near-identical. v2 keeps the same agent, observation and MCP path and chang
   run a replay, so a second "run" only carries information if it samples differently).
 * step cap 12; the validator is also read at every refusal, so each refusal is classed as
   justified (validator failing at that moment) or spurious (task already complete).
+
+Since 0.3.0 the gate is a server feature (``action_receipt.policy``, the ``done`` tool with
+``--enforce-done``). ``--gate server`` (the default) runs the ``receipt_enforced`` arm through the
+server's own ``done`` tool, so the benchmark exercises the shipped code path; ``--gate harness``
+keeps the original in-harness policy (``policy_reason``) so the published results stay
+reproducible. The two differ in one detail: the harness policy also treats a ``changed`` whose
+only evidence is a screenshot delta at the noise floor as non-effective (``weak_visual``, bench
+F9), the server keys on the receipt's verdict alone. Every episode row records ``gate``.
 
 Every episode row records ``lib_hash``; the two models write separate episode files so they can
 run concurrently (``agent_loop_v2_episodes__<model>.jsonl``); ``--summarize-only`` merges them.
@@ -236,6 +245,9 @@ async def run_episode(task, arm, seed, run_idx, cfg, srv, ctx_pages, llm, system
     weak_visual = 0
     calls_before, ptok_before, ctok_before = llm.calls, llm.prompt_tokens, llm.completion_tokens
     enforced = arm == "receipt_enforced"
+    gate = cfg.get("gate", "server")
+    server_gate = enforced and gate == "server"
+    server_args = ("--enforce-done", "--max-refusals", str(MAX_REFUSALS)) if server_gate else ()
 
     async def validate() -> tuple[bool, dict]:
         states = {}
@@ -250,7 +262,7 @@ async def run_episode(task, arm, seed, run_idx, cfg, srv, ctx_pages, llm, system
             ok = False
         return ok, states
 
-    async with ReceiptMCP(cfg["cdp_url"]) as mcp:
+    async with ReceiptMCP(cfg["cdp_url"], server_args) as mcp:
         out = await mcp.call("open", {"url": url})
         current_url = ((out.get("receipt") or {}).get("after") or {}).get("url") or url
 
@@ -312,8 +324,20 @@ async def run_episode(task, arm, seed, run_idx, cfg, srv, ctx_pages, llm, system
             messages.append({"role": "assistant", "content": json.dumps(act)})
             if tool == "done":
                 done_attempts += 1
-                reason = policy_reason(verdict_history)
-                if enforced and reason and refusals < MAX_REFUSALS:
+                reason = policy_reason(
+                    verdict_history
+                )  # the harness policy, always computed (counterfactual columns)
+                server_done = None
+                if server_gate:
+                    # the shipped gate: the server decides, the harness only records
+                    server_done = await mcp.call("done", {"summary": str(args.get("summary", ""))[:300]})
+                    refused_now = server_done.get("accepted") is False
+                    reason = (
+                        server_done.get("reason") if refused_now or server_done.get("overridden") else reason
+                    )
+                else:
+                    refused_now = bool(enforced and reason and refusals < MAX_REFUSALS)
+                if refused_now:
                     refusals += 1
                     ok_now, _ = await validate()
                     refusal_details.append(
@@ -322,9 +346,16 @@ async def run_episode(task, arm, seed, run_idx, cfg, srv, ctx_pages, llm, system
                             "reason": reason,
                             "last_verdict": verdict_history[-1] if verdict_history else None,
                             "validator_pass_at_refusal": ok_now,
+                            "gate": "server" if server_gate else "harness",
                         }
                     )
-                    shown = render_refusal(reason, last_hint, refusals)
+                    if server_done is not None:
+                        assert server_done.get("refusals") == refusals, (server_done, refusals)
+                        shown = render_refusal(
+                            reason or "refused", server_done.get("hint") or last_hint, refusals
+                        )
+                    else:
+                        shown = render_refusal(reason, last_hint, refusals)
                     trace[-1].update(
                         {
                             "tool": "done",
@@ -343,9 +374,19 @@ async def run_episode(task, arm, seed, run_idx, cfg, srv, ctx_pages, llm, system
                 terminal = "DONE"
                 claim_text = str(args.get("summary", ""))[:300]
                 policy_would_refuse = bool(reason)
-                accepted_after_cap = enforced and bool(reason)
+                accepted_after_cap = (
+                    bool(server_done.get("overridden"))
+                    if server_done is not None
+                    else enforced and bool(reason)
+                )
                 trace[-1].update(
-                    {"tool": "done", "args": args, "policy_would_refuse": bool(reason), "reason": reason}
+                    {
+                        "tool": "done",
+                        "args": args,
+                        "policy_would_refuse": bool(reason),
+                        "reason": reason,
+                        "server_done": server_done,
+                    }
                 )
                 break
             if tool == "fail":
@@ -466,6 +507,7 @@ async def run_episode(task, arm, seed, run_idx, cfg, srv, ctx_pages, llm, system
         "refusals": refusals,
         "refusal_details": refusal_details,
         "accepted_after_cap": accepted_after_cap,
+        "gate": ("server" if server_gate else "harness") if enforced else None,
         "states": states,
     }
     TRACES.mkdir(parents=True, exist_ok=True)
@@ -809,7 +851,9 @@ def summarize(rows: list[dict], cfg: dict) -> tuple[dict, str]:
         "",
         f"Models {', '.join(f'`{m}`' for m in models)} at `{cfg['endpoint']}` (thinking off, temperature {cfg['temperature']}, seeds {seeds_all}); "
         f"task sets {sets}; arms {arms}; {len(rows)} episodes; step cap {cfg['max_steps']}; refusal cap {MAX_REFUSALS} per episode. "
-        f"Model calls in the result: {calls_total}. lib_hash per episode: {', '.join(lib_hashes)}.",
+        f"Model calls in the result: {calls_total}. lib_hash per episode: {', '.join(lib_hashes)}. "
+        f"Gate for receipt_enforced: {', '.join(sorted({str(r.get('gate')) for r in rows if r['arm'] == 'receipt_enforced'}) or ['n/a'])} "
+        "(server = the server's own `done` tool with --enforce-done; harness = the in-harness policy of the original run).",
         "",
         "## Headline: P(DONE | validator fail) per model and arm",
         "",
@@ -941,6 +985,13 @@ def main(argv=None):
     ap.add_argument("--resume", action="store_true")
     ap.add_argument("--summarize-only", action="store_true")
     ap.add_argument("--tag", default="v2")
+    ap.add_argument(
+        "--gate",
+        default="server",
+        choices=["server", "harness"],
+        help="receipt_enforced arm: 'server' runs done() through the server's own gate (--enforce-done); "
+        "'harness' keeps the original in-harness policy so the published results are reproducible",
+    )
     args = ap.parse_args(argv)
     models = [m for m in args.models.split(",") if m]
     cfg = {
@@ -958,6 +1009,7 @@ def main(argv=None):
         "max_calls": args.max_calls,
         "resume": args.resume,
         "tag": args.tag,
+        "gate": args.gate,
     }
     if args.summarize_only:
         rows = load_rows(models)
@@ -977,6 +1029,7 @@ def main(argv=None):
             "runs": cfg["runs"],
             "max_steps": cfg["max_steps"],
             "max_refusals": MAX_REFUSALS,
+            "gate": cfg["gate"],
             "llm_stats": cfg.get("llm_stats"),
             "set": cfg["set"],
         }

@@ -405,8 +405,9 @@ def _normalize(d: dict) -> dict:
 class ReceiptMCP:
     """One action-receipt MCP server process (stdio) attached over CDP to our Chromium."""
 
-    def __init__(self, cdp_url: str):
+    def __init__(self, cdp_url: str, extra_args: tuple[str, ...] = ()):
         self.cdp_url = cdp_url
+        self.extra_args = tuple(extra_args)  # e.g. ("--enforce-done", "--max-refusals", "2")
         self._cm = None
         self._sess_cm = None
         self.session = None
@@ -421,10 +422,11 @@ class ReceiptMCP:
         }
         params = StdioServerParameters(
             command=sys.executable,
-            args=["-m", "action_receipt.server", "--cdp", self.cdp_url],
+            args=["-m", "action_receipt.server", "--cdp", self.cdp_url, *self.extra_args],
             cwd=str(PROJECT_DIR),
             env=env,
         )
+        TRACES.mkdir(parents=True, exist_ok=True)  # a fresh AR_BENCH_RESULTS has no traces dir yet
         self._errlog = open(TRACES / "mcp_server_stderr.log", "a")  # noqa: SIM115 - closed with the client
         self._cm = stdio_client(params, errlog=self._errlog)
         read, write = await self._cm.__aenter__()
