@@ -1,0 +1,152 @@
+diff -ru '--exclude=__pycache__' action_receipt/inject.py b/action_receipt/inject.py
+--- a/action_receipt/inject.py	2026-09-03 02:23:04.655369862 -0600
++++ b/action_receipt/inject.py	2026-09-03 02:37:47.638415477 -0600
+@@ -341,7 +341,7 @@
+ 
+ # Shared helper source, prepended to CAPTURE_JS and TARGET_JS.
+ _HELPERS_JS = r"""
+-  const MAXP = %d;
++  const MAXP = __MAXP__;
+   const SHADOW = '#shadow-root', FRAMEDOC = '#document';
+   const shadowOf = (el) => {
+     if (el.shadowRoot) return el.shadowRoot;
+@@ -417,7 +417,7 @@
+     }
+     return null;
+   };
+-""" % PATH_MAX_PARTS
++""".replace("__MAXP__", str(PATH_MAX_PARTS))
+ 
+ CAPTURE_JS = r"""
+ (opts) => {
+diff -ru '--exclude=__pycache__' action_receipt/schema.py b/action_receipt/schema.py
+--- a/action_receipt/schema.py	2026-09-03 02:23:28.861273783 -0600
++++ b/action_receipt/schema.py	2026-09-03 02:37:47.638378688 -0600
+@@ -9,7 +9,7 @@
+ """
+ from __future__ import annotations
+ 
+-from typing import Any, Literal
++from typing import Any, Literal, get_args
+ 
+ from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
+ 
+@@ -19,8 +19,8 @@
+ VerdictName = Literal["changed", "no_op", "navigated", "blocked", "unknown"]
+ SettledBy = Literal["navigation", "network", "timers", "animations", "dom", "layout", "scroll", "document",
+                     "quiet_window", "page_closed", "page_crashed"]
+-assert set(VerdictName.__args__) == set(VERDICTS)
+-assert set(SettledBy.__args__) == set(SETTLED_BY_VALUES)
++assert set(get_args(VerdictName)) == set(VERDICTS)
++assert set(get_args(SettledBy)) == set(SETTLED_BY_VALUES)
+ 
+ 
+ class _Strict(BaseModel):
+diff -ru '--exclude=__pycache__' action_receipt/server.py b/action_receipt/server.py
+--- a/action_receipt/server.py	2026-09-02 15:19:25.249573576 -0600
++++ b/action_receipt/server.py	2026-09-03 02:37:47.638386252 -0600
+@@ -62,7 +62,7 @@
+     async def wrapper(*a, **kw):
+         try:
+             return await fn(*a, **kw)
+-        except Exception as e:  # noqa: BLE001 - the whole point is to never raise past here
++        except Exception as e:  # the whole point is to never raise past here
+             msg = str(e).splitlines()[0] if str(e) else ""
+             # e.__class__, not type(e): the `type` tool below shadows the builtin in this module.
+             return {"error": {"type": e.__class__.__name__, "message": msg[:300]}, "receipt": None}
+@@ -207,7 +207,7 @@
+         elif s.current is None and s.pages():
+             await s.use_page(s.pages()[-1])
+         rid = await s.begin(label, selector=selector, frame=frame)
+-        return {"receipt_id": rid, "observing": s.current.url}
++        return {"receipt_id": rid, "observing": s.current.url if s.current else None}
+ 
+ 
+ @server.tool()
+diff -ru '--exclude=__pycache__' action_receipt/session.py b/action_receipt/session.py
+--- a/action_receipt/session.py	2026-09-02 15:28:52.052395009 -0600
++++ b/action_receipt/session.py	2026-09-03 02:37:47.638407011 -0600
+@@ -19,7 +19,7 @@
+ from dataclasses import dataclass, field
+ from typing import Any, Awaitable, Callable
+ 
+-from playwright.async_api import Browser, BrowserContext, Page, async_playwright
++from playwright.async_api import Browser, BrowserContext, Page, Playwright, async_playwright
+ 
+ from .capture import Capture, capture_state
+ from .delta import Delta, compute_delta
+@@ -88,7 +88,7 @@
+         self.screenshots = screenshots
+         self.action_timeout_ms = action_timeout_ms
+         self.dialog_action = dialog_action
+-        self._pw = None
++        self._pw: Playwright | None = None
+         self.browser: Browser | None = None
+         self.context: BrowserContext | None = None
+         self._pages: dict[Page, PageState] = {}
+@@ -145,13 +145,19 @@
+     def _track(self, page: Page) -> PageState:
+         st = self._pages.get(page)
+         if st is None:
++            assert self.context is not None, "start() or attach_context() first"
+             st = PageState(page, self.context)
+             st.nav.dialog_action = self.dialog_action
+             self._pages[page] = st
+-            page.on("close", lambda p=page: self._pages.pop(p, None))
++
++            def _forget(p: Page) -> None:
++                self._pages.pop(p, None)
++
++            page.on("close", _forget)
+         return st
+ 
+     async def new_page(self, url: str | None = None) -> Page:
++        assert self.context is not None, "start() or attach_context() first"
+         page = await self.context.new_page()
+         self._track(page)
+         self.current = page
+diff -ru '--exclude=__pycache__' action_receipt/settle.py b/action_receipt/settle.py
+--- a/action_receipt/settle.py	2026-09-02 15:24:13.636311129 -0600
++++ b/action_receipt/settle.py	2026-09-03 02:37:47.638394798 -0600
+@@ -222,6 +222,7 @@
+         self.downloads: list[tuple[float, dict[str, Any]]] = []
+         self.crashed_at: float | None = None
+         self.dialog_action = "accept"
++        self._tasks: set[asyncio.Future[None]] = set()
+         page.on("framenavigated", self._on_nav)
+         page.on("request", self._on_request)
+         page.on("dialog", self._on_dialog)
+@@ -284,7 +285,9 @@
+             except Exception:
+                 pass
+ 
+-        asyncio.ensure_future(_handle())
++        task = asyncio.ensure_future(_handle())
++        self._tasks.add(task)
++        task.add_done_callback(self._tasks.discard)
+ 
+     def since(self, t: float) -> dict[str, Any]:
+         navs = [u for ts, u in self.navigations if ts >= t]
+diff -ru '--exclude=__pycache__' action_receipt/verdict.py b/action_receipt/verdict.py
+--- a/action_receipt/verdict.py	2026-09-03 02:25:58.448679991 -0600
++++ b/action_receipt/verdict.py	2026-09-03 02:37:47.638426177 -0600
+@@ -210,7 +210,7 @@
+     if not _scrolled(d) or action in ("scroll", "press") or action.startswith(("external", "wrap")):
+         return False
+     tb = target_before or {}
+-    blocked_err = bool(dispatch_error) and any(m in dispatch_error.lower() for m in BLOCK_MARKERS)
++    blocked_err = dispatch_error is not None and any(m in dispatch_error.lower() for m in BLOCK_MARKERS)
+     return tb.get("inViewport") is False or blocked_err
+ 
+ 
+@@ -233,9 +233,7 @@
+         return not _dispatcher_scrolled(d, action, target_before, dispatch_error)
+     if d.focus_changed and (action in _FOCUS_IS_EFFECT or action.startswith("external")):
+         return True
+-    if _visual_is_perceptual(d) and (not d.focus_changed or (d.screenshot_changed_fraction or 0) >= _BIG_VISUAL):
+-        return True
+-    return False
++    return _visual_is_perceptual(d) and (not d.focus_changed or (d.screenshot_changed_fraction or 0) >= _BIG_VISUAL)
+ 
+ 
+ def decide(d: Delta, *, action: str, args: dict[str, Any], dispatch_error: str | None,
