@@ -162,6 +162,35 @@ not move. For `click`, that the click was delivered but nothing changed within t
 window, with the observed window stated. For `type`, that the value did not change and the
 likely reasons (wrapper element, readonly, input mask).
 
+### 4b. The `done` gate
+
+The verdict says whether *an action* had an effect; the `done` gate (`action_receipt/policy.py`,
+the `done` tool with `--enforce-done`) is the one place that information is allowed to *refuse*
+something. It is the benchmark's `receipt_enforced` arm as a server feature, and it is as
+mechanical as the verdict: a function of the last receipt's verdict and a per-claim counter.
+
+| enforce | last receipt | refusals so far | decision |
+|---|---|---|---|
+| off | any, or none | any | `accepted` — the tool is inert; the result still carries `last_receipt` |
+| on | `changed` / `navigated` | any | `accepted` |
+| on | none (no action performed yet) | < `max_refusals` | `refused`; reason *no action has been performed in this session*; a fixed hint |
+| on | `no_op` / `blocked` / `unknown` | < `max_refusals` | `refused`; reason names the verdict; `hint` is the receipt's own hint |
+| on | none / `no_op` / `blocked` / `unknown` | ≥ `max_refusals` | `accepted`, `overridden: true`; reason and hint still reported |
+
+`refusals` counts the refusals of the current claim and resets to 0 when a `done` is accepted
+(either way), so a long-lived session gets a fresh budget per task and can never be trapped:
+`max_refusals` (default 2) is the most extra steps the gate can cost. A verdict the policy does not
+recognise is treated as non-effective — an unknown word is not evidence of an effect. Wrap-mode
+receipts count like any other. No browser is started to answer `done` or `receipt_policy`: with
+no session there is no receipt, and that is the answer.
+
+The gate's reach is exactly one receipt deep, and that is the honest bound: a false DONE *after*
+a `changed` action passes it, and a refusal is spurious when the task was already complete
+(`bench/results/agent_loop_v2.md` counts both; the README's *Enforcing the receipt* quotes them).
+The harness policy the benchmark was first run with also treated a `changed` whose only evidence
+is a screenshot delta at the noise floor as non-effective (`weak_visual`, F9); the shipped gate
+keys on the verdict alone, because the perceptual floor now lives in the verdict itself (§4).
+
 ## 5. Wrap mode
 
 `receipt_begin(label, selector?, page_url?)` captures the before-state and starts the window;
@@ -172,6 +201,13 @@ all attach over CDP). The observer init script is added to the shared context, s
 context navigates from then on carry the mutation/scroll/layout counters; pages that were
 already open get the script evaluated directly when first observed (the counters then start
 at that moment, which is all wrap mode needs).
+
+`--cdp-listen PORT` is the other way round: this server launches the Chromium with a
+remote-debugging port on `127.0.0.1` and attaches to it over CDP itself, working in the default
+context, so a second tool pointed at `http://127.0.0.1:PORT` (playwright-mcp `--cdp-endpoint`)
+shares the tabs and wrap mode observes it. The browser is started with the server rather than on
+the first tool call, because the other tool's first call may come first; `browser_info` reports
+the endpoint. `docs/using-with-playwright-mcp.md` has the configuration and the protocol.
 
 `--cdp-new-context` gives an isolated incognito context instead — safe for smoke tests against
 a browser someone is using, at the cost of not seeing their tabs. The read-only attach test
@@ -192,6 +228,8 @@ must be something the agent cannot talk into agreement; a diff is.
 **No task-level completion judgement.** The receipt is per action. "Is the task done" is a
 different, harder question with its own literature (and its own agreement bias). Keeping the
 scope per-action is what keeps the oracle deterministic and cheap enough to run on every step.
+The `done` gate (§4b) is not an exception: it reads the last receipt, never the task, and says
+so in its two named limits.
 
 **No screenshots shipped to the model.** Only hashes and fractions. The agent already has
 its own observation channel; the receipt is the *diff*, not a second observation.

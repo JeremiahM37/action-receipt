@@ -116,6 +116,9 @@ class ReceiptSession:
         )
         self.owns_browser = False
         self.owns_context = False
+        self._launched: Browser | None = None  # the process we own when we also attach over CDP
+        self.cdp_url: str | None = None  # the endpoint another tool can share, if any
+        self.mode: str = "unstarted"  # launched | attached | listen
 
     # ---------------------------------------------------------------- lifecycle
     async def start(
@@ -125,17 +128,26 @@ class ReceiptSession:
         headless: bool = True,
         viewport=(1280, 800),
         new_context: bool = False,
+        cdp_listen: int | None = None,
     ) -> None:
         """Launch a Chromium, or attach to one over CDP.
 
         With ``cdp`` and ``new_context=False`` the session shares the browser's default context
         (needed for wrap mode around another tool's tabs); the observer init script is then
         installed into every page that context navigates from now on. ``new_context=True``
-        opens an isolated incognito context instead and never touches existing tabs."""
+        opens an isolated incognito context instead and never touches existing tabs.
+
+        ``cdp_listen=PORT`` launches our own Chromium *with* a remote-debugging port and then
+        attaches to it over CDP like any other client would, working in the browser's default
+        context - so a second tool (playwright-mcp with ``--cdp-endpoint``) pointed at the same
+        port shares our tabs and wrap mode can observe its actions. The process is still ours
+        and is closed with the session."""
         self._pw = await async_playwright().start()
         if cdp:
             self.browser = await self._pw.chromium.connect_over_cdp(cdp)
             self.owns_browser = False
+            self.cdp_url = cdp
+            self.mode = "attached"
             ctxs = self.browser.contexts
             if new_context or not ctxs:
                 self.context = await self.browser.new_context(
@@ -144,9 +156,20 @@ class ReceiptSession:
                 self.owns_context = True
             else:
                 self.context = ctxs[0]
+        elif cdp_listen:
+            self._launched = await self._pw.chromium.launch(
+                headless=headless, args=[f"--remote-debugging-port={cdp_listen}"]
+            )
+            self.owns_browser = True
+            self.cdp_url = f"http://127.0.0.1:{cdp_listen}"
+            self.mode = "listen"
+            self.browser = await self._pw.chromium.connect_over_cdp(self.cdp_url)
+            ctxs = self.browser.contexts
+            self.context = ctxs[0] if ctxs else await self.browser.new_context()
         else:
             self.browser = await self._pw.chromium.launch(headless=headless)
             self.owns_browser = True
+            self.mode = "launched"
             self.context = await self.browser.new_context(
                 viewport={"width": viewport[0], "height": viewport[1]}
             )
@@ -163,7 +186,14 @@ class ReceiptSession:
 
     async def close(self) -> None:
         # In wrap/CDP mode we only close what we opened ourselves.
-        if self.owns_browser and self.browser:
+        if self._launched is not None:
+            if self.browser is not None:
+                try:
+                    await self.browser.close()  # our CDP client first ...
+                except Exception:
+                    pass
+            await self._launched.close()  # ... then the process we launched
+        elif self.owns_browser and self.browser:
             await self.browser.close()
         elif self.owns_context and self.context:
             await self.context.close()

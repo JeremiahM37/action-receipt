@@ -87,10 +87,24 @@ Claude Desktop (`claude_desktop_config.json`) uses the same block. Options:
 |---|---|
 | `--cdp ws://127.0.0.1:9222/devtools/browser/<id>` or `--cdp http://127.0.0.1:9222` (`AR_CDP`) | attach to a running Chromium instead of launching one; required for **wrap mode** around another tool's tabs |
 | `--cdp-new-context` | with `--cdp`: work in an isolated incognito context, never touching existing tabs (wrap mode then only sees our own tabs) |
+| `--cdp-listen PORT` (`AR_CDP_LISTEN`) | launch our own Chromium with a remote-debugging port on `127.0.0.1` and work in its default context, so another tool attached to `http://127.0.0.1:PORT` (playwright-mcp `--cdp-endpoint`) drives the same tabs; the browser starts with the server. Exclusive with `--cdp` |
 | `--headed` | launch a visible Chromium |
+| `--enforce-done` (`AR_ENFORCE_DONE=1`) | refuse `done` while the last receipt is `no_op` / `blocked` / `unknown` or no action has been performed — see *Enforcing the receipt* |
+| `--max-refusals N` (`AR_MAX_REFUSALS`, default 2) | with `--enforce-done`: accept `done` anyway (`overridden: true`) after N refusals of the same claim |
 | `AR_QUIET_MS` (default 100) | length of the quiet window settlement must observe |
 | `AR_SETTLE_TIMEOUT_MS` (default 10000) | hard cap on settlement |
 | `AR_BODY_GRACE_MS` (default 1500) | how long a response whose headers arrived but whose body never finishes keeps the network signal busy (pages routinely never read a fetch body; Chromium never reports such a request finished) |
+
+## Running beside playwright-mcp
+
+Already driving the browser with [`@playwright/mcp`](https://github.com/microsoft/playwright-mcp)?
+Keep doing so. `action-receipt --cdp-listen 9222` launches the Chromium and publishes its
+remote-debugging port; `@playwright/mcp --cdp-endpoint http://127.0.0.1:9222` attaches to the same
+browser and the same tabs, and each of its actions gets a receipt through `receipt_begin` /
+`receipt_end`. The config block for Claude Code and Claude Desktop, the agent-side protocol, the
+limits and a runnable example are in [`docs/using-with-playwright-mcp.md`](docs/using-with-playwright-mcp.md)
+and `examples/playwright-mcp/`. Verified with `@playwright/mcp@0.0.80`
+(`tests/e2e/test_playwright_mcp.py` runs the flow against the pinned package).
 
 ## Tools
 
@@ -114,6 +128,9 @@ Every element-targeting tool takes `frame=<iframe selector>` to act inside a sam
 | `receipt_last(n=1)` | last n receipts |
 | `receipt_schema()` | JSON Schema of the receipt (also `action_receipt.RECEIPT_JSON_SCHEMA`; `validate_receipt()` checks a dict against it and the invariants) |
 | `receipt_begin(label, selector=None, page_url=None, frame=None)` / `receipt_end()` | **wrap mode**: capture before, do the action with *any other tool* (playwright-mcp, raw CDP, a human), capture after — same receipt |
+| `done(summary, claimed_effects=None)` | end the task. With `--enforce-done` it is **refused** (`accepted: false`, with the last receipt's `hint`) while the last receipt is `no_op` / `blocked` / `unknown` or nothing has been done; accepted after `changed` / `navigated`; accepted with `overridden: true` after `--max-refusals`. Without the flag it always accepts |
+| `receipt_policy()` | the gate's policy and state: `enforce`, `max_refusals`, `refusals` since the last accepted claim, the last verdict |
+| `browser_info()` | how the browser can be shared: the CDP endpoint (`cdp_url`, set with `--cdp-listen` or `--cdp`), the mode, the open tabs |
 
 ## Receipt schema
 
@@ -213,6 +230,56 @@ events it fires), the focus jump to the invalid control, the scroll that reveals
 validation bubble — which is painted outside the DOM — are the refusal, not an effect: the
 verdict is `blocked` and the hint names the field and the browser's message.
 
+## Enforcing the receipt
+
+The receipt tells the agent that an action had no effect; nothing so far stops the agent from
+claiming the task is done anyway. `--enforce-done` (`AR_ENFORCE_DONE=1`) turns the `done` tool
+into a deterministic gate:
+
+```
+done(summary="saved the profile")
+→ {"accepted": false, "overridden": false,
+   "reason": "the last action's receipt verdict was blocked",
+   "hint": "form validation blocked the submit: input#phone (valueMissing: \"Please fill out this field.\"); fill that field and retry",
+   "instruction": "done was refused (1/2): the task is not complete while the last action had no effect. …",
+   "refusals": 1, "max_refusals": 2, "enforced": true,
+   "last_receipt": {"id": "…", "action": "click", "verdict": "blocked", "evidence": ["form_validation_blocked: …"], "hint": "…"}}
+```
+
+- **Refused** while the last receipt's verdict is `no_op`, `blocked` or `unknown`, or no action
+  has been performed in the session (there is nothing to be done about). The refusal carries the
+  last receipt's own hint — the same computed hint the action returned.
+- **Accepted** as soon as the last receipt is `changed` or `navigated`.
+- After `--max-refusals` (default 2) refusals of the same claim it is accepted with
+  `overridden: true`, so an agent can never be trapped; the counter starts over with each
+  accepted claim. `receipt_policy()` reports the policy, the live counter and the last verdict.
+- Without the flag `done` always accepts (`enforced: false`) and still reports the last receipt,
+  so the tool is safe to expose in every manifest.
+- No model is involved. The decision is a pure function of the last verdict and a counter
+  (`action_receipt.policy.decide_done`; the table is in `docs/DESIGN.md` §4b). Wrap-mode
+  receipts count like any other, so the gate works beside playwright-mcp too.
+
+**What it measured.** This is the benchmark's `receipt_enforced` arm (`bench/agent_loop_v2.py`,
+`bench/results/agent_loop_v2.md`) shipped in the server. On the 36 trap tasks, P(claims DONE |
+validator fail) went **100 % → 20 %** (10/10 → 1/5) for qwen3.6:35b-a3b and **67 % → 56 %**
+(14/21 → 9/16) for qwen3.5:4b, with task success 86 % → 93 % and 71 % → 78 %. Since 0.3.0 the
+arm runs through the server's own `done` tool (`--gate server`, the default; `--gate harness`
+reproduces the published run with the original in-harness policy).
+
+**Two limits, both by construction:**
+
+1. **A false DONE after a `changed` action passes the gate.** The gate reads one receipt, not
+   the task: an agent that toggled a setting and never clicked *Apply* ends on a `changed` receipt
+   and is let through. The benchmark's counterfactual bounds this — of the false DONEs in the arms
+   *without* the gate, 80 % (8/10, 35B) and 57 % (8/14, 4B) ended on a receipt the gate would
+   have refused; the rest would have passed it.
+2. **Refusals can be spurious** — the task was already complete and the last action merely had no
+   effect. The benchmark reads the validator at every refusal: in the published run the 35B was
+   refused once, and that refusal was *justified* (the validator was failing at that moment; the
+   episode ended passing — *rescued*), with **0 spurious**; the 4B was refused **0 times** — it
+   never claimed done right after a no-effect action, which is why its number barely moved. Expect
+   spurious refusals on real tasks; the cap bounds their cost to `max_refusals` extra steps.
+
 ## What it deliberately does not do
 
 - **No LLM judge.** MLLM verifiers have a measured *agreement bias* — "a strong tendency to
@@ -263,12 +330,13 @@ the 100 ms quiet window.
 
 ## Status
 
-Prototype, version 0.2.0 (`CHANGELOG.md`). Three test tiers, all hermetic: **unit** (the decision
+Prototype, version 0.3.0 (`CHANGELOG.md`). Three test tiers, all hermetic: **unit** (the decision
 table, the diff and the schema on synthetic inputs, no browser), **integration** (every action
 against local fixture pages served from `tests/fixtures/`, plus CDP attach and crashed/closed
 tabs against a Chromium the suite launches itself) and **e2e** (the real MCP server over stdio,
 a scripted agent recovering from `no_op` / `blocked` / `navigated` receipts on the bench apps,
-wrap mode around a plain Playwright script). Every receipt every test produces is validated
+wrap mode around a plain Playwright script, the `done` gate, `--cdp-listen`, and `@playwright/mcp`
+itself driving the shared browser — that last one skips when `npx` is unavailable). Every receipt every test produces is validated
 against the schema. `docs/TESTING.md` lists every integration case and the measured bounds; the
 premise check and its caveats are in `docs/PREMISE.md`; the design and its two named risks in
 `docs/DESIGN.md`; the benchmark suite and its numbers in `bench/REPORT.md`.

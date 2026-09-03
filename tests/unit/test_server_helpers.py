@@ -10,6 +10,7 @@ from action_receipt.schema import RECEIPT_JSON_SCHEMA
 
 ACTION_TOOLS = {"open", "navigate", "click", "hover", "select", "type", "press", "scroll"}
 OTHER_TOOLS = {"snapshot", "tabs", "receipt_last", "receipt_schema", "receipt_begin", "receipt_end"}
+GATE_TOOLS = {"done", "receipt_policy", "browser_info"}
 
 
 async def test_structured_wrapper_turns_exceptions_into_results():
@@ -49,7 +50,7 @@ async def test_structured_wrapper_names_the_class_even_though_type_is_shadowed()
 
 async def test_every_tool_is_registered_with_the_documented_signature():
     tools = {t.name: t for t in await srv.server.list_tools()}
-    assert set(tools) == ACTION_TOOLS | OTHER_TOOLS
+    assert set(tools) == ACTION_TOOLS | OTHER_TOOLS | GATE_TOOLS
     for name in ("click", "hover", "select", "type", "press", "scroll"):
         assert "frame" in tools[name].input_schema["properties"], name
     assert tools["click"].input_schema["properties"]["click_count"]["default"] == 1
@@ -57,6 +58,10 @@ async def test_every_tool_is_registered_with_the_documented_signature():
     assert tools["receipt_begin"].input_schema["properties"]["label"]["default"] == "external"
     assert tools["receipt_end"].input_schema.get("properties", {}) == {}
     assert "no_op" in srv.server.instructions and "blocked" in srv.server.instructions
+    assert "done" in srv.server.instructions and "receipt_policy" in srv.server.instructions
+    done = tools["done"].input_schema
+    assert done["required"] == ["summary"] and "claimed_effects" in done["properties"]
+    assert tools["receipt_policy"].input_schema.get("properties", {}) == {}
 
 
 async def test_receipt_schema_tool_returns_the_json_schema():
@@ -71,16 +76,106 @@ def test_out_shape():
     assert srv._out({"clicked": "#a"}, R()) == {"result": {"clicked": "#a"}, "receipt": {"id": "x"}}
 
 
-def test_cli_options_set_the_session_options(monkeypatch):
+DEFAULT_OPTS = {
+    "cdp": None,
+    "headless": True,
+    "new_context": False,
+    "cdp_listen": None,
+    "enforce_done": False,
+    "max_refusals": 2,
+}
+
+
+@pytest.fixture
+def cli(monkeypatch):
     runs: list[str] = []
     monkeypatch.setattr(srv.server, "run", lambda transport: runs.append(transport))
-    monkeypatch.setattr(srv, "_opts", {"cdp": None, "headless": True, "new_context": False})
-    monkeypatch.delenv("AR_CDP", raising=False)
+    monkeypatch.setattr(srv, "_opts", dict(DEFAULT_OPTS))
+    monkeypatch.setattr(srv, "_done_state", {"refusals": 7})
+    for var in ("AR_CDP", "AR_CDP_LISTEN", "AR_ENFORCE_DONE", "AR_MAX_REFUSALS"):
+        monkeypatch.delenv(var, raising=False)
+    return runs
+
+
+def test_cli_options_set_the_session_options(cli):
     srv.main([])
-    assert srv._opts == {"cdp": None, "headless": True, "new_context": False} and runs == ["stdio"]
+    assert srv._opts == DEFAULT_OPTS and cli == ["stdio"]
+    assert srv._done_state == {"refusals": 0}  # a fresh process starts with a clean gate
     srv.main(["--cdp", "http://127.0.0.1:9222", "--cdp-new-context", "--headed", "--transport", "sse"])
-    assert srv._opts == {"cdp": "http://127.0.0.1:9222", "headless": False, "new_context": True}
-    assert runs[-1] == "sse"
+    assert srv._opts == {
+        **DEFAULT_OPTS,
+        "cdp": "http://127.0.0.1:9222",
+        "headless": False,
+        "new_context": True,
+    }
+    assert cli[-1] == "sse"
+
+
+def test_cli_gate_and_listen_flags(cli):
+    srv.main(["--enforce-done", "--max-refusals", "5", "--cdp-listen", "9333", "--headed"])
+    assert srv._opts == {
+        "cdp": None,
+        "headless": False,
+        "new_context": False,
+        "cdp_listen": 9333,
+        "enforce_done": True,
+        "max_refusals": 5,
+    }
+
+
+def test_cli_reads_the_environment_and_flags_win(cli, monkeypatch):
+    monkeypatch.setenv("AR_ENFORCE_DONE", "1")
+    monkeypatch.setenv("AR_MAX_REFUSALS", "1")
+    monkeypatch.setenv("AR_CDP_LISTEN", "9444")
+    srv.main([])
+    assert srv._opts["enforce_done"] is True and srv._opts["max_refusals"] == 1
+    assert srv._opts["cdp_listen"] == 9444
+    srv.main(["--max-refusals", "3"])
+    assert srv._opts["max_refusals"] == 3 and srv._opts["enforce_done"] is True
+    monkeypatch.setenv("AR_ENFORCE_DONE", "0")
+    srv.main([])
+    assert srv._opts["enforce_done"] is False
+
+
+def test_cli_rejects_attach_plus_listen_and_negative_caps(cli):
+    with pytest.raises(SystemExit):
+        srv.main(["--cdp", "http://127.0.0.1:9222", "--cdp-listen", "9222"])
+    with pytest.raises(SystemExit):
+        srv.main(["--max-refusals", "-1"])
+    assert cli == []
+
+
+async def test_done_and_policy_answer_without_a_browser(monkeypatch):
+    """No session means no action was performed; neither tool may launch a browser to say so."""
+    monkeypatch.setattr(srv, "_session", None)
+    monkeypatch.setattr(srv, "_opts", {**DEFAULT_OPTS, "enforce_done": True})
+    monkeypatch.setattr(srv, "_done_state", {"refusals": 0})
+
+    async def never():
+        raise AssertionError("done() must not start a browser")
+
+    monkeypatch.setattr(srv, "_sess", never)
+    pol = await srv.receipt_policy()
+    assert pol == {
+        "enforce": True,
+        "max_refusals": 2,
+        "refusals": 0,
+        "actions": 0,
+        "last_verdict": None,
+        "last_receipt": None,
+    }
+    out = await srv.done("all set", ["saved the form"])
+    assert out["accepted"] is False and out["reason"] == "no action has been performed in this session"
+    assert (
+        out["refusals"] == 1 and out["summary"] == "all set" and out["claimed_effects"] == ["saved the form"]
+    )
+    assert out["last_receipt"] is None and out["actions"] == 0
+    assert (await srv.receipt_policy())["refusals"] == 1
+    # enforcement off: accepted, and the counter is left alone
+    srv._opts["enforce_done"] = False
+    out = await srv.done("all set")
+    assert out["accepted"] is True and out["overridden"] is False and out["enforced"] is False
+    assert srv._done_state["refusals"] == 0
 
 
 def test_cli_reads_the_cdp_endpoint_from_the_environment(monkeypatch):
@@ -115,7 +210,9 @@ def test_session_settings_come_from_the_environment(monkeypatch):
 
     monkeypatch.setattr(srv, "ReceiptSession", FakeSession)
     monkeypatch.setattr(srv, "_session", None)
-    monkeypatch.setattr(srv, "_opts", {"cdp": "http://x", "headless": False, "new_context": True})
+    monkeypatch.setattr(
+        srv, "_opts", {"cdp": "http://x", "headless": False, "new_context": True, "cdp_listen": None}
+    )
 
     import asyncio
 
@@ -129,5 +226,10 @@ def test_session_settings_come_from_the_environment(monkeypatch):
         0.0,
         5.0,
     )
-    assert captured["start"] == {"cdp": "http://x", "headless": False, "new_context": True}
+    assert captured["start"] == {
+        "cdp": "http://x",
+        "headless": False,
+        "new_context": True,
+        "cdp_listen": None,
+    }
     monkeypatch.setattr(srv, "_session", None)

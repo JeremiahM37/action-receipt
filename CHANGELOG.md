@@ -7,6 +7,55 @@ for that version.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-09-03
+
+The benchmark's `receipt_enforced` arm becomes a server feature, and the server learns to share
+its browser with `@playwright/mcp`.
+
+### Added
+
+- **The `done` gate.** A `done(summary, claimed_effects=None)` tool ends a task. With
+  `--enforce-done` (`AR_ENFORCE_DONE=1`) the server refuses it (`accepted: false`, with the last
+  receipt's `hint`, a `reason`, an `instruction` and a `last_receipt` brief) while the last
+  receipt's verdict is `no_op` / `blocked` / `unknown` or no action has been performed; after
+  `--max-refusals` (`AR_MAX_REFUSALS`, default 2) refusals of the same claim it is accepted with
+  `overridden: true`. Without the flag it always accepts. The decision is the pure function
+  `action_receipt.policy.decide_done` (`docs/DESIGN.md` §4b) — no model, no browser needed to
+  answer. `receipt_policy()` reports the policy, the live refusal count and the last verdict.
+  Measured by `bench/agent_loop_v2.py` (false completion 100 % → 20 % for a 35B model, 67 % →
+  56 % for a 4B one); the two limits — a false DONE after a `changed` action passes, refusals can
+  be spurious — are documented in the README.
+- **`--cdp-listen PORT`** (`AR_CDP_LISTEN`): launch our own Chromium with a remote-debugging port
+  on `127.0.0.1`, attach to it over CDP and work in its default context, so a second tool pointed
+  at the port (playwright-mcp `--cdp-endpoint`) drives the same tabs and wrap mode observes it. The
+  browser starts with the server (a lifespan), not on the first tool call, and is closed with it.
+- **`browser_info()`**: the shareable CDP endpoint, the mode (`launched` / `attached` / `listen`),
+  and the open tabs.
+- `docs/using-with-playwright-mcp.md` and `examples/playwright-mcp/` (config for Claude Code and
+  Claude Desktop, the agent-side `receipt_begin` → action → `receipt_end` protocol, a Python
+  script that drives both servers over stdio through a three-step task and prints the receipts).
+- Tests: `tests/unit/test_policy.py` (the decision table), `tests/e2e/test_enforce_done.py`
+  (refusal on `no_op` / `blocked`, acceptance after `changed` / `navigated`, override at the cap,
+  always-accept without the flag, refusal with no prior action, wrap-mode receipts count),
+  `tests/e2e/test_cdp_listen.py`, and `tests/e2e/test_playwright_mcp.py`, which runs the pinned
+  `@playwright/mcp@0.0.80` against the shared browser and skips (never fails) without `npx` or
+  the registry.
+
+### Changed
+
+- `bench/agent_loop_v2.py` gained `--gate server|harness`: `server` (default) runs the
+  `receipt_enforced` arm through the server's own `done` tool with `--enforce-done`; `harness`
+  keeps the original in-harness policy so the published results stay reproducible. Every episode
+  row records `gate`. The published tables were not re-run.
+- The `slow` marker now means "needs something outside the repo" (Ollama, or npx and the npm
+  registry) and such tests skip themselves.
+
+### Fixed
+
+- `bench/agent_loop.py`: the receipt server's stderr log is opened under the traces directory,
+  which did not exist for a fresh `AR_BENCH_RESULTS`, so every episode of a smoke run crashed
+  before its first step.
+
 ## [0.2.0] - 2026-09-03
 
 First public release. The library is a deterministic per-action effect oracle for browser
@@ -72,6 +121,7 @@ Prototype: `ReceiptSession` (dispatch → settlement → delta → verdict), the
 receipt_last / receipt_schema / receipt_begin / receipt_end`, wrap mode over CDP, the strict
 pydantic receipt schema, and 74 hermetic tests against local fixture pages.
 
-[Unreleased]: https://github.com/JeremiahM37/action-receipt/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/JeremiahM37/action-receipt/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/JeremiahM37/action-receipt/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/JeremiahM37/action-receipt/releases/tag/v0.2.0
 [0.1.0]: https://github.com/JeremiahM37/action-receipt/commit/fd4c3d8

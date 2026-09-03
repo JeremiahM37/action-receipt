@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "action-receipt"
-version = "0.2.0"
+version = "0.3.0"
 description = "Deterministic per-action effect receipts for browser agents, as an MCP server"
 readme = "README.md"
 license = "MIT"
@@ -65,7 +65,7 @@ markers = [
   "unit: pure-Python tests, no browser (tests/unit)",
   "integration: browser tests against the local fixture pages (tests/integration)",
   "e2e: end-to-end through the real MCP stdio server and a real Chromium (tests/e2e)",
-  "slow: needs an external service (the Ollama agent endpoint); skipped unless AR_OLLAMA_URL is set",
+  "slow: needs something outside the repo (the Ollama agent endpoint, or npx and the npm registry); skips itself when it is unavailable",
 ]
 
 [tool.coverage.run]

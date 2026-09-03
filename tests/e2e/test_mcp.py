@@ -12,7 +12,17 @@ from action_receipt.schema import validate_receipt
 from .conftest import server_params as _params
 
 ACTION_TOOLS = {"open", "navigate", "click", "hover", "select", "type", "press", "scroll"}
-OTHER_TOOLS = {"snapshot", "tabs", "receipt_last", "receipt_schema", "receipt_begin", "receipt_end"}
+OTHER_TOOLS = {
+    "snapshot",
+    "tabs",
+    "receipt_last",
+    "receipt_schema",
+    "receipt_begin",
+    "receipt_end",
+    "done",
+    "receipt_policy",
+    "browser_info",
+}
 
 
 async def test_mcp_stdio_round_trip(base_url):
