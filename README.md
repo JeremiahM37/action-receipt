@@ -231,7 +231,7 @@ verdict is `blocked` and the hint names the field and the browser's message.
 scored as failed end with the agent claiming success** - 28.9 % at a 15-step budget, 59.0 % at
 50, 69.0 % at 100. The benchmark's own `evaluate()` never reads the agent's DONE, so nothing in
 the leaderboard number sees this. The measurement, its provenance and its limitations are
-written up in the research record that motivated this tool.
+written up in [`docs/false-completion-on-osworld.md`](docs/false-completion-on-osworld.md).
 
 **What a receipt does about it.** `bench/agent_loop_v2.py` drives an LLM agent through 36
 small web tasks whose traps a receipt can see (covered buttons, silent validation, disabled
