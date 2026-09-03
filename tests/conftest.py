@@ -185,39 +185,57 @@ def validate_all(session: ReceiptSession) -> int:
 @pytest_asyncio.fixture
 async def own_chromium():
     """A Chromium launched by *this test* with --remote-debugging-port=0 (the port is read back
-    from DevToolsActivePort, so nothing collides). Never the user's browser."""
+    from DevToolsActivePort, so nothing collides). Never the user's browser.
+
+    This is a raw launch of Playwright's binary, so it must carry the switches Playwright would
+    have added itself: ``--no-sandbox`` (Playwright passes it unless ``chromiumSandbox`` is set;
+    without it Chromium dies before publishing the port on hosts that restrict unprivileged user
+    namespaces, e.g. ubuntu-24.04 CI runners) and ``--disable-dev-shm-usage`` (a 64 MB /dev/shm
+    crashes renderers). stderr is kept so a failed launch says why."""
     pw = await async_playwright().start()
     exe = pw.chromium.executable_path
     await pw.stop()
     udd = tempfile.mkdtemp(prefix="ar-cdp-")
+    stderr_path = Path(udd) / "chromium.stderr"
+    stderr_file = stderr_path.open("wb")
     proc = subprocess.Popen(
         [
             exe,
             "--headless=new",
             "--remote-debugging-port=0",
             f"--user-data-dir={udd}",
+            "--no-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-crash-reporter",
             "--no-first-run",
             "--no-default-browser-check",
             "--disable-gpu",
             "about:blank",
         ],
         stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
+        stderr=stderr_file,
     )
-    port_file = os.path.join(udd, "DevToolsActivePort")
-    deadline = time.time() + 15
-    while time.time() < deadline and not os.path.exists(port_file):
-        await asyncio.sleep(0.05)
-    assert os.path.exists(port_file), "chromium did not publish DevToolsActivePort"
-    port = int(Path(port_file).read_text().splitlines()[0])
-    url = f"http://127.0.0.1:{port}"
-    for _ in range(100):
-        try:
-            urllib.request.urlopen(f"{url}/json/version", timeout=1).read()
-            break
-        except Exception:
-            await asyncio.sleep(0.05)
     try:
+        port_file = os.path.join(udd, "DevToolsActivePort")
+        deadline = time.time() + 15
+        while time.time() < deadline and not os.path.exists(port_file) and proc.poll() is None:
+            await asyncio.sleep(0.05)
+        if not os.path.exists(port_file):
+            stderr_file.flush()
+            tail = stderr_path.read_text(errors="replace").splitlines()[-15:]
+            state = f"exited with rc={proc.returncode}" if proc.poll() is not None else "still running"
+            raise AssertionError(
+                "chromium did not publish DevToolsActivePort "
+                f"({state}, binary {exe}); stderr tail:\n" + "\n".join(tail)
+            )
+        port = int(Path(port_file).read_text().splitlines()[0])
+        url = f"http://127.0.0.1:{port}"
+        for _ in range(100):
+            try:
+                urllib.request.urlopen(f"{url}/json/version", timeout=1).read()
+                break
+            except Exception:
+                await asyncio.sleep(0.05)
         yield url
     finally:
         proc.terminate()
@@ -225,6 +243,7 @@ async def own_chromium():
             proc.wait(timeout=5)
         except subprocess.TimeoutExpired:
             proc.kill()
+        stderr_file.close()
         shutil.rmtree(udd, ignore_errors=True)
 
 
