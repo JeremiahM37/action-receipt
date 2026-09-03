@@ -1,0 +1,7 @@
+include LICENSE README.md CHANGELOG.md
+# The sdist is the package, not the repo: tests need their fixture pages and the bench needs its
+# own fixtures, both of which live only in the git tree.
+prune tests
+prune bench
+prune docs
+prune .github

@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+*.egg
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+junit*.xml
+junit/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Playwright / browser artefacts
+test-results/
+playwright-report/
+*.trace.zip
+*.webm
+screenshots/
+traces/
+ar-cdp-*/
+
+# Bench: logs and the smoke subset are disposable; bench/results/*.json|md are the published record
+bench/results/logs/
+bench/results/smoke/
+
+# 0-byte build marker written by the bench tooling
+.lib-fixed
+
+# Editors / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
